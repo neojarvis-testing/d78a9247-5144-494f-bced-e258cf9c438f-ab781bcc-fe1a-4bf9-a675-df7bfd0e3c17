@@ -42,6 +42,7 @@ import { UserviewproductComponent } from './components/userviewproduct/userviewp
     UserviewordersComponent,
     UserviewproductComponent
 
+
   ],
   imports: [
     BrowserModule,
