@@ -14,9 +14,16 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
+import { RegistrationComponent } from './components/registration/registration.component';
+import { UseraddcartComponent } from './components/useraddcart/useraddcart.component';
+import { UseraddfeedbackComponent } from './components/useraddfeedback/useraddfeedback.component';
+import { UserviewordersComponent } from './components/uservieworders/uservieworders.component';
+import { UserviewproductComponent } from './components/userviewproduct/userviewproduct.component';
+
 @NgModule({
   declarations: [
     AppComponent,
+
     AdminaddproductComponent,
     AdminnavbarComponent,
     AdminviewfeedbackComponent,
@@ -27,6 +34,13 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     HomeComponent,
     LoginComponent,
     NavbarComponent
+
+    RegistrationComponent,
+    UseraddcartComponent,
+    UseraddfeedbackComponent,
+    UserviewordersComponent,
+    UserviewproductComponent
+
   ],
   imports: [
     BrowserModule,
