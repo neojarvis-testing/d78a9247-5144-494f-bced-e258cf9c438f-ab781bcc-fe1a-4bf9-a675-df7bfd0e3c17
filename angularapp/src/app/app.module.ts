@@ -20,6 +20,9 @@ import { UseraddcartComponent } from './components/useraddcart/useraddcart.compo
 import { UseraddfeedbackComponent } from './components/useraddfeedback/useraddfeedback.component';
 import { UserviewordersComponent } from './components/uservieworders/uservieworders.component';
 import { UserviewproductComponent } from './components/userviewproduct/userviewproduct.component';
+import { UsernavbarComponent } from './components/usernavbar/usernavbar.component';
+import { UserviewfeedbackComponent } from './components/userviewfeedback/userviewfeedback.component';
+import { AuthguardComponent } from './components/authguard/authguard.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,10 @@ import { UserviewproductComponent } from './components/userviewproduct/userviewp
     UseraddcartComponent,
     UseraddfeedbackComponent,
     UserviewordersComponent,
-    UserviewproductComponent
+    UserviewproductComponent,
+    UsernavbarComponent,
+    UserviewfeedbackComponent,
+    AuthguardComponent
 
 
   ],
