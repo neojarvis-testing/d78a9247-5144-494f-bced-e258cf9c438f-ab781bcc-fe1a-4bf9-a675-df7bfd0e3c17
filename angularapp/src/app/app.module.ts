@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 import { AdminaddproductComponent } from './components/adminaddproduct/adminaddproduct.component';
 import { AdminnavbarComponent } from './components/adminnavbar/adminnavbar.component';
 import { AdminviewfeedbackComponent } from './components/adminviewfeedback/adminviewfeedback.component';
