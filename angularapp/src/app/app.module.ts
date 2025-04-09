@@ -23,7 +23,8 @@ import { UserviewproductComponent } from './components/userviewproduct/userviewp
 import { UsernavbarComponent } from './components/usernavbar/usernavbar.component';
 import { UserviewfeedbackComponent } from './components/userviewfeedback/userviewfeedback.component';
 import { AuthguardComponent } from './components/authguard/authguard.component';
-
+import {HttpClientModule} from '@angular/common/http'; 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +38,7 @@ import { AuthguardComponent } from './components/authguard/authguard.component';
     ErrorComponent,
     HomeComponent,
     LoginComponent,
-    NavbarComponent
+    NavbarComponent,
 
     RegistrationComponent,
     UseraddcartComponent,
@@ -52,7 +53,10 @@ import { AuthguardComponent } from './components/authguard/authguard.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
