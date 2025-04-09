@@ -1,1 +1,75 @@
-<p>adminvieworders works!</p>
+<div class="admin-view-orders">
+    <h1>Admin View Orders</h1>
+  
+    <!-- Display all orders -->
+    <div class="orders-list">
+      <h2>All Orders</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Username</th>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Shipping Address</th>
+            <th>Total Amount</th>
+            <th>Quantity</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orders">
+            <td>{{ order.orderId }}</td>
+            <td>{{ order.user.name }}</td>
+            <td>
+              <ul>
+                <li *ngFor="let product of order.product">
+                  {{ product.name }}
+                </li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li *ngFor="let product of order.product">
+                  {{ product.price }}
+                </li>
+              </ul>
+            </td>
+            <td>{{ order.shippingAddress }}</td>
+            <td>{{ order.totalAmount }}</td>
+            <td>{{ order.quantity }}</td>
+            <td>{{ order.status }}</td>
+            <td>
+              <button (click)="getOrderDetails(order.orderId)">View Details</button>
+              <button (click)="deleteOrder(order.orderId)">Delete Order</button>
+              <button (click)="updateOrderStatus(order.orderId, 'New Status')">Update Status</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  
+    <!-- Display order details -->
+    <div class="order-details" *ngIf="order.orderId">
+      <h2>Order Details</h2>
+      <p>Order ID: {{ order.orderId }}</p>
+      <p>Username: {{ order.user.name }}</p>
+
+        Products: 
+        <ul>
+          <li *ngFor="let product of order.product">
+            {{ product.name }} - {{ product.quantity }} - {{ product.price }}
+          </li>
+        </ul>
+    
+
+      <p>Shipping Address: {{ order.shippingAddress }}</p>
+      <p>Total Amount: {{ order.totalAmount }}</p>
+      <p>Quantity: {{ order.quantity }}</p>
+      <p>Status: {{ order.status }}</p>
+      <p>Created At: {{ order.createdAt | date }}</p>
+      <p>Updated At: {{ order.updatedAt | date }}</p>
+    </div>
+  </div>
+  
