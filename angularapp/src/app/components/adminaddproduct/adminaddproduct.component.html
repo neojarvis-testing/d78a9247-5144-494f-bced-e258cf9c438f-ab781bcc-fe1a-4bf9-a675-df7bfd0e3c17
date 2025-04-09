@@ -1,1 +1,59 @@
-<p>adminaddproduct works!</p>
+<div class="container">
+  <h2>Add New Product</h2>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="productName">Product Name <span class="required">*</span></label>
+      <input id="productName" formControlName="productName" type="text" />
+      <div *ngIf="productForm.get('productName')?.touched && productForm.get('productName')?.invalid" class="error">
+        <small>Product name is required.</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="description">Description <span class="required">*</span></label>
+      <textarea id="description" formControlName="description"></textarea>
+      <div *ngIf="productForm.get('description')?.touched && productForm.get('description')?.invalid" class="error">
+        <small>Description is required.</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="price">Price <span class="required">*</span></label>
+      <input id="price" formControlName="price" type="number" />
+      <div *ngIf="productForm.get('price')?.touched && productForm.get('price')?.invalid" class="error">
+        <small>Price is required.</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="stock">Stock <span class="required">*</span></label>
+      <input id="stock" formControlName="stock" type="number" />
+      <div *ngIf="productForm.get('stock')?.touched && productForm.get('stock')?.invalid" class="error">
+        <small>Stock is required.</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="category">Category <span class="required">*</span></label>
+      <select id="category" formControlName="category">
+        <option value="" disabled selected>Select a category</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Clothing">Clothing</option>
+        <option value="Furniture">Furniture</option>
+        <option value="Books">Books</option>
+        <option value="Groceries">Groceries</option>
+      </select>
+      <div *ngIf="productForm.get('category')?.touched && productForm.get('category')?.invalid" class="error">
+        <small>Category is required.</small>
+      </div>
+    </div>
+
+    <button type="submit">Add Product</button>
+  </form>
+
+  <!-- Popup Message -->
+  <div *ngIf="showPopup" class="popup">
+    <p>Product added successfully!</p>
+    <button (click)="closePopup()">Close</button>
+  </div>
+</div>
