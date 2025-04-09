@@ -1,5 +1,19 @@
 package com.examly.springapp.service;
 
-public class ProductService {
-    
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.examly.springapp.model.Product;
+
+
+@Service
+public interface ProductService {
+    Product addProduct(Product product,String base64Image);
+    List <Product> getAllProducts();
+    Product getProductByProductId(Long id);
+    List<Product> getProductsByUserId(Long userId);
+    List<Product> getProductsByCategory(String category);
+    void deleteProduct(Long id);
+    Product updateProduct(Long productId,Product product);    
 }
