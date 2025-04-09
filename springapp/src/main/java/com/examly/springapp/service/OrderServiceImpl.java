@@ -1,15 +1,9 @@
 package com.examly.springapp.service;
 
 import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.examly.springapp.model.Order;
 import com.examly.springapp.model.OrderStatus;
-import com.examly.springapp.model.User;
-import com.examly.springapp.repository.OrderRepo;
-import com.examly.springapp.repository.UserRepo;
 
 public class OrderServiceImpl implements OrderService{
 
@@ -54,7 +48,5 @@ public class OrderServiceImpl implements OrderService{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getOrdersByUserId'");
     }
-
-   
     
 }
