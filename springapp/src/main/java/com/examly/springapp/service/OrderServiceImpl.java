@@ -1,52 +1,74 @@
 package com.examly.springapp.service;
 
 import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.examly.springapp.model.Order;
 import com.examly.springapp.model.OrderStatus;
+import com.examly.springapp.model.User;
+import com.examly.springapp.repository.OrderRepo;
+import com.examly.springapp.repository.UserRepo;
 
+@Service
 public class OrderServiceImpl implements OrderService{
+
+    @Autowired
+    private OrderRepo orderRepo;
+
+    @Autowired
+    private UserRepo userRepo;
 
     @Override
     public Order addOrder(Order order) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addOrder'");
+        return orderRepo.save(order); // Save the order to the database
     }
 
     @Override
     public void deleteOrder(Long orderId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteOrder'");
+        if (orderRepo.existsById(orderId)) {
+            orderRepo.deleteById(orderId); // Delete the order by its ID
+        } else {
+            throw new IllegalArgumentException("Order not found.");
+        }
     }
 
     @Override
     public Order getOrderById(Long orderId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getOrderById'");
+        Optional<Order> order = orderRepo.findById(orderId); // Find the order by its ID
+        return order.orElseThrow(() -> new IllegalArgumentException("Order not found."));
     }
 
     @Override
     public List<Order> getOrdersByUser(int userId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getOrdersByUser'");
+        Optional<User> user = userRepo.findById((long) userId); // Retrieve the user by ID
+        if (user.isPresent()) {
+            return orderRepo.findByUser(user.get()); // Fetch orders for the found user
+        } else {
+            throw new IllegalArgumentException("User not found.");
+        }
     }
 
     @Override
     public List<Order> getOrdersByStatus(OrderStatus status) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getOrdersByStatus'");
+        return orderRepo.findByStatus(status); // Retrieve orders filtered by their status
     }
 
     @Override
     public List<Order> getAllOrders() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAllOrders'");
+        return orderRepo.findAll(); // Retrieve all orders
     }
 
     @Override
     public List<Order> getOrdersByUserId(Long userId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getOrdersByUserId'");
+        Optional<User> user = userRepo.findById(userId); // Retrieve the user by ID
+        if (user.isPresent()) {
+            return orderRepo.findByUser(user.get()); // Fetch orders for the found user
+        } else {
+            throw new IllegalArgumentException("User not found.");
+        }
     }
     
 }
