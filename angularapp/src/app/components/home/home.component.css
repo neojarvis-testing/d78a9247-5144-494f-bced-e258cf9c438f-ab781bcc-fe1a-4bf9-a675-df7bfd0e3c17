@@ -1,0 +1,25 @@
+body {
+    margin: 0;
+    background-image: url('/assets/background.jpg');
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container {
+    background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    color: white; /* Text color */
+    width: 80%; /* Width of the container */
+    padding: 20px; /* Padding inside the container */
+    text-align: center; /* Centered text */
+    border-radius: 8px; /* Rounded corners */
+}
+.content {
+    display: flex; /* Flexbox for layout */
+    justify-content: space-between; /* Space around items */
+    align-items: center; /* Center items vertically */
+}
+.about, .contact {
+    width: 45%; /* Width for left and right sections */
+}
