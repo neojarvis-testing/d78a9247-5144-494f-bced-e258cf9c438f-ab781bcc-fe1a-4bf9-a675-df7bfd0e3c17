@@ -7,7 +7,7 @@ import { Order } from '../models/order.model';
 @Injectable({
   providedIn: 'root',
 })
-export class OrdersService {
+export class OrderService {
   
   // Replace the url with original one with the endpoint
   private apiUrl = ''; 
