@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Feedback } from 'src/app/models/feedback.model';
+import { FeedbackService } from 'src/app/services/feedback.service';
+
 
 @Component({
   selector: 'app-adminviewfeedback',
@@ -7,9 +10,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminviewfeedbackComponent implements OnInit {
 
-  constructor() { }
+  feedbacks: Feedback[] = [];
+
+  constructor(private feedbackService: FeedbackService) { }
 
   ngOnInit(): void {
+    this.getAllFeedback();
   }
 
+  getAllFeedback(): void {
+    this.feedbackService.getAllFeedbacks().subscribe(
+      (data: Feedback[]) => {
+        this.feedbacks = data;
+      },
+      (error) => {
+        console.error('Error fetching feedback:', error);
+      }
+    );
+  }
 }

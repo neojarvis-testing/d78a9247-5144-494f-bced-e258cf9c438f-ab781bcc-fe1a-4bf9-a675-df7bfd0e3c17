@@ -1,1 +1,24 @@
-<p>adminviewfeedback works!</p>
+<div class="container">
+    <h2>Feedback Details</h2>
+    <table *ngIf="feedbacks.length > 0; else noData">
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>User Name</th>
+          <th>Feedback</th>
+          <th>Ratings</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let feedback of feedbacks; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ feedback.userName }}</td>
+          <td>{{ feedback.feedback }}</td>
+          <td>{{ feedback.ratings }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noData>
+      <p>No data found</p>
+    </ng-template>
+  </div>
