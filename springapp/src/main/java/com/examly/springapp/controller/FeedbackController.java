@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,12 +17,14 @@ import com.examly.springapp.model.Feedback;
 import com.examly.springapp.service.FeedbackService;
 
 @RestController
+@CrossOrigin(allowedHeaders="*", origins="*")
 public class FeedbackController {
 
     @Autowired
     private FeedbackService feedbackService;
 
     @PostMapping("/api/feedback")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> createFeedback(@RequestBody Feedback feedback){
         try{
             Feedback savedFeedback = feedbackService.createFeedback(feedback);
@@ -33,6 +37,7 @@ public class FeedbackController {
     }
 
     @GetMapping("/api/feedback")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getAllFeedback(){
         try{
             List<Feedback> allFeedbacks = feedbackService.getAllFeedback();
@@ -45,6 +50,7 @@ public class FeedbackController {
     }
 
     @GetMapping("/api/feedback/user/{userId}")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getFeedbackByUserId(@PathVariable Long userId){
         try{
             List<Feedback> feedbackByUserId = feedbackService.getFeedbackByUserId(userId);
@@ -57,6 +63,7 @@ public class FeedbackController {
     }
 
     @DeleteMapping("/api/feedback/{id}")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> deleteFeedback(@PathVariable Long id){
         try{
             Feedback deletedFeedback = feedbackService.deleteFeedback(id);
