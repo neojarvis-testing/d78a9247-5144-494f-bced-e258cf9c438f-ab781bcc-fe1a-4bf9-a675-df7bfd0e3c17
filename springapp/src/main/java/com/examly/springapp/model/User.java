@@ -1,5 +1,7 @@
 package com.examly.springapp.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,5 +27,6 @@ public class User {
     private String password;
     private String username;
     private String mobileNumber;
+    @JsonProperty("role")
     private String userRole;
 }
