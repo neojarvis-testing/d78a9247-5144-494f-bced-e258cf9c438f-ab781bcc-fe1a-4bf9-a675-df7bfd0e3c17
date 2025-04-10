@@ -1,6 +1,6 @@
 <div class="container">
   <h2>Add New Product</h2>
-  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="productForm" (ngSubmit)="addProduct()">
     <div>
       <label for="productName">Product Name <span class="required">*</span></label>
       <input id="productName" formControlName="productName" type="text" />
@@ -46,14 +46,24 @@
       <div *ngIf="productForm.get('category')?.touched && productForm.get('category')?.invalid" class="error">
         <small>Category is required.</small>
       </div>
+
+      <div class="mb-3">
+        <label for="productImage" class="form-label">Product Image <span class="required">*</span></label>
+        <input type="file" class="form-control" id="productImage" (change)="handleFileChange($event)">
+      </div>
     </div>
 
-    <button type="submit">Add Product</button>
+    <div>
+      <button type="submit" [disabled]="productForm.invalid">Add Product</button>
+    </div>
+  
   </form>
 
-  <!-- Popup Message -->
-  <div *ngIf="showPopup" class="popup">
-    <p>Product added successfully!</p>
-    <button (click)="closePopup()">Close</button>
+  <div *ngIf="successMessage" class="alert alert-success mt-4 text-center">
+    <p>{{successMessage}}</p>
+    <button (click)="closePopUp()" class="btn btn-primary btn-sm">OK</button>
   </div>
-</div>
+
+
+
+ 

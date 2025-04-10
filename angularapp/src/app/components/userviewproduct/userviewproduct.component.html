@@ -1,1 +1,24 @@
-<p>userviewproduct works!</p>
+<div class="navbar">
+    <ul>
+      <li (mouseover)="navigateToViewProduct()">View Product</li>
+    </ul>
+  </div>
+  
+  <div *ngIf="products.length === 0" class="no-products">
+    Oops! Products are not available!
+  </div>
+  
+  <div *ngIf="products.length > 0" class="product-grid">
+    <div *ngFor="let product of products" class="product-card">
+      <h3>{{ product.name }}</h3>
+      <p>Price: ₹{{ product.price }}</p>
+      <button (click)="addToCart(product)">+</button>
+      <button (click)="removeFromCart(product.id)">-</button>
+    </div>
+  </div>
+  
+  <div class="cart-details">
+    <h4>My Cart</h4>
+    <p>Total Product Count: {{ totalProductCount }}</p>
+  </div>
+  
