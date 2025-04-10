@@ -31,7 +31,7 @@ export class ProductService {
   }
 
   addProduct(product:Product) : Observable<any>{
-    return this.httpClient.post(this.baseUrl, product);
+    return this.httpClient.post(this.baseUrl + "/api/products", product);
   }
 
   deleteProduct(id:number) : Observable<any>{

@@ -11,6 +11,6 @@ import com.examly.springapp.model.User;
 public interface UserRepo extends JpaRepository<User, Long>{
 
     Optional<User> findByUsername(String userName);
-    
+    Optional<User> findByEmail(String email);   
 
 }

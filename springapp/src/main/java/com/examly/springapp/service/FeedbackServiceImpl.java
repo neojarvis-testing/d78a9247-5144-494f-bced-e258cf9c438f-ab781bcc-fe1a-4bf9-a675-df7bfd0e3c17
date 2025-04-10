@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.examly.springapp.model.Feedback;
+import com.examly.springapp.model.User;
 import com.examly.springapp.repository.FeedbackRepo;
+import com.examly.springapp.repository.UserRepo;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -17,10 +19,17 @@ public class FeedbackServiceImpl implements FeedbackService{
     @Autowired
     private FeedbackRepo feedbackRepo;
 
+    @Autowired
+    private UserRepo userRepo;
+
     @Override
-    public Feedback createFeedback(Feedback feedback) {        
+    public Feedback createFeedback(Feedback feedback) {
+        User user = userRepo.findById(feedback.getUser().getUserId())
+                            .orElseThrow(() -> new RuntimeException("User not found"));
+        feedback.setUser(user);
         return feedbackRepo.save(feedback);
     }
+    
 
     @Override
     public Feedback getFeedbackById(Long feedbackId) {
@@ -33,8 +42,7 @@ public class FeedbackServiceImpl implements FeedbackService{
 
     @Override
     public List<Feedback> getAllFeedback() {
-        return feedbackRepo.findAll();
-        
+        return feedbackRepo.findAll();        
     }
 
     @Override
