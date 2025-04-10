@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Order } from 'src/app/models/order.model';
-import { OrdersService } from 'src/app/services/order.service';
+import { OrderService } from 'src/app/services/order.service';
 
 @Component({
   selector: 'app-adminvieworders',
@@ -24,7 +24,7 @@ export class AdminviewordersComponent implements OnInit {
   }
 
 
-  constructor(private orderService : OrdersService) { }
+  constructor(private orderService : OrderService) { }
 
 
   ngOnInit(): void {

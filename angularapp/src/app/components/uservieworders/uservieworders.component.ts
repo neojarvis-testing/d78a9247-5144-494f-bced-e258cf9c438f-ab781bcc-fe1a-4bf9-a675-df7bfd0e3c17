@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Order } from 'src/app/models/order.model';
-import { OrdersService } from 'src/app/services/order.service';
+import { OrderService } from 'src/app/services/order.service';
 
 @Component({
   selector: 'app-uservieworders',
@@ -9,7 +9,7 @@ import { OrdersService } from 'src/app/services/order.service';
 })
 export class UserviewordersComponent implements OnInit {
 
-  constructor(private orderService : OrdersService) { }
+  constructor(private orderService : OrderService) { }
 
   orders : Order [] = [];
   userId : number = 0 ;  // dummy use only 
