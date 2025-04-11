@@ -2,6 +2,8 @@ package com.examly.springapp.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +25,7 @@ public class Product {
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      private Long productId;
+     @JsonProperty("productName")
      private String name;
      private String description;
      private double price;
