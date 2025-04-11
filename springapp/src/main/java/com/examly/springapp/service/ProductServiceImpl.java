@@ -7,19 +7,48 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.examly.springapp.model.Product;
+import com.examly.springapp.model.User;
 import com.examly.springapp.repository.ProductRepo;
+import com.examly.springapp.repository.UserRepo;
 
 @Service
 public class ProductServiceImpl implements ProductService{
     @Autowired
     ProductRepo productRepo;
 
+    @Autowired
+    UserRepo userRepo;
+
     @Override
     public Product addProduct(Product product, String base64Image) {
-        // Add logic to handle Base64 image, e.g., decoding and saving the image
-        product.setPhotoImage(base64Image); // Assuming the product has an 'image' field
+        product.setPhotoImage(base64Image); // Set image
+
+        if (product.getUser() != null) { // Ensure user is provided in product request
+            User user = userRepo.findById(product.getUser().getUserId())
+                                .orElseThrow(() -> new IllegalArgumentException("User not found!"));
+
+            if ("USER".equals(user.getUserRole())) {
+                // Regular users must be mapped to the product
+                product.setUser(user);
+            }
+            // If user is ADMIN, they can add the product freely (no need for mapping)
+        }
+
         return productRepo.save(product);
     }
+
+    
+//        @Override
+// public Product addProduct(Product product, String base64Image) {
+//     User user = new User();
+//     user.setUserId(product.getUser().getUserId()); // Assuming the userId is provided in the request
+//     product.setUser(user); // Set the user in the product
+
+//     product.setPhotoImage(base64Image); // Handle Base64 image
+//     return productRepo.save(product); // Save the product
+//     }
+
+  
 
     @Override
     public List<Product> getAllProducts() {

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,8 @@ import com.examly.springapp.model.LoginDTO;
 import com.examly.springapp.model.User;
 import com.examly.springapp.service.UserServiceImpl;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @RestController
 @CrossOrigin(allowedHeaders = "*",origins = "*")
 public class UserController {
@@ -30,16 +33,19 @@ public class UserController {
     JwtUtils jwtUtils;
 
     
-    @PostMapping("/api/register")
-        public ResponseEntity<User> registerUser(@RequestBody User user) {
-            try {
-                User newUser = userService.createUser(user);
-               return new ResponseEntity<>(newUser, HttpStatus.CREATED);
-            } catch (RuntimeException e) {
-               return new ResponseEntity<>(null, HttpStatus.CONFLICT);
-           }
-       
+    
+@PostMapping("/api/register")
+    public ResponseEntity<?> registerUser(@RequestBody User user){
+        try{
+            User addNewUser = userService.createUser(user);
+            return ResponseEntity.status(201).body(addNewUser);
         }
+        catch(EntityNotFoundException e ){
+            return ResponseEntity.status(401).body(e.getMessage());
+ 
+        }
+    }
+
 
 
     @PostMapping("/api/login")
@@ -63,15 +69,13 @@ public class UserController {
 
     
     @GetMapping("/api/user")
-    public ResponseEntity<List<User>> getAllUsers(@RequestBody User currentUser) {
-     if (!"ADMIN".equals(currentUser.getUserRole())) {
-        return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
-     }
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<User>> getAllUsers(@RequestBody User user) {
      try {
          List<User> users = userService.findAllUsers();
          return new ResponseEntity<>(users, HttpStatus.OK);
          } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
     }
     }
 

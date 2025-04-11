@@ -8,7 +8,9 @@ import { Observable } from 'rxjs';
 })
 export class FeedbackService {
 
+
   public baseUrl : string = "https://ide-edadacbfdcdbdeaffeeddabbccfeabfadfbfdec.premiumproject.examly.io/proxy/8080";
+
 
 
   constructor(private httpClient : HttpClient) { }
