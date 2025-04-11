@@ -14,6 +14,10 @@
       <p>Price: ₹{{ product.price }}</p>
       <button (click)="addToCart(product)">+</button>
       <button (click)="removeFromCart(product.id)">-</button>
+      
+      <button (click)="addToCartService(product)">+</button>
+      <button (click)="removeFromCartService(product.id)">-</button>
+
     </div>
   </div>
   

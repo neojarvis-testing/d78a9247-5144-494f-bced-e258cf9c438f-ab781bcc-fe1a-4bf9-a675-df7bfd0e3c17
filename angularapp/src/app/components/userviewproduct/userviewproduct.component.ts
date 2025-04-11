@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Cart } from 'src/app/models/cart.model';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -13,7 +15,9 @@ export class UserviewproductComponent implements OnInit {
   cart: any[] = [];
   totalProductCount: number = 0;
 
-  constructor(private productService: ProductService, private router : Router) {}
+
+  constructor(private productService: ProductService, private cartService: CartService, private router: Router) {}
+
 
   ngOnInit(): void {
     this.loadProducts();
@@ -56,5 +60,24 @@ export class UserviewproductComponent implements OnInit {
   navigateToViewProduct(): void {
     this.router.navigate(['/view-product']);
   }
+  
+addToCartService(product: any): void {
+   const cartItem: Cart = {
+   productId: product.id,
+   productName: product.name,
+   price: product.price,
+   quantity: 1
+   };
+  this.cartService.addToCart(cartItem);
+  this.saveCart();
+  this.updateTotalCount();
+  }
+   
+removeFromCartService(productId: number): void {
+   this.cartService.removeFromCart(productId);
+   this.saveCart();
+   this.updateTotalCount();
+  }
+  
 
 }
