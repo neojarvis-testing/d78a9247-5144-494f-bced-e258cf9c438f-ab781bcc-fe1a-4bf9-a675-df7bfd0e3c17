@@ -1,13 +1,126 @@
 <div class="container">
   <h2>Add Feedback</h2>
-  <form [formGroup]="feedbackForm" (ngSubmit)="addFeedback()">
+  <form (ngSubmit)="submitFeedback(feedbackForm)" #feedbackForm="ngForm">
     <div class="form-group">
-      <label for="userName">User Name</label> <br>
-      <input id="userName" formControlName="userName" class="form-control" /> <br>
+      <label for="feedback">Feedback *</label> <br>
+      <textarea
+        id="feedback"
+        name="message"
+        [(ngModel)]="feedbackText"
+        required
+        minlength="5"
+        class="form-control"
+        #feedbackTextRef="ngModel"
+      ></textarea> <br>
     </div>
+
+    <div *ngIf="feedbackTextRef.invalid && feedbackTextRef.touched" class="error-messages">
+      <p *ngIf="feedbackTextRef.errors?.required">Feedback is required.</p>
+      <p *ngIf="feedbackTextRef.errors?.minlength">Feedback must be at least 5 characters long.</p>
+    </div>
+
+    <div class="form-group">
+      <label for="ratings">Rating *</label> <br>
+      <div class="star-rating">
+        <ng-container *ngFor="let star of [5, 4, 3, 2, 1]">
+          <input
+            type="radio"
+            id="star{{star}}"
+            name="rating"
+            [(ngModel)]="rating"
+            [value]="star"
+            required
+          />
+          <label for="star{{star}}" title="{{star}} stars">
+            <i class="fa" [ngClass]="{'fa-star': rating >= star, 'fa-star-o': rating < star}"></i>
+          </label>
+        </ng-container>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="feedbackForm.invalid">Submit</button>
+  </form>
+
+  <div *ngIf="popupMessage" class="popup">
+    <p>{{popupMessage}}</p>
+    <button (click)="closePopup()">Ok</button>
+  </div>
+</div>
+
+<!-- 
+<hr>
+<hr>
+<div class="feedback-form">
+  <form *ngIf="!popupMessage" (ngSubmit)="submitFeedback(feedbackForm)" #feedbackForm="ngForm">
+    <h2>Add Feedback</h2>
+    <div class="form-group">
+      <label for="feedbackText">Feedback *</label>
+      <textarea
+        id="feedbackText"
+        name="feedbackText"
+        [(ngModel)]="feedbackText"
+        required
+        minlength="5"
+        placeholder="Write your feedback here..."
+        #feedbackTextRef="ngModel"
+      ></textarea>
+    </div>
+
+    <div *ngIf="feedbackTextRef.invalid && feedbackTextRef.touched" class="error-messages">
+      <p *ngIf="feedbackTextRef.errors?.required">Feedback is required.</p>
+      <p *ngIf="feedbackTextRef.errors?.minlength">Feedback must be at least 5 characters long.</p>
+    </div>
+
+    <button type="submit" [disabled]="feedbackForm.invalid">Submit</button>
+  </form>
+
+  <div *ngIf="popupMessage" class="popup">
+    <p>{{popupMessage}}</p>
+    <button (click)="closePopup()">Ok</button>
+  </div>
+</div> -->
+
+
+<!-- <app-usernav></app-usernav>
+<hr>
+<hr>
+<div class="feedback-form">
+  <form *ngIf="!popupMessage" (ngSubmit)="submitFeedback(feedbackForm)" #feedbackForm="ngForm">
+    <h2>Add Feedback</h2>
+    <div class="form-group">
+      <label for="feedbackText">Feedback *</label>
+      <textarea
+        id="feedbackText"
+        name="feedbackText"
+        [(ngModel)]="feedbackText"
+        required
+        minlength="5"
+        placeholder="Write your feedback here..."
+        #feedbackTextRef="ngModel"
+      ></textarea>
+    </div>
+
+    <div *ngIf="feedbackTextRef.invalid && feedbackTextRef.touched" class="error-messages">
+      <p *ngIf="feedbackTextRef.errors?.required">Feedback is required.</p>
+      <p *ngIf="feedbackTextRef.errors?.minlength">Feedback must be at least 5 characters long.</p>
+    </div>
+
+    <button type="submit" [disabled]="feedbackForm.invalid">Submit</button>
+  </form>
+
+  <div *ngIf="popupMessage" class="popup">
+    <p>{{popupMessage}}</p>
+    <button (click)="closePopup()">Ok</button>
+  </div>
+</div>
+
+<!-- <div class="container">
+  <h2>Add Feedback</h2>
+  <form [formGroup]="feedbackForm" (ngSubmit)="addFeedback()">
+
     <div class="form-group">
       <label for="feedback">Feedback</label> <br>
-      <textarea id="feedback" formControlName="feedback" class="form-control"></textarea> <br>
+      <textarea id="feedback" formControlName="message" class="form-control"></textarea> <br>
     </div>
     <div class="form-group">
       <label for="ratings">Rating</label> <br>
@@ -22,4 +135,4 @@
     </div>
     <button type="submit" class="btn btn-primary" [disabled]="feedbackForm.invalid">Submit</button>
   </form>
-</div>
+</div> -->
