@@ -19,11 +19,11 @@ export class ProductService {
    }
 
   getProductsByCategory(category:string) : Observable<any>{
-    return this.httpClient.get(this.baseUrl);
+    return this.httpClient.get(this.baseUrl+"/api/products/category/{category}");
   }
 
   getProducts() : Observable<any>{
-    return this.httpClient.get(this.baseUrl);
+    return this.httpClient.get(this.baseUrl+"/api/products");
   }
 
   getProductsByUserId(userId:number) : Observable<any>{
@@ -31,7 +31,7 @@ export class ProductService {
   }
 
   addProduct(product:Product) : Observable<any>{
-    return this.httpClient.post(this.baseUrl + "/api/products", product);
+    return this.httpClient.post(this.baseUrl+"/api/products", product);
   }
 
   deleteProduct(id:number) : Observable<any>{

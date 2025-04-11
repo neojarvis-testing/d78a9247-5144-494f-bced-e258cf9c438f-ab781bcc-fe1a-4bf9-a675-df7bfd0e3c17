@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -10,56 +11,69 @@ import { ProductService } from 'src/app/services/product.service';
 export class AdminviewproductComponent implements OnInit {
 
   products: any[] = [];
+  productForm: FormGroup;
+  selectedProductId: number | null = null;
+  isEditing: boolean = false;
   filteredProducts: any[] = [];
   categories: string[] = [];
   selectedCategory: string = 'All';
 
-  constructor(private productService: ProductService, private router: Router) {}
+  constructor(private productService: ProductService, private router: Router, private activateRoute : ActivatedRoute, private fb : FormBuilder) {
+
+    this.productForm = this.fb.group({
+      productName: this.fb.control('', Validators.required),
+      description: this.fb.control('', Validators.required),
+      price: this.fb.control('', Validators.required),
+      stock: this.fb.control('', Validators.required),
+      category: this.fb.control('', Validators.required),
+      productImage : this.fb.control('')
+    });
+  }
 
   ngOnInit(): void {
     this.getProducts();
   }
 
+  // Fetch all products
   getProducts(): void {
     this.productService.getProducts().subscribe(data => {
       this.products = data;
-      this.filteredProducts = data;
-      this.categories = [...new Set(this.products.map(product => product.category))];
     });
   }
 
-  filterByCategory(): void {
-    if (this.selectedCategory === 'All') {
-      this.filteredProducts = this.products;
-    } else {
-      this.filteredProducts = this.products.filter(product => product.category === this.selectedCategory);
+  // Fetch product details and populate the form
+  editProduct(productId: number): void {
+    this.productService.getProductById(productId).subscribe(product => {
+      this.selectedProductId = productId;
+      this.productForm.patchValue(product);
+      this.isEditing = true;
+    });
+  }
+
+  // Update the product details
+  updateProduct(): void {
+    if (this.productForm.valid) {
+      this.productService.updateProduct(this.selectedProductId!, this.productForm.value)
+        .subscribe(() => {
+          alert('Product updated successfully!');
+          this.isEditing = false;
+          this.getProducts(); // Refresh product list
+        });
     }
   }
 
-  navigateToEdit(productId: number): void {
-    this.router.navigate(['/edit-product', productId]);
-  }
-
-  updateProduct(productId: number, product: any): void {
-    this.productService.updateProduct(productId,product).subscribe(() => {
-      alert('Data updated successfully!');
-      this.getProducts();
-    });
-  }
-
+  // Delete product
   deleteProduct(productId: number): void {
     if (confirm('Are you sure you want to delete this product?')) {
       this.productService.deleteProduct(productId).subscribe(() => {
         alert('Product deleted successfully!');
-        this.getProducts();
+        this.products = this.products.filter(product => product.productId !== productId);
       });
     }
   }
 
-  toggleAvailability(productId: number, product: any): void {
-    product.isAvailable = !product.isAvailable;
-    this.updateProduct(productId, product);
+  // Cancel editing and return to list
+  cancelEdit(): void {
+    this.isEditing = false;
   }
-
-
 }
