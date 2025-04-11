@@ -9,8 +9,10 @@ import { Login } from '../models/login.model';
   providedIn: 'root'
 })
 export class AuthService {
+
   private baseUrl = 'https://ide-eacbeacfbbbdeaffeeddabbccfeabfadfbfdec.premiumproject.examly.io/proxy/8080/api';
  
+
   constructor(private http: HttpClient, private router: Router) {}
  
   register(user: User) {
@@ -20,17 +22,18 @@ export class AuthService {
 
   
   login(login: Login) {
+
     this.http.post<{ token: string; userRole: string; username:string; userId:number}>(`${this.baseUrl}/login`, login).subscribe(
         response => {
           console.log(response)
             const { token, userRole, username, userId } = response;
-
 
             // Store token and role in localStorage
             localStorage.setItem('token', token);
             localStorage.setItem('userRole', userRole);
             localStorage.setItem('username', username);
             localStorage.setItem('userId', userId.toString());
+
 
             // Navigate based on user role
             if (userRole == 'ADMIN') {
@@ -44,8 +47,6 @@ export class AuthService {
         }
     );
 }
-
-  
 
   logout() {
     localStorage.removeItem('token');
@@ -61,11 +62,11 @@ export class AuthService {
     return !!token;
   }
 
-
   
   getUsername(): string {
    return localStorage.getItem('username');
   }
   
+
 }
 
