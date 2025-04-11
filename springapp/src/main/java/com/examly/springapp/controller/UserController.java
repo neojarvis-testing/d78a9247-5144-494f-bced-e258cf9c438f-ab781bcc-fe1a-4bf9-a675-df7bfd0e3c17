@@ -19,6 +19,8 @@ import com.examly.springapp.model.LoginDTO;
 import com.examly.springapp.model.User;
 import com.examly.springapp.service.UserServiceImpl;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @RestController
 @CrossOrigin(allowedHeaders = "*",origins = "*")
 public class UserController {
@@ -30,16 +32,19 @@ public class UserController {
     JwtUtils jwtUtils;
 
     
-    @PostMapping("/api/register")
-        public ResponseEntity<User> registerUser(@RequestBody User user) {
-            try {
-                User newUser = userService.createUser(user);
-               return new ResponseEntity<>(newUser, HttpStatus.CREATED);
-            } catch (RuntimeException e) {
-               return new ResponseEntity<>(null, HttpStatus.CONFLICT);
-           }
-       
+    
+@PostMapping("/api/register")
+    public ResponseEntity<?> registerUser(@RequestBody User user){
+        try{
+            User addNewUser = userService.createUser(user);
+            return ResponseEntity.status(201).body(addNewUser);
         }
+        catch(EntityNotFoundException e ){
+            return ResponseEntity.status(401).body(e.getMessage());
+ 
+        }
+    }
+
 
 
     @PostMapping("/api/login")

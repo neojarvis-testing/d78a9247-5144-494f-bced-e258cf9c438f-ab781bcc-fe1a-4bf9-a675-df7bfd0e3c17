@@ -53,8 +53,8 @@
           <br>
           <select id="role" formControlName="role" class="form-control">
             <option value="">Select Role</option>
-            <option value="ADMIN">User</option>
-            <option value="USER">Admin</option>
+            <option value="ADMIN">Admin</option>
+            <option value="USER">User</option>
           </select>
           <div *ngIf="registerForm.get('role').touched && registerForm.get('role').invalid" class="text-danger">
             Role is required
