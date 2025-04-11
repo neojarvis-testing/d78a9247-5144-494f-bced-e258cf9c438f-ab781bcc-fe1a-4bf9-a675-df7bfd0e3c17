@@ -14,10 +14,9 @@ export class UsernavbarComponent implements OnInit {
   constructor(private authService : AuthService) { }
 
   ngOnInit(): void {
-    this.userName= this.authService.getUserName();
+    this.userName= this.authService.getUsername();
     console.log(this.userName);
 
   }
-
 
 }
