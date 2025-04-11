@@ -37,6 +37,7 @@ export class AdminaddproductComponent implements OnInit {
       console.log(this.productForm.value)
       this.productService.addProduct(this.productForm.value).subscribe(data=>{
         this.successMessage = "Product added successfully!"
+        this.productForm.reset();
       })
     }else{
       alert("Failed to add product");
