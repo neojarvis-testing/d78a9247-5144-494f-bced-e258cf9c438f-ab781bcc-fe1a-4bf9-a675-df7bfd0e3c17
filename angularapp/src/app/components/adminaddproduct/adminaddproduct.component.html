@@ -3,8 +3,8 @@
   <form [formGroup]="productForm" (ngSubmit)="addProduct()">
     <div>
       <label for="productName">Product Name <span class="required">*</span></label>
-      <input id="productName" formControlName="productName" type="text" />
-      <div *ngIf="productForm.get('productName')?.touched && productForm.get('productName')?.invalid" class="error">
+      <input id="productName" formControlName="name" type="text" />
+      <div *ngIf="productForm.get('name')?.touched && productForm.get('name')?.invalid" class="error">
         <small>Product name is required.</small>
       </div>
     </div>

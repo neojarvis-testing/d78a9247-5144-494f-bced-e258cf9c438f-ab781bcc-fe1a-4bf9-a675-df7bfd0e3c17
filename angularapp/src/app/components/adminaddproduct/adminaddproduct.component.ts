@@ -18,7 +18,7 @@ export class AdminaddproductComponent implements OnInit {
 
   ngOnInit(): void {
     this.productForm = this.fb.group({
-      productName: this.fb.control('', Validators.required),
+      name: this.fb.control('', Validators.required),
       description: this.fb.control('', Validators.required),
       price: this.fb.control('', Validators.required),
       stock: this.fb.control('', Validators.required),

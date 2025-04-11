@@ -25,7 +25,7 @@ public class Product {
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      private Long productId;
-     @JsonProperty("productName")
+     // @JsonProperty("productName")
      private String name;
      private String description;
      private double price;

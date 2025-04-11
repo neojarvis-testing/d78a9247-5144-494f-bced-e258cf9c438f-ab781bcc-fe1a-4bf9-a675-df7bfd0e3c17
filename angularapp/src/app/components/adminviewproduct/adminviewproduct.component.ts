@@ -21,7 +21,7 @@ export class AdminviewproductComponent implements OnInit {
   constructor(private productService: ProductService, private router: Router, private activateRoute : ActivatedRoute, private fb : FormBuilder) {
 
     this.productForm = this.fb.group({
-      productName: this.fb.control('', Validators.required),
+      name: this.fb.control('', Validators.required),
       description: this.fb.control('', Validators.required),
       price: this.fb.control('', Validators.required),
       stock: this.fb.control('', Validators.required),
