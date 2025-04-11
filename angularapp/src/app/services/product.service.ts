@@ -7,8 +7,8 @@ import { Product } from '../models/product.model';
   providedIn: 'root'
 })
 export class ProductService {
-
-  public baseUrl : string = "https://ide-bfffefacdcbfbdeaffeeddabbccfeabfadfbfdec.premiumproject.examly.io/proxy/8080";
+  
+  public baseUrl : string = "https://ide-ffdfacdaffdcdebdeaffeeddabbccfeabfadfbfdec.premiumproject.examly.io/proxy/8080";
 
   private cartSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   public cart$: Observable<any[]> = this.cartSubject.asObservable();
@@ -23,7 +23,7 @@ export class ProductService {
   }
 
   getProducts() : Observable<any>{
-    return this.httpClient.get(this.baseUrl);
+    return this.httpClient.get(this.baseUrl + "/api/products");
   }
 
   getProductsByUserId(userId:number) : Observable<any>{

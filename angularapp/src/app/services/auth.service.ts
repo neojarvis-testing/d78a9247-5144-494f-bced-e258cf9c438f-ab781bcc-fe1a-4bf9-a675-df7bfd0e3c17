@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 
+
 import { User } from '../models/user.model';
 import { Login } from '../models/login.model';
 
@@ -18,20 +19,38 @@ export class AuthService {
     return this.http.post(`${this.baseUrl}/register`, user);
   }
 
+  
   login(login: Login) {
-    return this.http.post<{ token: string }>(`${this.baseUrl}/login`, login).subscribe(
-      response => {
-        localStorage.setItem('token', response.token);
-        this.router.navigate(['/dashboard']); 
-      },
-      error => {
-        console.error('Login failed', error);
-      }
+    this.http.post<{ token: string; userRole: string; username:string; userId:number}>(`${this.baseUrl}/login`, login).subscribe(
+        response => {
+          console.log(response)
+            const { token, userRole, username, userId } = response;
+
+            // Store token and role in localStorage
+            localStorage.setItem('token', token);
+            localStorage.setItem('userRole', userRole);
+            localStorage.setItem('username', username);
+            localStorage.setItem('userId', userId.toString());
+
+            // Navigate based on user role
+            if (userRole == 'ADMIN') {
+                this.router.navigate(['/adminNavbar']); // Navigate to adminnavbar
+            } else if (userRole == 'USER') {
+                this.router.navigate(['/userNavbar']); // Navigate to usernavbar
+            }
+        },
+        error => {
+            console.error('Login failed', error);
+        }
     );
-  }
+}
+  
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('userId')
     this.router.navigate(['/login']); 
   }
 
@@ -39,4 +58,10 @@ export class AuthService {
     const token = localStorage.getItem('token');    
     return !!token;
   }
+
+  
+  getUsername(): string {
+   return localStorage.getItem('username');
+  }
+  
 }

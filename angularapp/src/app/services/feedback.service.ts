@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class FeedbackService {
-
-  public baseUrl : string = "https://ide-bfffefacdcbfbdeaffeeddabbccfeabfadfbfdec.premiumproject.examly.io/proxy/8080/api/feedback";
+  
+  public baseUrl : string = "https://ide-ffdfacdaffdcdebdeaffeeddabbccfeabfadfbfdec.premiumproject.examly.io/proxy/8080/api/feedback";
 
 
   constructor(private httpClient : HttpClient) { }

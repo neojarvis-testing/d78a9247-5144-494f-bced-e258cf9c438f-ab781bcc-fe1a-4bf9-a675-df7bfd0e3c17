@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
        if (this.loginForm.valid) {
-       console.log('Login form is valid. Submitting:', this.loginForm.value);
+      //  console.log('Login form is valid. Submitting:', this.loginForm.value);
        this.authService.login(this.loginForm.value);
        } else {
        console.error('Login form is invalid:', this.loginForm.errors);
