@@ -1,29 +1,63 @@
-<div class="filter-section">
-    <label for="categoryFilter">Filter by Category: </label>
-    <select [(ngModel)]="selectedCategory" (change)="filterByCategory()" id="categoryFilter">
-      <option value="All">All Categories</option>
-      <option value="Electronics">Electronics</option>
-      <option value="Clothing">Clothing</option>
-      <option value="Furniture">Furniture</option>
-      <option value="Books">Books</option>
-      <option value="Groceries">Groceries</option>
-      <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-    </select>
-  </div>
+<div class="container">
+    <h2>Admin Product Management</h2>
+
+    <form *ngIf="isEditing" [formGroup]="productForm" (ngSubmit)="updateProduct()">
+      <h3>Edit Product</h3>
+      
+      <div>
+        <label for="productName">Product Name *</label>
+        <input id="productName" formControlName="productName" type="text" />
+      </div>
   
-  <div *ngIf="filteredProducts.length === 0" class="no-products">
-    Oops! No Products are found.
-  </div>
+      <div>
+        <label for="description">Description *</label>
+        <textarea id="description" formControlName="description"></textarea>
+      </div>
   
-  <div class="product-grid" *ngIf="filteredProducts.length > 0">
-    <div *ngFor="let product of filteredProducts" class="product-card">
-      <h3>{{ product.name }}</h3>
-      <p>Category: {{ product.category }}</p>
-      <p>Price: ₹{{ product.price }}</p>
-      <p>Status: {{ product.isAvailable ? 'Available' : 'Not Available' }}</p>
-      <button (click)="navigateToEdit(product.id)">Edit</button>
-      <button (click)="deleteProduct(product.id)">Delete</button>
-      <button (click)="toggleAvailability(product)">Toggle Availability</button>
-    </div>
-  </div>
+      <div>
+        <label for="price">Price *</label>
+        <input id="price" formControlName="price" type="number" />
+      </div>
   
+      <div>
+        <label for="stock">Stock *</label>
+        <input id="stock" formControlName="stock" type="number" />
+      </div>
+  
+      <div>
+        <label for="category">Category *</label>
+        <select id="category" formControlName="category">
+          <option value="Electronics">Electronics</option>
+          <option value="Clothing">Clothing</option>
+          <option value="Furniture">Furniture</option>
+          <option value="Books">Books</option>
+          <option value="Groceries">Groceries</option>
+        </select>
+      </div>
+  
+      <div class="button-group">
+        <button type="submit" [disabled]="productForm.invalid">Update Product</button>
+        <button type="button" (click)="cancelEdit()">Cancel</button>
+      </div>
+    </form>
+
+    <div class="product-container">
+        <div *ngFor="let product of products" class="product-card">
+          <h3>{{ product.productName }}</h3>
+          <p><strong>Description:</strong> {{ product.description }}</p>
+          <p><strong>Category:</strong> {{ product.category }}</p>
+          <p><strong>Price:</strong> ${{ product.price }}</p>
+          <p><strong>Stock:</strong> {{ product.stock }}</p>
+      
+          <div class="button-group">
+            <button (click)="editProduct(product.productId)">Edit</button>
+            <button (click)="deleteProduct(product.productId)">Delete</button>
+          </div>
+        </div>
+      </div>
+      
+</div>
+
+
+
+    

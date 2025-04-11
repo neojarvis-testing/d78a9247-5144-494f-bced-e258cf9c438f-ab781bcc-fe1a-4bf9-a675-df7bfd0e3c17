@@ -8,11 +8,16 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class UsernavbarComponent implements OnInit {
 
-  userName  : string;
+
+  userName : string;
+  
   constructor(private authService : AuthService) { }
 
   ngOnInit(): void {
-    this.userName = this.authService.getUserName();
+    this.userName= this.authService.getUserName();
+    console.log(this.userName);
+
   }
+
 
 }
