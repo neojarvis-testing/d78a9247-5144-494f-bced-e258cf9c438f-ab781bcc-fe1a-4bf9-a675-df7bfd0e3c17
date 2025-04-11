@@ -1,24 +1,57 @@
-<div class="container">
-    <h2>Feedback Details</h2>
-    <table *ngIf="feedbacks.length > 0; else noData">
-      <thead>
-        <tr>
-          <th>S.No</th>
-          <th>User Name</th>
-          <th>Feedback</th>
-          <th>Ratings</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let feedback of feedbacks; let i = index">
-          <td>{{ i + 1 }}</td>
-          <td>{{ feedback.userName }}</td>
-          <td>{{ feedback.feedback }}</td>
-          <td>{{ feedback.ratings }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <ng-template #noData>
-      <p>No data found</p>
-    </ng-template>
+<div class="feedback-container">
+  <h2>Feedback Details</h2>
+
+  <div *ngIf="feedbacks.length === 0">
+    <p>No data found</p>
   </div>
+
+  <table *ngIf="feedbacks.length > 0">
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>User Name</th>
+        <th>Feedback</th>
+        <th>Rating</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let feedback of feedbacks; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ feedback.user.username }}</td>
+        <td>{{ feedback.message }}</td>
+        <td>{{ feedback.rating }}</td>
+        <td>
+          <button (click)="triggerDelete(feedback.feedbackId)">Delete</button>
+          <button (click)="showProfile(feedback.user)">Show Profile</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="showDeletePopup" class="popup-overlay">
+  <div class="popup">
+    <p>Are you sure you want to delete this feedback?</p>
+    <button (click)="confirmDelete()">Yes, Delete</button>
+    <button (click)="closeDeletePopup()">Cancel</button>
+  </div>
+</div>
+
+<div *ngIf="showProfilePopup" class="popup-overlay">
+  <div class="popup">
+    <h3>User Details</h3>
+    <p>Email: {{ selectedUser?.email }}</p>
+    <p>Username: {{ selectedUser?.username }}</p>
+    <p>Mobile Number: {{ selectedUser?.mobileNumber }}</p>
+    <button (click)="closeProfilePopup()">Close</button>
+  </div>
+</div>
+
+<div *ngIf="showLogoutPopup" class="popup-overlay">
+  <div class="popup">
+    <p>Are you sure you want to logout?</p>
+    <button (click)="confirmLogout()">Yes, Logout</button>
+    <button (click)="cancelLogout()">Cancel</button>
+  </div>
+</div>
