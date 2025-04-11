@@ -10,7 +10,7 @@ import { Order } from '../models/order.model';
 export class OrderService {
   
   // Replace the url with original one with the endpoint
-  private apiUrl = ''; 
+  private apiUrl = 'https://ide-ffdfacdaffdcdebdeaffeeddabbccfeabfadfbfdec.premiumproject.examly.io/proxy/8080/api/orders'; 
 
   constructor(private http: HttpClient) {}
 
