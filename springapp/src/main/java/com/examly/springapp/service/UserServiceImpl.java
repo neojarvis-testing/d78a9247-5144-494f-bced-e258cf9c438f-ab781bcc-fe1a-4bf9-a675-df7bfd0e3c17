@@ -24,8 +24,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User createUser(User user) {
-        return userRepo.save(user);
+    Optional<User> existingUser = userRepo.findByUsername(user.getUsername());
+
+     if (existingUser.isPresent()) {
+         throw new RuntimeException("Username is already present");
+     }
+     return userRepo.save(user);
+
     }
+
+    
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
