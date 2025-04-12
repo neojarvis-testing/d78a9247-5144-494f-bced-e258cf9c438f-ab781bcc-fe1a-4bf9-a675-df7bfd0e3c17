@@ -29,7 +29,7 @@ public class ProductController {
 
     // Add a new product (POST, ADMIN)
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
+    // @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> addProduct(@RequestBody Product product,String base64Image) {
         Product createdProduct = productService.addProduct(product,base64Image);
         return ResponseEntity.status(201).body(createdProduct);

@@ -24,7 +24,7 @@ public class FeedbackController {
     private FeedbackService feedbackService;
 
     @PostMapping("/api/feedback")
-    @PreAuthorize("hasAuthority('USER')")
+    // @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<?> createFeedback(@RequestBody Feedback feedback){
         try{
             Feedback savedFeedback = feedbackService.createFeedback(feedback);
@@ -37,7 +37,7 @@ public class FeedbackController {
     }
 
     @GetMapping("/api/feedback")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    // @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> getAllFeedback(){
         try{
             List<Feedback> allFeedbacks = feedbackService.getAllFeedback();
@@ -50,7 +50,7 @@ public class FeedbackController {
     }
 
     @GetMapping("/api/feedback/user/{userId}")
-    @PreAuthorize("hasRole('USER')")
+    // @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getFeedbackByUserId(@PathVariable Long userId){
         try{
             List<Feedback> feedbackByUserId = feedbackService.getFeedbackByUserId(userId);
@@ -63,7 +63,7 @@ public class FeedbackController {
     }
 
     @DeleteMapping("/api/feedback/{id}")
-    @PreAuthorize("hasRole('USER')")
+    // @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> deleteFeedback(@PathVariable Long id){
         try{
             Feedback deletedFeedback = feedbackService.deleteFeedback(id);
