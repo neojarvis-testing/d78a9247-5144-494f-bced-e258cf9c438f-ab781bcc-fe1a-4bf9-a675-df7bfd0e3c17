@@ -1,5 +1,6 @@
 package com.examly.springapp.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -85,10 +86,13 @@ public class ProductServiceImpl implements ProductService{
                 .orElseThrow(() -> new RuntimeException("Product not found with id: " + productId));
 
         // Update the existing product's fields with the new data
-    existingProduct.setName(product.getName());
-    existingProduct.setCategory(product.getCategory());
-    existingProduct.setPrice(product.getPrice());
+       existingProduct.setName(product.getName());
     existingProduct.setDescription(product.getDescription());
+    existingProduct.setPrice(product.getPrice());
+    existingProduct.setStock(product.getStock()); // Update stock value
+    existingProduct.setCategory(product.getCategory());
+    existingProduct.setPhotoImage(product.getPhotoImage());
+    existingProduct.setUpdatedAt(LocalDateTime.now());
 
     // Save and return the updated product
     return productRepo.save(existingProduct);
