@@ -20,7 +20,7 @@ export class RegistrationComponent implements OnInit {
       password: this.fb.control('', [Validators.required, Validators.minLength(6)]),
       confirmPassword: this.fb.control('', Validators.required),
       mobileNumber: this.fb.control('', [Validators.required, Validators.pattern('^[0-9]{10}$')]),
-      role: this.fb.control('', Validators.required)
+      userRole: this.fb.control('', Validators.required)
     }, { validator: this.passwordMatchValidator });
   }
 

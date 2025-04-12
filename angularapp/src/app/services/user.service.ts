@@ -18,4 +18,8 @@ export class UserService {
   public getProfileById(userId:number):Observable<any>{
     return this.httpClient.get(this.apiUrl + '/' + userId)
   }
+
+  public deleteUser(userId:number):Observable<any>{
+    return this.httpClient.delete(this.apiUrl + '/' + userId)
+  }
 }

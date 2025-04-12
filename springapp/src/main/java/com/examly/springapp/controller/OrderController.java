@@ -26,11 +26,11 @@ public class OrderController {
 
     // Add Order (USER Role)
     @PostMapping
-    // @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<Order> addOrder(@RequestBody Order order) {
+    @PreAuthorize("hasAuthority('USER')")
+    public ResponseEntity<?> addOrder(@RequestBody Order order) {
         try {
             Order createdOrder = orderService.addOrder(order);
-            return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
+            return ResponseEntity.status(200).body(order);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
@@ -52,7 +52,7 @@ public class OrderController {
 
     // Update Order (ADMIN Role)
     @PutMapping("/{id}")
-    // @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Order> updateOrder(@PathVariable Long id, @RequestBody Order order) {
         try {
             Order existingOrder = orderService.getOrderById(id);
@@ -82,9 +82,9 @@ public class OrderController {
         }
     }
 
-    // View All Orders (ADMIN Role)
+    
     @GetMapping
-    // @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<Order>> getAllOrders() {
         try {
             List<Order> orders = orderService.getAllOrders();
@@ -96,7 +96,7 @@ public class OrderController {
 
     // Get Orders by User ID (USER Role)
     @GetMapping("/user/{userId}")
-    // @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<List<Order>> getOrdersByUserId(@PathVariable Long userId) {
         try {
             List<Order> orders = orderService.getOrdersByUserId(userId);

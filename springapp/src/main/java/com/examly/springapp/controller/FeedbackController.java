@@ -24,7 +24,7 @@ public class FeedbackController {
     private FeedbackService feedbackService;
 
     @PostMapping("/api/feedback")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<?> createFeedback(@RequestBody Feedback feedback){
         try{
             Feedback savedFeedback = feedbackService.createFeedback(feedback);
@@ -37,7 +37,7 @@ public class FeedbackController {
     }
 
     @GetMapping("/api/feedback")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> getAllFeedback(){
         try{
             List<Feedback> allFeedbacks = feedbackService.getAllFeedback();

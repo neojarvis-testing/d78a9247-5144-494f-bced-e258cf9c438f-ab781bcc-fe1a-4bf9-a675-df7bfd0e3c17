@@ -15,10 +15,10 @@
                         <li>{{userName}}/ User</li>
                         <li><a routerLink="/userNavbar/home">Home</a></li>
                         <li><a routerLink="/userNavbar/userviewproduct">View Products</a></li>
-                        <li><img src="assets/mybag.jpg" alt="Shopping Bag" class="bag-image"></li>
+                        <li><img src="assets/mybag.jpg" alt="Shopping Bag" class="bag-image" routerLink="/userNavbar/cart"></li>
                         <li><a routerLink="/userNavbar/uservieworders">My Orders</a></li>
                         <li><a routerLink="/userNavbar/userviewfeedback">Feedbacks</a></li>
-                        <li><a class="logout" routerLink="/logout">Logout</a></li>
+                        <li><a class="logout" routerLink="/logout" (click)="logout()">Logout</a></li>
                     </ul>
                 </nav>
             </div>

@@ -19,4 +19,8 @@ export class UsernavbarComponent implements OnInit {
 
   }
 
+  public logout(){
+    this.authService.logout()
+  }
+
 }

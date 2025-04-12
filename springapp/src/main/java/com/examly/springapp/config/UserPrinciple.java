@@ -1,31 +1,27 @@
 package com.examly.springapp.config;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.examly.springapp.model.User;
 
-import java.util.Collection;
-import java.util.Collections;
-
-public class UserPrinciple implements UserDetails {
+public class UserPrinciple implements UserDetails{
     private String username;
     private String password;
-    private Collection<? extends GrantedAuthority> authorities;
+   private Collection<SimpleGrantedAuthority> authorities=null;
 
-    public UserPrinciple(String username, String password, Collection<? extends GrantedAuthority> authorities) {
-        this.username = username;
-        this.password = password;
-        this.authorities = authorities;
-    }
-
-    
     public UserPrinciple(User user) {
         this.username = user.getUsername();
-        this.password = user.getPassword();
-        this.authorities = Collections.emptyList(); // Adjust if you have roles/authorities
+        this.password= user.getPassword();
+        authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(user.getUserRole()));
+        
+
     }
-    
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -61,4 +57,12 @@ public class UserPrinciple implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "UserPrinciple [username=" + username + ", password=" + password + ", authorities=" + authorities + "]";
+    }
+
+    
+    
 }

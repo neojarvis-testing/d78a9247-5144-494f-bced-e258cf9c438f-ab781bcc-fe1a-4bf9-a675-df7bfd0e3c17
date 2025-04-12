@@ -13,6 +13,7 @@ import { AdminviewproductComponent } from './components/adminviewproduct/adminvi
 import { AdminviewordersComponent } from './components/adminvieworders/adminvieworders.component';
 import { AdminviewfeedbackComponent } from './components/adminviewfeedback/adminviewfeedback.component';
 import { AdminviewuserdetailsComponent } from './components/adminviewuserdetails/adminviewuserdetails.component';
+import { UseraddcartComponent } from './components/useraddcart/useraddcart.component';
  
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'userNavbar' ,component: UsernavbarComponent ,
   children: [
     { path: 'home', component: HomeComponent },
+    {path:'cart', component:UseraddcartComponent},
     { path: 'userviewproduct', component: UserviewproductComponent },
     { path: 'userviewfeedback', component: UserviewfeedbackComponent },
     { path: 'uservieworders', component: UserviewordersComponent },
