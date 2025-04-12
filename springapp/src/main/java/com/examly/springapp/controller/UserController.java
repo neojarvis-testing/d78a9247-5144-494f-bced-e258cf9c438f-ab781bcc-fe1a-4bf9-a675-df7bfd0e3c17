@@ -52,7 +52,7 @@ public class UserController {
       public ResponseEntity<LoginDTO> loginUser(@RequestBody User user) {
          try {
             User loggedInUser = userService.loginUser(user);
-            String token = jwtUtils.generateToken(loggedInUser.getUsername()); // Generate the JWT token
+            String token = jwtUtils.generateToken(loggedInUser.getUsername(), List.of("ROLE_"+loggedInUser.getUserRole())); // Generate the JWT token
 
             // Create and populate LoginDTO
             LoginDTO loginDTO = new LoginDTO();

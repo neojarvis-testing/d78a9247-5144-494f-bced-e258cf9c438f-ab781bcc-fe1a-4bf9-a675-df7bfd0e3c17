@@ -7,16 +7,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-public class CrosConfig implements WebMvcConfigurer{
+public class CrosConfig implements WebMvcConfigurer {
+
     @Override
-    public void addCorsMappings(CorsRegistry registry){
+    public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-        .allowedOrigins("*")
-        .allowedMethods("GET","POST","PUT","DELETE")
-        .allowedHeaders("*")
-        .allowCredentials(false);
-    
+                .allowedOrigins("*")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
+                .allowedHeaders("*");
     }
-
-
 }

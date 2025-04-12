@@ -29,7 +29,7 @@ public class ProductController {
 
     // Add a new product (POST, ADMIN)
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> addProduct(@RequestBody Product product,String base64Image) {
         Product createdProduct = productService.addProduct(product,base64Image);
         return ResponseEntity.status(201).body(createdProduct);
@@ -37,7 +37,7 @@ public class ProductController {
 
     // Update an existing product by ID (PUT, ADMIN)
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    
     public ResponseEntity<?> updateProduct(
             @PathVariable Long id,
             @RequestBody Product product) {
@@ -47,14 +47,14 @@ public class ProductController {
 
     // View product by ID (GET, ADMIN or USER)
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    
     public ResponseEntity<?> getProductById(@PathVariable Long id) {
         Product product = productService.getProductByProductId(id);
         return ResponseEntity.status(200).body(product);
     }
     // Delete a product by ID (DELETE, ADMIN)
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+  
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         try {
             productService.deleteProduct(id);
@@ -66,7 +66,7 @@ public class ProductController {
 
     // Get products by category (GET, ADMIN and USER)
     @GetMapping("/category/{category}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+   
     public ResponseEntity<?> getProductsByCategory(@PathVariable String category) {
         List<Product> products = productService.getProductsByCategory(category);
         if (products.isEmpty()) {
@@ -77,7 +77,7 @@ public class ProductController {
 
     // View all products (GET, ADMIN and USER)
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    
     public ResponseEntity<?> viewAllProducts() {
         List<Product> products = productService.getAllProducts();
         if (products.isEmpty()) {
@@ -88,7 +88,7 @@ public class ProductController {
 
     // Get products by User ID (GET, ADMIN, USER)
     @GetMapping("/user/{userId}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+   
     public ResponseEntity<?> getProductsByUserId(@PathVariable Long userId) {
         List<Product> products = productService.getProductsByUserId(userId);
         if (products.isEmpty()) {
