@@ -15,9 +15,7 @@ export class UserviewproductComponent implements OnInit {
   cart: any[] = [];
   totalProductCount: number = 0;
 
-
   constructor(private productService: ProductService, private cartService: CartService, private router: Router) {}
-
 
   ngOnInit(): void {
     this.loadProducts();
@@ -37,15 +35,32 @@ export class UserviewproductComponent implements OnInit {
   }
 
   addToCart(product: any): void {
-    if (!this.cart.find(item => item.id === product.id)) {
-      this.cart.push(product);
+    const existingProduct = this.cart.find(item => item.id === product.id);
+    if (!existingProduct) {
+      this.cart.push({ ...product, quantity: 1 });
+    } else {
+      existingProduct.quantity += 1;
+    }
+    this.saveCart();
+  }
+
+  increaseQuantity(product: any): void {
+    const existingProduct = this.cart.find(item => item.id === product.id);
+    if (existingProduct) {
+      existingProduct.quantity += 1;
       this.saveCart();
     }
   }
 
-  removeFromCart(productId: number): void {
-    this.cart = this.cart.filter(item => item.id !== productId);
-    this.saveCart();
+  decreaseQuantity(product: any): void {
+    const existingProduct = this.cart.find(item => item.id === product.id);
+    if (existingProduct && existingProduct.quantity > 1) {
+      existingProduct.quantity -= 1;
+      this.saveCart();
+    } else if (existingProduct && existingProduct.quantity === 1) {
+      this.cart = this.cart.filter(item => item.id !== product.id);
+      this.saveCart();
+    }
   }
 
   saveCart(): void {
@@ -54,30 +69,6 @@ export class UserviewproductComponent implements OnInit {
   }
 
   updateTotalCount(): void {
-    this.totalProductCount = this.cart.length;
+    this.totalProductCount = this.cart.reduce((total, product) => total + product.quantity, 0);
   }
-
-  navigateToViewProduct(): void {
-    this.router.navigate(['/view-product']);
-  }
-  
-addToCartService(product: any): void {
-   const cartItem: Cart = {
-   productId: product.id,
-   productName: product.name,
-   price: product.price,
-   quantity: 1
-   };
-  this.cartService.addToCart(cartItem);
-  this.saveCart();
-  this.updateTotalCount();
-  }
-   
-removeFromCartService(productId: number): void {
-   this.cartService.removeFromCart(productId);
-   this.saveCart();
-   this.updateTotalCount();
-  }
-  
-
 }

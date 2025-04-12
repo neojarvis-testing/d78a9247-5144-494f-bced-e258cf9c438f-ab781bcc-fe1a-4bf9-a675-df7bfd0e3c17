@@ -70,7 +70,7 @@ public class UserController {
     
     @GetMapping("/api/user")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<User>> getAllUsers(@RequestBody User user) {
+    public ResponseEntity<List<User>> getAllUsers() {
      try {
          List<User> users = userService.findAllUsers();
          return new ResponseEntity<>(users, HttpStatus.OK);
@@ -81,10 +81,7 @@ public class UserController {
 
     
     @DeleteMapping("/api/user/{userId}")
-     public ResponseEntity<User> deleteUser(@PathVariable long userId, @RequestBody User currentUser) {
-        if (!"ADMIN".equals(currentUser.getUserRole())) {
-            return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
-         }
+     public ResponseEntity<User> deleteUser(@PathVariable int userId) {
     try {
      Optional<User> userOptional = userService.getById(userId);
      if (userOptional.isPresent()) {

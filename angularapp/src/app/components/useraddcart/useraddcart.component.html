@@ -1,1 +1,10 @@
-<p>useraddcart works!</p>
+<div class="cart-list">
+    <div *ngFor="let item of cart" class="cart-item">
+      <h2>{{ item.name }}</h2>
+      <p>{{ item.description }}</p>
+      <p><b>Category:</b> {{ item.category }}</p>
+      <p><b>Price:</b> ${{ item.price }}</p>
+      <p><b>Quantity:</b> {{item.quantity}}</p>
+    </div>
+  </div>
+  
