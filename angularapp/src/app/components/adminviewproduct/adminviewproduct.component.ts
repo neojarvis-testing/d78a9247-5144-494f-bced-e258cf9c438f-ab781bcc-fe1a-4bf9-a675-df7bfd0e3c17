@@ -53,8 +53,10 @@ export class AdminviewproductComponent implements OnInit {
   
   updateProduct(): void {
     if (this.productForm.valid) {
+      console.log(this.productForm.value)
       this.productService.updateProduct(this.selectedProductId!, this.productForm.value)
-        .subscribe(() => {
+        .subscribe((data) => {
+          console.log(data)
           alert('Product updated successfully!');
           this.isEditing = false;
           this.getProducts();
@@ -64,6 +66,7 @@ export class AdminviewproductComponent implements OnInit {
 
   deleteProduct(productId: number): void {
     if (confirm('Are you sure you want to delete this product?')) {
+
       this.productService.deleteProduct(productId).subscribe({
         next: () => {
           alert('Product deleted successfully!');
@@ -74,6 +77,7 @@ export class AdminviewproductComponent implements OnInit {
           console.error('Error deleting product:', error);
           alert('Failed to delete product. Please try again.');
         }
+
       });
     }
   }
