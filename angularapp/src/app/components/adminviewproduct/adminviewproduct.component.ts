@@ -50,7 +50,7 @@ export class AdminviewproductComponent implements OnInit {
     });
   }
 
-  // Update the product details
+  
   updateProduct(): void {
     if (this.productForm.valid) {
       console.log(this.productForm.value)
@@ -59,23 +59,30 @@ export class AdminviewproductComponent implements OnInit {
           console.log(data)
           alert('Product updated successfully!');
           this.isEditing = false;
-          this.getProducts(); // Refresh product list
+          this.getProducts();
         });
     }
   }
 
-  // Delete product
   deleteProduct(productId: number): void {
     if (confirm('Are you sure you want to delete this product?')) {
-      this.productService.deleteProduct(productId).subscribe(() => {
-        alert('Product deleted successfully!');
-        this.products = this.products.filter(product => product.productId !== productId);
-        this.ngOnInit();
+
+      this.productService.deleteProduct(productId).subscribe({
+        next: () => {
+          alert('Product deleted successfully!');
+          this.products = this.products.filter(product => product.id !== productId);
+          this.getProducts();
+        },
+        error: (error) => {
+          console.error('Error deleting product:', error);
+          alert('Failed to delete product. Please try again.');
+        }
+
       });
     }
   }
-
-  // Cancel editing and return to list
+  
+  
   cancelEdit(): void {
     this.isEditing = false;
   }
