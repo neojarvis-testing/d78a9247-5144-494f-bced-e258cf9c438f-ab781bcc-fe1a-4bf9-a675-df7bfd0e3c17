@@ -58,7 +58,7 @@ public class ProductController {
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         try {
             productService.deleteProduct(id);
-            return ResponseEntity.status(200).body("Product deleted successfully");
+            return ResponseEntity.status(200).body("");
         } catch (RuntimeException e) {
             return ResponseEntity.status(404).body(e.getMessage());
         }

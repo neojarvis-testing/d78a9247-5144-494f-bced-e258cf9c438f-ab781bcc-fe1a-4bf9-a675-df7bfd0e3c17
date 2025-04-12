@@ -53,8 +53,10 @@ export class AdminviewproductComponent implements OnInit {
   // Update the product details
   updateProduct(): void {
     if (this.productForm.valid) {
+      console.log(this.productForm.value)
       this.productService.updateProduct(this.selectedProductId!, this.productForm.value)
-        .subscribe(() => {
+        .subscribe((data) => {
+          console.log(data)
           alert('Product updated successfully!');
           this.isEditing = false;
           this.getProducts(); // Refresh product list
@@ -68,6 +70,7 @@ export class AdminviewproductComponent implements OnInit {
       this.productService.deleteProduct(productId).subscribe(() => {
         alert('Product deleted successfully!');
         this.products = this.products.filter(product => product.productId !== productId);
+        this.ngOnInit();
       });
     }
   }
