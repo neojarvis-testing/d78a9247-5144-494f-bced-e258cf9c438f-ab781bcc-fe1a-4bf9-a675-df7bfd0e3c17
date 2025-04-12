@@ -21,7 +21,7 @@ export class UseraddfeedbackComponent implements OnInit {
     if (userId) {
       this.userId = parseInt(userId, 10);
     } else {
-      console.error('User ID not found in local storage');
+      console.error('User ID not found in local storage.');
     }
   }
 

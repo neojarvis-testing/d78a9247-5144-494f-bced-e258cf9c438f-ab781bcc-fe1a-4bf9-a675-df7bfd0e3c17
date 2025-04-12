@@ -13,22 +13,18 @@ export class UserviewfeedbackComponent implements OnInit {
   feedbacks: Feedback[] = [];
   selectedFeedback: Feedback | null = null;
   feedbackToDelete: Feedback | null = null;
-  userId: number | null = 1;  // dummy Id
+  userId: number | null = 3;  // dummy Id
   user : User;
 
   constructor(private feedbackService: FeedbackService) { }
 
   ngOnInit(): void {
-    if (this.userId) {
-      // this.getFeedbackByUserId(this.user.userId);
-    } else {
-      console.error('User ID is null. Unable to fetch feedback.');
-    }
+    this.getFeedbackByUserId();
   }
 
-  getFeedbackByUserId(userId: number): void {
-    this.feedbackService.getFeedbackByUserId(userId).subscribe(
-      (data: Feedback[]) => {
+  getFeedbackByUserId(): void {
+    this.feedbackService.getFeedbackByUserId(this.userId).subscribe(
+      (data) => {
         this.feedbacks = data;
       },
       (error) => {

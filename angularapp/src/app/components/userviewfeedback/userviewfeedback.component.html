@@ -12,7 +12,7 @@
     <tbody>
       <tr *ngFor="let feedback of feedbacks; let i = index">
         <td>{{ i + 1 }}</td>
-        <td>{{ feedback.feedback }}</td>
+        <td>{{ feedback.message }}</td>
         <td>
           <span class="stars">
             <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let j = index">
@@ -21,7 +21,7 @@
           </span>
         </td>
         <td>
-          <button (click)="selectFeedback(feedback)">Edit</button>
+          <!-- <button (click)="selectFeedback(feedback)">Edit</button> -->
           <button (click)="confirmDelete(feedback)">Delete</button>
         </td>
       </tr>
@@ -31,7 +31,7 @@
     <p>No data found</p>
   </ng-template>
 
-  <div *ngIf="selectedFeedback" class="modal">
+  <!-- <div *ngIf="selectedFeedback" class="modal">
     <div class="modal-content">
       <span class="close" (click)="clearSelection()">&times;</span>
       <h3>Update Feedback</h3>
@@ -54,7 +54,7 @@
         <button type="submit" class="btn btn-primary">Update</button>
       </form>
     </div>
-  </div>
+  </div> -->
 
   <div *ngIf="feedbackToDelete" class="modal">
     <div class="modal-content">
