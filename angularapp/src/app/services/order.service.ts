@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Order } from '../models/order.model';
+import { Global } from '../resources/global';
 
 
 @Injectable({
@@ -10,8 +11,8 @@ import { Order } from '../models/order.model';
 export class OrderService {
   
   // Replace the url with original one with the endpoint
-  private apiUrl = 'https://ide-ffdfacdaffdcdebdeaffeeddabbccfeabfadfbfdec.premiumproject.examly.io/proxy/8080/api/orders'; 
-
+  private apiUrl = Global.apiUrl + "/api/orders"; 
+  
   constructor(private http: HttpClient) {}
 
   // Creates a new order

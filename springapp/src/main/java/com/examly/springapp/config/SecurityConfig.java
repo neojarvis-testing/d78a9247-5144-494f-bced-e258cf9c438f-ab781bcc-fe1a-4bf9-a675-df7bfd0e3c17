@@ -45,10 +45,10 @@ public class SecurityConfig {
         httpSecurity.cors(withDefaults()).authorizeHttpRequests(authorizeHttpRequest -> 
                                             authorizeHttpRequest
                                                 .requestMatchers("/api/register",
-                                                                "/api/login",
-                                                                "/api/home").permitAll()
+                                                                "/api/login"
+                                                                ).permitAll()
                                                 
-                                                .anyRequest().permitAll()
+                                                .anyRequest().authenticated()
                         );
 
         httpSecurity.sessionManagement(sessionManager  -> 

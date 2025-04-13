@@ -63,7 +63,7 @@ public class FeedbackController {
     }
 
     @DeleteMapping("/api/feedback/{id}")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     public ResponseEntity<?> deleteFeedback(@PathVariable Long id){
         try{
             Feedback deletedFeedback = feedbackService.deleteFeedback(id);

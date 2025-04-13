@@ -1,6 +1,6 @@
 <div class="container">
   <h2>My Feedback</h2>
-  <table *ngIf="feedbacks.length > 0; else noData">
+  <table *ngIf="feedbacks.length > 0; else noData" class="table table-striped">
     <thead>
       <tr>
         <th>S.No</th>
@@ -14,11 +14,7 @@
         <td>{{ i + 1 }}</td>
         <td>{{ feedback.message }}</td>
         <td>
-          <span class="stars">
-            <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let j = index">
-              <i class="fa" [ngClass]="{'fa-star': j < feedback.ratings, 'fa-star-o': j >= feedback.ratings}"></i>
-            </ng-container>
-          </span>
+          {{feedback.rating}}
         </td>
         <td>
           <!-- <button (click)="selectFeedback(feedback)">Edit</button> -->

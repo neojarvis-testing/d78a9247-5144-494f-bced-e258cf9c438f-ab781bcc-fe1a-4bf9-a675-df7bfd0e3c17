@@ -47,7 +47,6 @@ public class UserController {
     }
 
 
-
     @PostMapping("/api/login")
       public ResponseEntity<LoginDTO> loginUser(@RequestBody User user) {
          try {
@@ -76,11 +75,12 @@ public class UserController {
          return new ResponseEntity<>(users, HttpStatus.OK);
          } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
-    }
-    }
+         }
+      }
 
     
     @DeleteMapping("/api/user/{userId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
      public ResponseEntity<User> deleteUser(@PathVariable int userId) {
     try {
      Optional<User> userOptional = userService.getById(userId);

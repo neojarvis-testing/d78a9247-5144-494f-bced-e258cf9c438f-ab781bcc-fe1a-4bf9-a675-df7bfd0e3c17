@@ -1,79 +1,93 @@
-.container{
-    display: flex;
-    justify-content: space-between;
-    height: 2em;
-    align-items: center;
-   
-}
-*{
-  margin: 0px;
-  padding: 0px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.links{
-    display: flex;
-    
+body {
+  overflow-x: hidden;
 }
 
-.container {
-    background: linear-gradient(to right, blue, green);
-     padding: 20px;
-     color: white;
+.container-fluid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 3.5em;
+  background: linear-gradient(to right, blue, green);
+  padding: 20px;
+  color: white;
+  width: 100%;
+}
+
+.links {
+  display: flex;
+  gap: 2em;
+  cursor: pointer;
 }
 
 /* Center the form on the screen */
 .registrationForm {
-    margin-top: 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 3em;
-    
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3em;
+}
+
+.form-container {
+  background: white;
+  padding: 15px; /* Reduced padding */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px; /* Maximum width for the form */
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 15px; /* Reduced margin */
+}
+
+.form-group {
+  margin-bottom: 10px; /* Reduced margin */
+}
+
+.form-control {
+  width: 100%; /* Adjusted width */
+  padding: 8px; /* Reduced padding */
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.btn-primary {
+  width: 50%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn-primary:disabled {
+  background-color: #cccccc;
+}
+
+.text-danger {
+  color: red;
+  font-size: 0.875em;
+}
+
+.centered-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 25%; 
   
-  .form-container {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px; /* Maximum width for the form */
-  }
-  
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-control {
-    width: 95%;
-    padding: 10px;
-    margin-top: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-  }
-  
-  .btn-primary {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .btn-primary:disabled {
-    background-color: #cccccc;
-  }
-  
-  .text-danger {
-    color: red;
-    font-size: 0.875em;
-  }
-  
+}
+
+.card {
+  border: none;
+}

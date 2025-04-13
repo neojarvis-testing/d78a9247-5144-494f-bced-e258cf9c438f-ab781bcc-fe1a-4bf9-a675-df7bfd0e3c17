@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class RegistrationComponent implements OnInit {
   registerForm: FormGroup;
+  registrationSuccess:boolean = false
 
   constructor(private fb: FormBuilder, private authService: AuthService) {}
 
@@ -36,6 +37,7 @@ onSubmit(): void {
      response => {
     console.log('User registered successfully', response);
     this.registerForm.reset();
+    this.registrationSuccess = true
    },
    error => {
    console.error('Registration failed', error);
