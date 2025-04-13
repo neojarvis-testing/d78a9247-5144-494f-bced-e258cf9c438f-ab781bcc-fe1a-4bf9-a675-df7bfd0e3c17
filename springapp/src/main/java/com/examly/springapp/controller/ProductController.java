@@ -29,7 +29,7 @@ public class ProductController {
 
     // Add a new product (POST, ADMIN)
     @PostMapping
-    // @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> addProduct(@RequestBody Product product,String base64Image) {
         Product createdProduct = productService.addProduct(product,base64Image);
         return ResponseEntity.status(201).body(createdProduct);
@@ -37,7 +37,7 @@ public class ProductController {
 
     // Update an existing product by ID (PUT, ADMIN)
     @PutMapping("/{id}")
-    
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> updateProduct(
             @PathVariable Long id,
             @RequestBody Product product) {
@@ -88,7 +88,7 @@ public class ProductController {
 
     // Get products by User ID (GET, ADMIN, USER)
     @GetMapping("/user/{userId}")
-   
+    @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<?> getProductsByUserId(@PathVariable Long userId) {
         List<Product> products = productService.getProductsByUserId(userId);
         if (products.isEmpty()) {
