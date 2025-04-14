@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Product } from '../models/product.model';
+import { Global } from '../resources/global';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
   
-  public baseUrl : string = "https://ide-ffdfacdaffdcdebdeaffeeddabbccfeabfadfbfdec.premiumproject.examly.io/proxy/8080";
+  public baseUrl : string = Global.apiUrl;
 
   private cartSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   public cart$: Observable<any[]> = this.cartSubject.asObservable();

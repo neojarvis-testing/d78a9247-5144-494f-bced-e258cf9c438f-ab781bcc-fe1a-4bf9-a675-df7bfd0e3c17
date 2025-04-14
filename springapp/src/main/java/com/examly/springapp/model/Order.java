@@ -37,7 +37,7 @@ public class Order {
     private Long orderId;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
 

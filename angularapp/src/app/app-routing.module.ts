@@ -14,23 +14,29 @@ import { AdminviewordersComponent } from './components/adminvieworders/adminview
 import { AdminviewfeedbackComponent } from './components/adminviewfeedback/adminviewfeedback.component';
 import { AdminviewuserdetailsComponent } from './components/adminviewuserdetails/adminviewuserdetails.component';
 import { UseraddcartComponent } from './components/useraddcart/useraddcart.component';
+import { AdminAuthGuard } from './admin-auth.guard';
+import { UserAuthGuard } from './user-auth.guard';
+import { UseraddfeedbackComponent } from './components/useraddfeedback/useraddfeedback.component';
  
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
  
  
-  { path: 'userNavbar' ,component: UsernavbarComponent ,
+  { path: 'userNavBar' ,component: UsernavbarComponent ,
+  canActivate: [UserAuthGuard], 
   children: [
     { path: 'home', component: HomeComponent },
     {path:'cart', component:UseraddcartComponent},
     { path: 'userviewproduct', component: UserviewproductComponent },
     { path: 'userviewfeedback', component: UserviewfeedbackComponent },
+    { path: 'useraddfeedback', component: UseraddfeedbackComponent},
     { path: 'uservieworders', component: UserviewordersComponent },
-    {path: '', redirectTo:'/userNavbar/home', pathMatch:'full'}]
+    {path: '', redirectTo:'/userNavBar/home', pathMatch:'full'}]
   },
-  {path:'adminNavbar',
+  {path:'adminNavBar',
   component: AdminnavbarComponent,
+  canActivate: [AdminAuthGuard], 
    children: [
     { path: 'addProduct', component: AdminaddproductComponent },
     { path: 'adminViewProduct', component: AdminviewproductComponent },
@@ -38,7 +44,7 @@ const routes: Routes = [
     {path:'home', component:HomeComponent},
     {path:'adminFeedback', component:AdminviewfeedbackComponent},
     {path:'adminViewUserDetails', component:AdminviewuserdetailsComponent},
-    {path:'', redirectTo:'/adminNavbar/home', pathMatch:'full'}
+    {path:'', redirectTo:'/adminNavBar/home', pathMatch:'full'}
     ],
   },
   {path:'**', component:LoginComponent}

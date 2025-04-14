@@ -4,26 +4,25 @@ import { Router } from '@angular/router';
 
 import { User } from '../models/user.model';
 import { Login } from '../models/login.model';
+import { Global } from '../resources/global';
  
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private baseUrl = 'https://ide-eacbeacfbbbdeaffeeddabbccfeabfadfbfdec.premiumproject.examly.io/proxy/8080/api';
- 
+  private baseUrl:string = Global.apiUrl;
 
   constructor(private http: HttpClient, private router: Router) {}
  
   register(user: User) {
-    return this.http.post(`${this.baseUrl}/register`, user);
+    return this.http.post(`${this.baseUrl}/api/register`, user);
   }
-
 
   
   login(login: Login) {
 
-    this.http.post<{ token: string; userRole: string; username:string; userId:number}>(`${this.baseUrl}/login`, login).subscribe(
+    this.http.post<{ token: string; userRole: string; username:string; userId:number}>(`${this.baseUrl}/api/login`, login).subscribe(
         response => {
           console.log(response)
             const { token, userRole, username, userId } = response;
@@ -37,9 +36,9 @@ export class AuthService {
 
             // Navigate based on user role
             if (userRole == 'ADMIN') {
-                this.router.navigate(['/adminNavbar']); // Navigate to adminnavbar
+                this.router.navigate(['/adminNavBar']); // Navigate to adminnavbar
             } else if (userRole == 'USER') {
-                this.router.navigate(['/userNavbar']); // Navigate to usernavbar
+                this.router.navigate(['/userNavBar']); // Navigate to usernavbar
             }
         },
         error => {
