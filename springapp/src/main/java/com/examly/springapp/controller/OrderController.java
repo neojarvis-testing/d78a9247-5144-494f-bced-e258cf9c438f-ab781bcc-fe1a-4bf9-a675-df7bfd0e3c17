@@ -1,7 +1,7 @@
 package com.examly.springapp.controller;
-
+ 
 import java.util.List;
-
+ 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,17 +15,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.CrossOrigin; 
 import com.examly.springapp.model.Order;
 import com.examly.springapp.service.OrderService;
-
+ 
 @RestController
 @RequestMapping("/api/orders")
 @CrossOrigin(allowedHeaders="*", origins="*")
 public class OrderController {
     @Autowired
     private OrderService orderService;
-
+ 
     // Add Order (USER Role)
     @PostMapping
     @PreAuthorize("hasAuthority('USER')")
@@ -37,10 +37,11 @@ public class OrderController {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }
-
+ 
     // View Order by ID (USER Role)
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('USER')")
+
     public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
         try {
             Order order = orderService.getOrderById(id);
@@ -51,7 +52,7 @@ public class OrderController {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }
-
+ 
     // Update Order (ADMIN Role)
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -69,7 +70,7 @@ public class OrderController {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }
-
+ 
     // Delete Order (ADMIN Role)
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -83,8 +84,8 @@ public class OrderController {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }
-
-    
+ 
+   
     @GetMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<Order>> getAllOrders() {
@@ -95,7 +96,7 @@ public class OrderController {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }
-
+ 
     // Get Orders by User ID (USER Role)
     @GetMapping("/user/{userId}")
     @PreAuthorize("hasAuthority('USER')")
@@ -110,3 +111,4 @@ public class OrderController {
         }
     }
 }
+ 

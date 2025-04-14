@@ -27,6 +27,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductCartComponent } from './components/product-cart/product-cart.component';
 import { AuthInterceptor } from './services/interceptor.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,6 @@ import { AuthInterceptor } from './services/interceptor.service';
     HomeComponent,
     LoginComponent,
     NavbarComponent,
-
     RegistrationComponent,
     UseraddcartComponent,
     UseraddfeedbackComponent,
@@ -49,10 +49,8 @@ import { AuthInterceptor } from './services/interceptor.service';
     UserviewproductComponent,
     UsernavbarComponent,
     UserviewfeedbackComponent,
-    AuthguardComponent,
-    ProductCartComponent
-
-
+    AuthguardComponent
+ 
   ],
   imports: [
     BrowserModule,
