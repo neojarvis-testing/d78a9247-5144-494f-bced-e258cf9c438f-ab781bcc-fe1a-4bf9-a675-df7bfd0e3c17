@@ -25,7 +25,6 @@ import { UserviewfeedbackComponent } from './components/userviewfeedback/uservie
 import { AuthguardComponent } from './components/authguard/authguard.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProductCartComponent } from './components/product-cart/product-cart.component';
 import { AuthInterceptor } from './services/interceptor.service';
 
 @NgModule({

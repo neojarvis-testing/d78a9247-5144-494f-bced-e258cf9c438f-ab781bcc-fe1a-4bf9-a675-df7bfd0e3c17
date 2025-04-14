@@ -5,6 +5,17 @@
 
   }
   
+.product-list {
+     color: black; /* Apply black color to all text within the product list */
+}
+    
+    .product-list .product h2,
+    .product-list .product p,
+    .product-list .product button {
+     color: black; /* Ensure buttons and other elements also have black text */
+}
+    
+  
   .product {
  border: 1px solid #ccc;
  padding: 16px;

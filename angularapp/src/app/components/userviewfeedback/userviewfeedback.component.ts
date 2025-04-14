@@ -13,7 +13,7 @@ export class UserviewfeedbackComponent implements OnInit {
   feedbacks: Feedback[] = [];
   selectedFeedback: Feedback | null = null;
   feedbackToDelete: Feedback | null = null;
-  userId: number | null = 3;  // dummy Id
+  userId: number | null = 2;  // dummy Id
   user : User;
 
   constructor(private feedbackService: FeedbackService) { }
