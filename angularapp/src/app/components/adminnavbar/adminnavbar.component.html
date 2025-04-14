@@ -13,24 +13,24 @@
             <div class="admin-section">
                 <nav>
                     <ul>
-                        <li style="cursor: pointer;">{{username}} / ADMIN</li>
-                        <li routerLink="/adminNavbar/home" style="cursor: pointer;"><a>Home</a></li>
+                        <li class="nav-item"  style="cursor: pointer;color:white">{{username}} / ADMIN</li>
+                        <li  class="nav-item" routerLink="/adminNavbar/home" style="cursor: pointer;"><a>Home</a></li>
                         
-                        <li class="dropdown">
+                        <li class="dropdown nav-item dropdown">
                             
-                            <a style="cursor: pointer;">Products</a>
+                            <a  class="nav-link dropdown-toggle" style="cursor: pointer;">Products</a>
                             
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu aria-labelledby=navbarDropdownMenuLink">
                                 
                                 <li style="cursor: pointer;"><a routerLink="/adminNavbar/addProduct">Add Product</a></li>
                                 <li><a routerLink="/adminNavbar/adminViewProduct" style="cursor: pointer;">View Product</a></li>
                             </ul>
                         </li>
                         
-                        <li routerLink="/adminNavbar/adminViewOrders" style="cursor: pointer;"><a >Requested Orders</a></li>
-                        <li style="cursor: pointer;" routerLink="/adminNavbar/adminFeedback"><a >Feedbacks</a></li>
-                        <li style="cursor: pointer;" routerLink="/adminNavbar/adminViewUserDetails"><a >Users</a></li>
-                        <li><a class="logout" style="cursor: pointer;" (click)="logout()">Logout</a></li>
+                        <li class="nav-item" routerLink="/adminNavbar/adminViewOrders" style="cursor: pointer;"><a class="nav-link">Requested Orders</a></li>
+                        <li class="nav-item" style="cursor: pointer;" routerLink="/adminNavbar/adminFeedback"><a class="nav-link" >Feedbacks</a></li>
+                        <li class="nav-item" style="cursor: pointer;" routerLink="/adminNavbar/adminViewUserDetails"><a class="nav-link" >Users</a></li>
+                        <li class="nav-item" ><a class="logout nav-link" style="cursor: pointer;" (click)="logout()">Logout</a></li>
                     </ul>
                 </nav>
                 
