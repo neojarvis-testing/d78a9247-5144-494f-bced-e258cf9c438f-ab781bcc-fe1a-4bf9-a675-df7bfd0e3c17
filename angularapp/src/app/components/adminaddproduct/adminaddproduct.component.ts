@@ -20,17 +20,36 @@ export class AdminaddproductComponent implements OnInit {
     this.productForm = this.fb.group({
       name: this.fb.control('', Validators.required),
       description: this.fb.control('', Validators.required),
-      price: this.fb.control('', Validators.required),
-      stock: this.fb.control('', Validators.required),
+      price: this.fb.control('', [Validators.required, Validators.min(0)]),
+      stock: this.fb.control('', [Validators.required, Validators.min(0)]),
       category: this.fb.control('', Validators.required),
       productImage : this.fb.control('')
     });
   }
 
-  handleFileChange(event:any){
+  // handleFileChange(event:any){
+  //   let file = event.target.files[0];
+  //   this.productForm.patchValue({productImage:file});
+  // }
+
+  handleFileChange(event: any) {
     let file = event.target.files[0];
-    this.productForm.patchValue({productImage:file});
+  
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+  
+      reader.onload = () => {
+        this.productForm.patchValue({ productImage: reader.result });
+        console.log(reader.result);
+      };
+  
+      reader.onerror = (error) => {
+        console.error("Error converting file to Base64:", error);
+      };
+    }
   }
+  
 
   addProduct(){
     if(this.productForm.valid){
@@ -38,6 +57,7 @@ export class AdminaddproductComponent implements OnInit {
       this.productService.addProduct(this.productForm.value).subscribe(data=>{
         this.successMessage = "Product added successfully!"
         this.productForm.reset();
+        this.showPopup = true; // Show popup
       })
     }else{
       alert("Failed to add product");
@@ -45,7 +65,7 @@ export class AdminaddproductComponent implements OnInit {
   }
  
   closePopUp(){
-    this.successMessage = '';
+    this.showPopup = false; // Hide popup
   }
  
  
