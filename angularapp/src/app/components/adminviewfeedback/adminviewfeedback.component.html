@@ -12,6 +12,7 @@
         <th>User Name</th>
         <th>Feedback</th>
         <th>Rating</th>
+        <th>Product</th> <!-- Add Product column -->
         <th>Action</th>
       </tr>
     </thead>
@@ -21,6 +22,7 @@
         <td>{{ feedback.user.username }}</td>
         <td>{{ feedback.message }}</td>
         <td>{{ feedback.rating }}</td>
+        <!-- <td>{{ feedback.productName }}</td> Display Product Name -->
         <td>
           <button (click)="triggerDelete(feedback.feedbackId)">Delete</button>
           <button (click)="showProfile(feedback.user)">Show Profile</button>

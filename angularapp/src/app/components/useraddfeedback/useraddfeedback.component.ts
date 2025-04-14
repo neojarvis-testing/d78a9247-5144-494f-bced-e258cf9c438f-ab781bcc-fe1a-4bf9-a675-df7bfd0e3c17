@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Feedback } from 'src/app/models/feedback.model';
+import { Product } from 'src/app/models/product.model';
 import { FeedbackService } from 'src/app/services/feedback.service';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-useraddfeedback',
@@ -9,12 +11,15 @@ import { FeedbackService } from 'src/app/services/feedback.service';
   styleUrls: ['./useraddfeedback.component.css']
 })
 export class UseraddfeedbackComponent implements OnInit {
+
+  products: Product[] = [];
+  selectedProduct: Product;
   feedbackText: string = '';
   rating: number = 5; // Default rating value, adjust as needed
   popupMessage: string | null = null;
   userId: number;
 
-  constructor(private feedbackService: FeedbackService) {}
+  constructor(private feedbackService: FeedbackService, private productService: ProductService) {}
 
   ngOnInit(): void {
     const userId = localStorage.getItem('userId');
@@ -23,6 +28,11 @@ export class UseraddfeedbackComponent implements OnInit {
     } else {
       console.error('User ID not found in local storage.');
     }
+
+    // Fetch product list from the server
+    this.productService.getProducts().subscribe(data => {
+      this.products = data;
+    });
   }
 
   submitFeedback(fm: NgForm): void {
@@ -40,7 +50,8 @@ export class UseraddfeedbackComponent implements OnInit {
       user: {
         userId: this.userId
       },
-      rating: this.rating
+      rating: this.rating,
+      product: this.selectedProduct // Include the selected product
     };
 
     this.feedbackService.createFeedback(feedback).subscribe(
