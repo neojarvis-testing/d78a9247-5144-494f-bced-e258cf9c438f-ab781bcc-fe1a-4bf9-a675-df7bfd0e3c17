@@ -25,7 +25,7 @@ import { UserviewfeedbackComponent } from './components/userviewfeedback/uservie
 import { AuthguardComponent } from './components/authguard/authguard.component';
 import {HttpClientModule} from '@angular/common/http'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProductCartComponent } from './components/product-cart/product-cart.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,8 +48,8 @@ import { ProductCartComponent } from './components/product-cart/product-cart.com
     UserviewproductComponent,
     UsernavbarComponent,
     UserviewfeedbackComponent,
-    AuthguardComponent,
-    ProductCartComponent
+    AuthguardComponent
+   
 
 
   ],

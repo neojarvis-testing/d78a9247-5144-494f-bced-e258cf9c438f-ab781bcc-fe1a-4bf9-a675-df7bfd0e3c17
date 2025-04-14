@@ -1,10 +1,40 @@
-<div class="cart-list">
-    <div *ngFor="let item of cart" class="cart-item">
-      <h2>{{ item.name }}</h2>
-      <p>{{ item.description }}</p>
-      <p><b>Category:</b> {{ item.category }}</p>
-      <p><b>Price:</b> ${{ item.price }}</p>
-      <p><b>Quantity:</b> {{item.quantity}}</p>
-    </div>
+<div class="cart-summary" *ngIf="cart.length > 0">
+  <h2>Your Cart</h2>
+  <ul>
+    <li *ngFor="let item of cart" class="cart-item">
+      <div class="item-image">
+        <img [src]="item.image" alt="{{ item.name }}" />
+      </div>
+      <div class="item-details">
+        <h3>{{ item.name }}</h3>
+        <p>Price: ₹{{ item.price }}</p>
+        <div class="quantity-container">
+          <p>Quantity:</p>
+          <button (click)="decreaseQuantity(item)">-</button>
+          <span>{{ item.quantity }}</span>
+          <button (click)="increaseQuantity(item)">+</button>
+        </div>
+        <p>Total: ₹{{ calculateTotal(item.price, item.quantity) }}</p>
+        <button (click)="removeFromCart(item)">Remove</button>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div class="summary-container">
+  <h3>Summary</h3>
+  <p>Subtotal: ₹{{ getSubtotal() }}</p>
+  <p>GST Total: ₹{{ getGST() }}</p>
+  <p>Delivery Charge: ₹{{ getDeliveryCharge() }}</p>
+  <p><strong>Grand Total: ₹{{ getGrandTotal() }}</strong></p>
+  <div>
+    <label for="shippingAddress">Shipping Address:</label>
+    <textarea id="shippingAddress" [(ngModel)]="shippingAddress" required></textarea>
   </div>
-  
+  <button (click)="placeOrder()">Place Order</button>
+  <p *ngIf="addressError" class="error-message">Error: Shipping address is required</p>
+</div>
+
+<div *ngIf="orderPlaced" class="order-popup">
+  Order placed successfully!
+</div>
