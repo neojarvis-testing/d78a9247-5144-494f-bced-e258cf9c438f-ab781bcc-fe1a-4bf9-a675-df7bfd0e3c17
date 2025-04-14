@@ -28,7 +28,7 @@ public class OrderController {
  
     // Add Order (USER Role)
     @PostMapping
-    // @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<?> addOrder(@RequestBody Order order) {
         try {
             Order createdOrder = orderService.addOrder(order);
@@ -40,7 +40,8 @@ public class OrderController {
  
     // View Order by ID (USER Role)
     @GetMapping("/{id}")
-    // @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('USER')")
+
     public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
         try {
             Order order = orderService.getOrderById(id);
@@ -54,7 +55,7 @@ public class OrderController {
  
     // Update Order (ADMIN Role)
     @PutMapping("/{id}")
-    // @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Order> updateOrder(@PathVariable Long id, @RequestBody Order order) {
         try {
             Order existingOrder = orderService.getOrderById(id);
@@ -72,7 +73,7 @@ public class OrderController {
  
     // Delete Order (ADMIN Role)
     @DeleteMapping("/{id}")
-    // @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
         try {
             orderService.deleteOrder(id);
@@ -86,7 +87,7 @@ public class OrderController {
  
    
     @GetMapping
-    // @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<Order>> getAllOrders() {
         try {
             List<Order> orders = orderService.getAllOrders();
@@ -98,7 +99,7 @@ public class OrderController {
  
     // Get Orders by User ID (USER Role)
     @GetMapping("/user/{userId}")
-    // @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<List<Order>> getOrdersByUserId(@PathVariable Long userId) {
         try {
             List<Order> orders = orderService.getOrdersByUserId(userId);

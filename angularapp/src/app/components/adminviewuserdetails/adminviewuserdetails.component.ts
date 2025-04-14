@@ -11,7 +11,7 @@ import { Router } from '@angular/router'; // Import Router for navigation
 export class AdminviewuserdetailsComponent implements OnInit {
 
   users: User[] = [];
-  loggedInUserId: number; // Store the logged-in user's ID
+  loggedInUserId: number; // Store the logged-in user's ID  
 
   constructor(private userService: UserService, private router: Router) { }
 

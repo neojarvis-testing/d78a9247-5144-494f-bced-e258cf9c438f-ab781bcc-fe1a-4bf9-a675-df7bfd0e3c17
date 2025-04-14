@@ -35,11 +35,17 @@ public class OrderServiceImpl implements OrderService{
         }
     }
 
+    
     @Override
     public Order getOrderById(Long orderId) {
-        Optional<Order> order = orderRepo.findById(orderId); // Find the order by its ID
-        return order.orElseThrow(() -> new IllegalArgumentException("Order not found."));
+     Optional<Order> order = orderRepo.findById(orderId); // Find the order by its ID
+        if (order.isPresent()) {
+        return order.get();
+     } else {
+        throw new IllegalArgumentException("Order not found for ID: " + orderId);
+        }
     }
+
 
     @Override
     public List<Order> getOrdersByUser(int userId) {

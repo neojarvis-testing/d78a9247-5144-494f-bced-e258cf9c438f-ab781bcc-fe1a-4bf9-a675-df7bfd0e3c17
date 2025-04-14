@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Global } from '../resources/global';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class UserService {
 
   constructor(private httpClient:HttpClient) { }
   
-  public apiUrl = "https://ide-ffdfacdaffdcdebdeaffeeddabbccfeabfadfbfdec.premiumproject.examly.io/proxy/8080/api/user"
+  public apiUrl = Global.apiUrl + "/api/user"
 
   public getAllUsers():Observable<any>{
     return this.httpClient.get(this.apiUrl);

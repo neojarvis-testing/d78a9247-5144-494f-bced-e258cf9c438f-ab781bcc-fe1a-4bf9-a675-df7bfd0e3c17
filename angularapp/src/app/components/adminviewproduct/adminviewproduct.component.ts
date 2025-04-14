@@ -17,14 +17,18 @@ export class AdminviewproductComponent implements OnInit {
   filteredProducts: any[] = [];
   categories: string[] = [];
   selectedCategory: string = 'All';
+  successMessage: string = "";  // Success message for popup
+  showPopup: boolean = false;  // Controls popup visibility
+  showConfirmPopup : boolean = false;
+  
 
   constructor(private productService: ProductService, private router: Router, private activateRoute : ActivatedRoute, private fb : FormBuilder) {
 
     this.productForm = this.fb.group({
       name: this.fb.control('', Validators.required),
       description: this.fb.control('', Validators.required),
-      price: this.fb.control('', Validators.required),
-      stock: this.fb.control('', Validators.required),
+      price: this.fb.control('', [Validators.required, Validators.min(0)]),
+      stock: this.fb.control('', [Validators.required, Validators.min(0)]),
       category: this.fb.control('', Validators.required),
       productImage : this.fb.control('')
     });
@@ -38,7 +42,17 @@ export class AdminviewproductComponent implements OnInit {
   getProducts(): void {
     this.productService.getProducts().subscribe(data => {
       this.products = data;
+      this.filteredProducts = data; // Initialize filtered products
+      this.categories = [...new Set(this.products.map(p => p.category))]; // Extract unique categories
     });
+  }
+
+  filterProducts(): void {
+    if (this.selectedCategory === 'All') {
+      this.filteredProducts = this.products;
+    } else {
+      this.filteredProducts = this.products.filter(p => p.category === this.selectedCategory);
+    }
   }
 
   // Fetch product details and populate the form
@@ -51,13 +65,13 @@ export class AdminviewproductComponent implements OnInit {
   }
 
   
+  // Update product with popup message
   updateProduct(): void {
     if (this.productForm.valid) {
-      console.log(this.productForm.value)
       this.productService.updateProduct(this.selectedProductId!, this.productForm.value)
         .subscribe((data) => {
-          console.log(data)
-          alert('Product updated successfully!');
+          this.successMessage = "Product updated successfully!";
+          this.showPopup = true;  // Show popup
           this.isEditing = false;
           this.getProducts();
         });
@@ -65,25 +79,38 @@ export class AdminviewproductComponent implements OnInit {
   }
 
   deleteProduct(productId: number): void {
-    if (confirm('Are you sure you want to delete this product?')) {
-
-      this.productService.deleteProduct(productId).subscribe({
+    this.successMessage = "Are you sure you want to delete this product?";
+    this.showConfirmPopup = true; // Show confirmation popup
+    this.selectedProductId = productId; // Store product ID temporarily
+  }
+  
+  confirmDelete(): void {
+    if (this.selectedProductId !== null) {
+      this.productService.deleteProduct(this.selectedProductId).subscribe({
         next: () => {
-          alert('Product deleted successfully!');
-          this.products = this.products.filter(product => product.id !== productId);
+          this.successMessage = "Product deleted successfully!";
+          this.showPopup = true; // Show success popup
+          this.products = this.products.filter(product => product.id !== this.selectedProductId);
           this.getProducts();
+          this.showConfirmPopup = false; // Hide confirmation popup
         },
-        error: (error) => {
-          console.error('Error deleting product:', error);
-          alert('Failed to delete product. Please try again.');
+        error: () => {
+          this.successMessage = "Failed to delete product. Please try again.";
+          this.showPopup = true; // Show error popup
+          this.showConfirmPopup = false; // Hide confirmation popup
         }
-
       });
     }
   }
   
-  
-  cancelEdit(): void {
-    this.isEditing = false;
+  closePopup(): void {
+    this.showPopup = false;
   }
+  
+  cancelDelete(): void {
+    this.showConfirmPopup = false; // Hide confirmation popup
+  }
+  
 }
+
+

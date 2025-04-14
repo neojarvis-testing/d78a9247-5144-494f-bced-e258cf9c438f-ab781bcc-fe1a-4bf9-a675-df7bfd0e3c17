@@ -12,13 +12,19 @@
             <div class="user-section">
                 <nav>
                     <ul>
-                        <li>{{userName}}/ User</li>
-                        <li><a routerLink="/userNavbar/home">Home</a></li>
-                        <li><a routerLink="/userNavbar/userviewproduct">View Products</a></li>
-                        <li><img src="assets/mybag.jpg" alt="Shopping Bag" class="bag-image" routerLink="/userNavbar/cart"></li>
-                        <li><a routerLink="/userNavbar/uservieworders">My Orders</a></li>
-                        <li><a routerLink="/userNavbar/userviewfeedback">Feedbacks</a></li>
-                        <li><a class="logout" routerLink="/logout" (click)="logout()">Logout</a></li>
+                        <li class="nav-link" style="cursor: pointer;color:white">{{userName}}/ User</li>
+                        <li class="nav-link"><a routerLink="/userNavBar/home">Home</a></li>
+                        <li class="nav-link"><a routerLink="/userNavBar/userviewproduct">View Products</a></li>
+                        <li class="nav-link"><img src="assets/mybag.jpg" alt="Shopping Bag" class="bag-image" routerLink="/userNavBar/cart"></li>
+                        <li class="nav-link"><a routerLink="/userNavBar/uservieworders">My Orders</a></li>
+                        <li class="dropdown nav-link">
+                            <a class="nav-link dropdown-toggle" style="cursor: pointer;">Feedbacks</a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-link"><a routerLink="/userNavBar/useraddfeedback">Add Feedback</a></li>
+                                <li class="nav-link"><a routerLink="/userNavBar/userviewfeedback">View Feedback</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-link"><a class="logout" routerLink="/logout" (click)="logout()">Logout</a></li>
                     </ul>
                 </nav>
             </div>

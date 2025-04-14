@@ -14,43 +14,12 @@ table {
     padding: 12px;
   }
   
-  /* Table rows */
-  tbody tr {
-    border-bottom: 1px solid #ddd;
-  }
-  
-  /* Alternate row coloring */
-  tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  /* Hover effect */
-  tbody tr:hover {
-    background-color: #f1f1f1;
-  }
-  
+
   /* Table cells */
   th, td {
     padding: 10px;
     text-align: left;
   }
   
-  /* Actions buttons */
-  button {
-    padding: 5px 10px;
-    border: none;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
   
-  button:hover {
-    background-color: #45a049;
-  }
-  
-  button:active {
-    transform: scale(0.98);
-  }
   

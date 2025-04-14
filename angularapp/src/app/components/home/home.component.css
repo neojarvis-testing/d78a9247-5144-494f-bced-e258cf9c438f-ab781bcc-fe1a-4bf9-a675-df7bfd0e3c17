@@ -2,11 +2,13 @@ body {
     margin: 0;
     background-image: url('/assets/background.jpg');
     background-size: cover;
+    background-color: #000; /* Fallback for unsupported browsers */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
+
 .container {
     background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
     color: white; /* Text color */
@@ -14,12 +16,147 @@ body {
     padding: 20px; /* Padding inside the container */
     text-align: center; /* Centered text */
     border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Add shadow for depth */
+    overflow-y: auto; /* Handle overflow for long content */
+    max-height: 90vh; /* Ensure it doesn't exceed screen height */
 }
+
 .content {
     display: flex; /* Flexbox for layout */
     justify-content: space-between; /* Space around items */
     align-items: center; /* Center items vertically */
 }
-.about, .contact {
-    width: 45%; /* Width for left and right sections */
+
+
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column; /* Stack items vertically */
+        align-items: center;
+    }
+    .about, .contact {
+        width: 100%; /* Full-width for smaller screens */
+        margin-bottom: 20px; /* Add spacing */
+    }
 }
+
+    /* General Page Styling */
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Roboto', sans-serif;
+        color: #333;
+    }
+
+    h2 {
+        color: #007bff; /* Make section titles stand out */
+    }
+
+    /* Carousel Styling */
+    #productCarousel .carousel-inner {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    #productCarousel .card {
+        background-color: #ffffff;
+        border: none;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    #productCarousel .card-title {
+        color: #007bff; /* Make card titles visually striking */
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+
+    #productCarousel .card-text {
+        color: #666;
+        font-size: 1em;
+    }
+
+    /* Indicators Styling */
+    .carousel-indicators button {
+        background-color: #007bff; /* Custom blue color */
+    }
+
+    .carousel-indicators button.active {
+        background-color: #0056b3; /* Slightly darker for active indicator */
+    }
+
+    /* Previous and Next Buttons Styling */
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-color: #007bff; /* Custom background for controls */
+        border-radius: 50%;
+        padding: 10px;
+    }
+
+    .carousel-control-prev-icon:hover,
+    .carousel-control-next-icon:hover {
+        background-color: #0056b3; /* Hover effect for controls */
+    }
+    .about {
+        border-left: 5px solid #007bff; /* Blue border accent */
+    }
+
+    .about h2 {
+        font-family: 'Roboto', sans-serif;
+        font-weight: bold;
+        color: #007bff; /* Bright primary color */
+    }
+
+    .about p {
+        font-family: 'Arial', sans-serif;
+        line-height: 1.8;
+        color: #555; /* Slightly darker text for readability */
+    }
+
+    .about img {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add depth with shadow on the logo */
+        margin-top: 20px;
+    }
+
+    .about .text-success {
+        font-weight: bold; /* Emphasize specific terms */
+    }
+
+    .about .text-danger {
+        font-style: italic;
+    }
+
+    .about .text-info {
+        text-decoration: underline;
+    }
+   
+    /* Contact Us Section Styling */
+    .contact {
+        border-left: 5px solid #007bff; /* Blue accent border */
+    }
+
+    .contact h2 {
+        font-family: 'Roboto', sans-serif;
+        font-weight: bold;
+        color: #007bff; /* Eye-catching title color */
+    }
+
+    .contact-info p {
+        font-family: 'Arial', sans-serif;
+        font-size: 1.2em;
+        color: #555; /* Subtle text color for readability */
+        margin-bottom: 15px;
+    }
+
+    .contact-info a {
+        text-decoration: none;
+        color: #333; /* Links with dark color */
+    }
+
+    .contact-info a:hover {
+        text-decoration: underline;
+        color: #007bff; /* Highlight links on hover */
+    }
+
+
+
+
