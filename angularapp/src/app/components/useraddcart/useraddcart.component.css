@@ -59,3 +59,23 @@
     height: 80px;
   }
   
+  .cart-summary,
+.summary-container,
+.order-popup {
+    color: black; /* Apply black color to all text within these containers */
+}
+
+.cart-summary h2,
+.cart-summary ul,
+.cart-summary li,
+.cart-summary .item-details h3,
+.cart-summary .item-details p,
+.cart-summary .item-details button,
+.summary-container h3,
+.summary-container p,
+.summary-container label,
+.summary-container textarea,
+.summary-container button,
+.order-popup {
+    color: black; /* Ensure all text elements have black color */
+}

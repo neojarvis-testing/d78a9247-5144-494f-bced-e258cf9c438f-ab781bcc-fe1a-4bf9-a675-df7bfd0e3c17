@@ -97,7 +97,7 @@ export class UseraddcartComponent implements OnInit {
       this.orderPlaced = true;
       this.cartService.clearCart();
       this.loadCart();
-      this.router.navigate(['/uservieworders']);
+      this.router.navigate(['/userNavBar/uservieworders']);
     });
   }
 }

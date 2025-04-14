@@ -93,3 +93,18 @@ body {
   .star-rating input[type="radio"]:checked ~ label {
     color: gold;
   }
+
+  
+.container {
+   color: black; /* Apply black color to all text within the container */
+  }
+  
+  .container h2,
+  .container table,
+  .container th,
+  .container td,
+  .container p,
+  .container button {
+   color: black; /* Ensure buttons and other elements also have black text */
+  }
+  

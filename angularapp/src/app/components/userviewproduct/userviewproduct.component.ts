@@ -43,8 +43,8 @@ export class UserviewproductComponent implements OnInit {
  
   addToCart(product: any): void {
     this.cartService.addToCart(product); 
-    this.productService.loadCart(); 
-    this.router.navigate(['/cart']);
+    this.productService.loadCart();
+    this.router.navigate(['/userNavBar/cart'])    
   }
 
 

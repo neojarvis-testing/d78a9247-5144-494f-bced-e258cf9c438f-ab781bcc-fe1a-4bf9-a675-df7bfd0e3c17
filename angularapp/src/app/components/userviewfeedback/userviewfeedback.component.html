@@ -27,31 +27,6 @@
     <p>No data found</p>
   </ng-template>
 
-  <!-- <div *ngIf="selectedFeedback" class="modal">
-    <div class="modal-content">
-      <span class="close" (click)="clearSelection()">&times;</span>
-      <h3>Update Feedback</h3>
-      <form (ngSubmit)="updateFeedback(selectedFeedback)">
-        <div class="form-group">
-          <label for="feedback">Feedback</label>
-          <textarea id="feedback" [(ngModel)]="selectedFeedback.feedback" name="feedback" class="form-control"></textarea>
-        </div>
-        <div class="form-group">
-          <label for="ratings">Rating</label>
-          <div class="star-rating">
-            <ng-container *ngFor="let star of [5, 4, 3, 2, 1]">
-              <input type="radio" id="star{{star}}" [(ngModel)]="selectedFeedback.ratings" name="ratings" [value]="star" />
-              <label for="star{{star}}" title="{{star}} stars">
-                <i class="fa" [ngClass]="{'fa-star': selectedFeedback.ratings >= star, 'fa-star-o': selectedFeedback.ratings < star}"></i>
-              </label>
-            </ng-container>
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Update</button>
-      </form>
-    </div>
-  </div> -->
-
   <div *ngIf="feedbackToDelete" class="modal">
     <div class="modal-content">
       <h3>Are you sure you want to delete this feedback?</h3>

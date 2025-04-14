@@ -3,6 +3,19 @@ body {
 }
 
 .container {
+   color: black; /* Apply black color to all text within the container */
+  }
+  
+  .container h2,
+  .container table,
+  .container th,
+  .container td,
+  .container p,
+  .container button {
+   color: black; /* Ensure buttons and other elements also have black text */
+  
+  }
+.container {
   background-color: rgba(255, 255, 255, 0.9);
   padding: 20px;
   margin: 50px auto;
@@ -33,7 +46,7 @@ input, textarea, select, button {
 
 button {
   background-color: #007BFF;
-  color: white;
+  color: green;
   border: none;
   cursor: pointer;
   border-radius: 5px;
