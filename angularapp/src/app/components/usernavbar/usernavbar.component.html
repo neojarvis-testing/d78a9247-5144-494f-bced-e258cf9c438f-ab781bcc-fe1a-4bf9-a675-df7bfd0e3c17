@@ -12,19 +12,19 @@
             <div class="user-section">
                 <nav>
                     <ul>
-                        <li>{{userName}}/ User</li>
-                        <li><a routerLink="/userNavBar/home">Home</a></li>
-                        <li><a routerLink="/userNavBar/userviewproduct">View Products</a></li>
-                        <li><img src="assets/mybag.jpg" alt="Shopping Bag" class="bag-image" routerLink="/userNavBar/cart"></li>
-                        <li><a routerLink="/userNavBar/uservieworders">My Orders</a></li>
-                        <li class="dropdown">
-                            <a routerLink="/userNavBar/userviewfeedback">Feedbacks</a>
+                        <li class="nav-link" style="cursor: pointer;color:white">{{userName}}/ User</li>
+                        <li class="nav-link"><a routerLink="/userNavBar/home">Home</a></li>
+                        <li class="nav-link"><a routerLink="/userNavBar/userviewproduct">View Products</a></li>
+                        <li class="nav-link"><img src="assets/mybag.jpg" alt="Shopping Bag" class="bag-image" routerLink="/userNavBar/cart"></li>
+                        <li class="nav-link"><a routerLink="/userNavBar/uservieworders">My Orders</a></li>
+                        <li class="dropdown nav-link">
+                            <a class="nav-link dropdown-toggle" style="cursor: pointer;">Feedbacks</a>
                             <ul class="dropdown-menu">
-                                <li><a routerLink="/userNavBar/useraddfeedback">Add Feedback</a></li>
-                                <li><a routerLink="/userNavBar/userviewfeedback">View Feedback</a></li>
+                                <li class="nav-link"><a routerLink="/userNavBar/useraddfeedback">Add Feedback</a></li>
+                                <li class="nav-link"><a routerLink="/userNavBar/userviewfeedback">View Feedback</a></li>
                             </ul>
-                        </li>                        
-                        <li><a class="logout" routerLink="/logout" (click)="logout()">Logout</a></li>
+                        </li>
+                        <li class="nav-link"><a class="logout" routerLink="/logout" (click)="logout()">Logout</a></li>
                     </ul>
                 </nav>
             </div>

@@ -36,6 +36,9 @@
       <div *ngIf="productForm.get('price')?.touched && productForm.get('price')?.invalid" class="error">
         <small>Price is required.</small>
       </div>
+      <div *ngIf="productForm.get('price')?.touched && productForm.get('price')?.errors?.min" class="error">
+        <small>Price cannot be negative.</small>
+      </div>
     </div>
 
     <div>
@@ -43,6 +46,9 @@
       <input id="stock" formControlName="stock" type="number" />
       <div *ngIf="productForm.get('stock')?.touched && productForm.get('stock')?.invalid" class="error">
         <small>Stock is required.</small>
+      </div>
+      <div *ngIf="productForm.get('stock')?.touched && productForm.get('stock')?.errors?.min" class="error">
+        <small>Stock cannot be negative.</small>
       </div>
     </div>
 
@@ -72,9 +78,20 @@
   
   </form>
 
-  <div *ngIf="successMessage" class="alert alert-success mt-4 text-center">
-    <p>{{successMessage}}</p>
-    <button (click)="closePopUp()" class="btn btn-primary btn-sm">OK</button>
+ 
+
+  <div *ngIf="showPopup" class="popup-overlay">
+    <div class="popup">
+      <p>{{ successMessage }}</p>
+      <button (click)="closePopUp()">OK</button>
+    </div>
+  </div>
+  
+  <!-- Wrap form inside a div to control blurring -->
+  <div [class.blurred]="showPopup">
+    <form [formGroup]="productForm" (ngSubmit)="addProduct()">
+      <!-- Your form fields remain unchanged -->
+    </form>
   </div>
 
 

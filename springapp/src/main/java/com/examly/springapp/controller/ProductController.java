@@ -1,7 +1,7 @@
 package com.examly.springapp.controller;
-
+ 
 import java.util.List;
-
+ 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,18 +15,18 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+ 
 import com.examly.springapp.model.Product;
 import com.examly.springapp.service.ProductService;
-
+ 
 @RestController
 @RequestMapping("/api/products")
 @CrossOrigin(allowedHeaders = "*", origins = "*")
 public class ProductController {
-
+ 
     @Autowired
     private ProductService productService;
-
+ 
     // Add a new product (POST, ADMIN)
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -34,7 +34,7 @@ public class ProductController {
         Product createdProduct = productService.addProduct(product,base64Image);
         return ResponseEntity.status(201).body(createdProduct);
     }
-
+ 
     // Update an existing product by ID (PUT, ADMIN)
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -44,26 +44,29 @@ public class ProductController {
         Product updatedProduct = productService.updateProduct(id, product);
         return ResponseEntity.status(200).body(updatedProduct);
     }
-
+ 
     // View product by ID (GET, ADMIN or USER)
     @GetMapping("/{id}")
+
     @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+
     public ResponseEntity<?> getProductById(@PathVariable Long id) {
         Product product = productService.getProductByProductId(id);
         return ResponseEntity.status(200).body(product);
     }
     // Delete a product by ID (DELETE, ADMIN)
     @DeleteMapping("/{id}")
+
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         try {
             productService.deleteProduct(id);
             return ResponseEntity.status(200).body("");
         } catch (RuntimeException e) {
-            return ResponseEntity.status(404).body(e.getMessage());
+            return ResponseEntity.status(404).body("");
         }
     }
-
+ 
     // Get products by category (GET, ADMIN and USER)
     @GetMapping("/category/{category}")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
@@ -74,10 +77,12 @@ public class ProductController {
         }
         return ResponseEntity.status(200).body(products);
     }
-
+ 
     // View all products (GET, ADMIN and USER)
     @GetMapping
+
     @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+
     public ResponseEntity<?> viewAllProducts() {
         List<Product> products = productService.getAllProducts();
         if (products.isEmpty()) {
@@ -85,9 +90,10 @@ public class ProductController {
         }
         return ResponseEntity.status(200).body(products);
     }
-
+ 
     // Get products by User ID (GET, ADMIN, USER)
     @GetMapping("/user/{userId}")
+
     @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     public ResponseEntity<?> getProductsByUserId(@PathVariable Long userId) {
         List<Product> products = productService.getProductsByUserId(userId);
@@ -96,5 +102,5 @@ public class ProductController {
         }
         return ResponseEntity.status(200).body(products); // Return list of products
     }
-
+ 
 }

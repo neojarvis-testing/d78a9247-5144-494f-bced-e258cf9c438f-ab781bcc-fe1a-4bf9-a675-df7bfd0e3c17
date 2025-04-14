@@ -1,26 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Smart Mart</title>
-   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </head>
+
 <body>
     <div class="container">
-        <h1>Welcome to SMART MART</h1>
-        <div class="content">
-            <div class="about">
-                <h2>About Us</h2>
-                <p>We provide top-notch vehicle services for all your needs. Trust us with your vehicle.</p>
+        <!-- Header -->
+        <h1 class="text-center my-4">Welcome to SMART MART</h1>
+        <!-- Product Carousel Section -->
+        <div class="container my-5">
+            <h2 class="text-center mb-4">Our Products</h2>
+            <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+                <!-- Indicators -->
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Electronics"></button>
+                    <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="1"
+                        aria-label="Books"></button>
+                    <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="2"
+                        aria-label="Furniture"></button>
+                    <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="3"
+                        aria-label="Groceries"></button>
+                    <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="4"
+                        aria-label="Clothing"></button>
+                </div>
+
+                <!-- Carousel Items -->
+                <div class="carousel-inner">
+                    <!-- Electronics Card -->
+                    <div class="carousel-item active">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h5 class="card-title">Electronics</h5>
+                                <p class="card-text">Discover the latest gadgets, devices, and innovative electronics!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Books Card -->
+                    <div class="carousel-item">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h5 class="card-title">Books</h5>
+                                <p class="card-text">Dive into captivating stories and educational reads.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Furniture Card -->
+                    <div class="carousel-item">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h5 class="card-title">Furniture</h5>
+                                <p class="card-text">Beautify your home with stylish and durable furniture.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Groceries Card -->
+                    <div class="carousel-item">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h5 class="card-title">Groceries</h5>
+                                <p class="card-text">Fresh produce and daily essentials at unbeatable prices.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Clothing Card -->
+                    <div class="carousel-item">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h5 class="card-title">Clothing</h5>
+                                <p class="card-text">Trendy and comfortable outfits for all occasions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#productCarousel"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
-            <div class="contact">
-                <h2>Contact Us</h2>
-                <p>Email: support@example.com</p>
-                <p>Phone: 1-234-567-890</p>
-                <p>Address: 123 Main St, City, Country</p>
+        </div>
+
+
+
+
+        <!-- About Us Section -->
+        <!-- About Us Section -->
+        <div class="about mb-5 p-4 bg-light rounded shadow-sm">
+            <h2 class="text-center text-primary mb-4">About Us</h2>
+            <p class="text-justify lead">
+                At <strong>Smart Mart</strong>, we bring you everything you need under one roof—from daily essentials
+                and fresh groceries to trendy apparel and cutting-edge gadgets.
+                Our goal is to make shopping <span class="text-success">fast</span>, <span
+                    class="text-danger">affordable</span>, and <span class="text-info">rewarding</span>, whether you're
+                visiting us in-store or online.
+                With unbeatable prices and quality products, we are your trusted shopping partner.
+            </p>
+            
+        </div>
+
+
+        <!-- Contact Us Section -->
+        <div class="contact text-center bg-light p-4 rounded shadow-sm mb-5">
+            <h2 class="text-primary mb-4">Contact Us</h2>
+            <div class="contact-info">
+                <p><strong>Email:</strong> <a href="mailto:support@example.com" class="text-dark">support@example.com</a></p>
+                <p><strong>Phone:</strong> <a href="tel:1234567890" class="text-dark">1-234-567-890</a></p>
+                <p><strong>Address:</strong> 123 Main St, City, Country</p>
             </div>
+        </div>
+        
+
+        <!-- Map Section -->
+        <div class="map mb-5">
+            <h2>Our Location</h2>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3906.3880715211185!2d79.07597437318591!3d11.737687540732027!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bab5c451dcb947b%3A0xf4d8e3a7f0e5ce9d!2sGOKUL%20SUPER%20MARKET!5e0!3m2!1sen!2sin!4v1744526802447!5m2!1sen!2sin"
+                width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
+            </iframe>
         </div>
     </div>
 </body>
+
 </html>
