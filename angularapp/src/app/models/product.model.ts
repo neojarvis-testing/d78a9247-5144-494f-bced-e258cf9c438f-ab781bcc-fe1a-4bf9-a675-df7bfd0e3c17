@@ -8,7 +8,7 @@ export interface Product {
     price : number;
     stock : number;
     category : string;
-    photoImage ?: string;
+    productImage ?: string;
     createdAt : Date;
     updatedAt : Date;
     user : User;

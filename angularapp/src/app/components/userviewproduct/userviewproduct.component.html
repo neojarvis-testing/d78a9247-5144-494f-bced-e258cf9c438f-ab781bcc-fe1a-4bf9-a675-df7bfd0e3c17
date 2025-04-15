@@ -1,10 +1,29 @@
 <div class="product-list">
+  <!-- Dropdown for category filtering -->
+  <label for="categoryFilter">Filter by Category:</label>
+  <select id="categoryFilter" [(ngModel)]="selectedCategory" (change)="filterProducts()">
+    <option value="All">All</option>
+    <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+  </select>
   <div *ngFor="let product of products" class="product">
+    <img [src]="product.productImage" alt="{{ product.name }}" class="product-image">
     <h2>{{ product.name }}</h2>
     <p>{{ product.description }}</p>
     <p><b>Category:</b> {{ product.category }}</p>
     <p><b>Price:</b> ${{ product.price }}</p>
     <p><b>Stock:</b> {{ product.stock }}</p>
+
+    <!-- Wishlist Button with Heart Icon -->
+    <!-- <button (click)="toggleWishlist(product)" class="wishlist-btn">
+      <span [class.liked]="isInWishlist(product)" style="color:red">❤</span> 
+    </button> -->
+
+    <button (click)="addToWishlist(product)">
+      <span [class.liked]="isInWishlist(product.id)">❤</span> 
+      {{ isInWishlist(product.id) ? 'Remove from Wishlist' : 'Add to Wishlist' }}
+    </button>
+    
+    
     <button (click)="addToCart(product)">Add to Cart</button>
     <div *ngIf="isInCart(product)">
       <button (click)="increaseQuantity(product)">+</button>
