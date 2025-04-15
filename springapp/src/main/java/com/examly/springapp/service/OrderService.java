@@ -29,6 +29,6 @@ public interface OrderService {
    
     List<Order> getOrdersByUserId(Long userId);
 
-    Order updateOrderStatus(Long orderId, OrderStatus status);
+    Order updateOrder (Long id , Order orderDetails);
     
 } 
