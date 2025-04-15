@@ -46,7 +46,9 @@ public class SecurityConfig {
                                             authorizeHttpRequest
                                                 .requestMatchers("/api/register",
                                                                 "/api/login",
-                                                                "/api/update-password"
+                                                                "/api/update-password",
+                                                                "/api/send-otp",
+                                                                "/api/verify-otp"
                                                                 ).permitAll()
                                                 
                                                 .anyRequest().authenticated()
