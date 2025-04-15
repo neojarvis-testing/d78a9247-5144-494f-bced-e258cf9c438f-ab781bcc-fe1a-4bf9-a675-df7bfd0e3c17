@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import com.examly.springapp.model.Order;
 import com.examly.springapp.model.OrderStatus;
 import com.examly.springapp.service.OrderService;
+
+import jakarta.persistence.EntityNotFoundException;
  
 @RestController
 @RequestMapping("/api/orders")
@@ -43,7 +45,6 @@ public class OrderController {
     // View Order by ID (USER Role)
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('USER')")
-
     public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
         try {
             Order order = orderService.getOrderById(id);
@@ -58,18 +59,12 @@ public class OrderController {
     // Update Order (ADMIN Role)
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Order> updateOrder(@PathVariable Long id, @RequestBody Order order) {
+    ResponseEntity<?> updateOrder(@PathVariable Long id, @RequestBody Order order) {
         try {
-            Order existingOrder = orderService.getOrderById(id);
-            if (existingOrder != null) {
-                order.setOrderId(id); // Set the correct order ID
-                Order updatedOrder = orderService.addOrder(order); // Assuming save handles update
-                return new ResponseEntity<>(updatedOrder, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            Order updatedOrders = orderService.updateOrder(id, order);
+            return ResponseEntity.status(200).body(updatedOrders);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
         }
     }
  
@@ -113,19 +108,6 @@ public class OrderController {
         }
     }
 
-
-    @PutMapping("/{id}/status")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> updateOrderStatus(@PathVariable Long id, @RequestParam OrderStatus status) {
-        try {
-            Order response = orderService.updateOrderStatus(id, status);
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
-    }
 
 
 }
