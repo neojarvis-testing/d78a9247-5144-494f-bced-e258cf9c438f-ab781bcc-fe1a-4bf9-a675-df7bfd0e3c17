@@ -26,6 +26,7 @@ import { AuthguardComponent } from './components/authguard/authguard.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './services/interceptor.service';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { AuthInterceptor } from './services/interceptor.service';
     UserviewproductComponent,
     UsernavbarComponent,
     UserviewfeedbackComponent,
-    AuthguardComponent
+    AuthguardComponent,
+    FooterComponent
  
   ],
   imports: [

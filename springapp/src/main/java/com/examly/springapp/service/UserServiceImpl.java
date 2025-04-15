@@ -25,16 +25,27 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private UserRepo userRepo;
 
+    
     @Override
     public User createUser(User user) {
-    Optional<User> existingUser = userRepo.findByUsername(user.getUsername());
+    Optional<User> existingUserByUsername = userRepo.findByUsername(user.getUsername());
+    if (existingUserByUsername.isPresent()) {
+        throw new RuntimeException("Username is already present");
+        }
 
-     if (existingUser.isPresent()) {
-         throw new RuntimeException("Username is already present");
-     }
-     return userRepo.save(user);
+        Optional<User> existingUserByEmail = userRepo.findByEmail(user.getEmail());
+        if (existingUserByEmail.isPresent()) {
+        throw new RuntimeException("Email is already present");
+        }
 
+        Optional<User> existingUserByMobileNumber = userRepo.findByMobileNumber(user.getMobileNumber());
+        if (existingUserByMobileNumber.isPresent()) {
+        throw new RuntimeException("Mobile number is already present");
+        }
+
+    return userRepo.save(user);
     }
+
 
     
 

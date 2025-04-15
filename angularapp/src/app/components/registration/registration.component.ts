@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class RegistrationComponent implements OnInit {
   registerForm: FormGroup;
   registrationSuccess:boolean = false
+  errorMessage:string | null = null;
 
   constructor(private fb: FormBuilder, private authService: AuthService) {}
 
@@ -40,7 +41,12 @@ onSubmit(): void {
     this.registrationSuccess = true
    },
    error => {
-   console.error('Registration failed', error);
+    this.errorMessage = 'Oops! unable to register User with same email, username or mobile number exists'
+    setTimeout(() =>{
+      this.errorMessage = null
+      this.registerForm.reset()
+    }, 3500)
+   
     }
     );
    }
