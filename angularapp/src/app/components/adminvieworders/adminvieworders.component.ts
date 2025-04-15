@@ -11,26 +11,18 @@ export class AdminviewordersComponent implements OnInit {
 
   orders  : Order [] = [];
 
-  order : Order = { 
-    orderId : 0,
-    user : {},
-    product : [],
-    shippingAddress: "",
-    totalAmount: 0,
-    quantity: 0,
-    status: "",
-    createdAt : new Date,
-    updatedAt : new Date
-  }
+  userName : string = "";
+  
 
 
   constructor(private orderService : OrderService) { }
 
 
   ngOnInit(): void {
-    console.log(this.getOrders())
-     this.getOrders();     // it will load the order list here 
-     this.updateOrderStatus(this.order.orderId, this.order.status);
+
+    const storedUserName = localStorage.getItem('username');
+    this.userName = storedUserName;
+     this.getOrders();
 
   }
 
@@ -41,12 +33,7 @@ export class AdminviewordersComponent implements OnInit {
     })
   }
 
-  // 2. getting particulr order details by orderId
-  getOrderDetails(orderId : number){
-    this.orderService.getOrderDetails(orderId).subscribe(data=>{
-      this.order = data;
-    })
-  }
+  
 
   // 3. get all orders 
   getOrders(){
@@ -56,10 +43,21 @@ export class AdminviewordersComponent implements OnInit {
   }
 
   // 4. update the order status
-  updateOrderStatus(id : number , status : string){
-    this.orderService.updateOrderStatus(id , status).subscribe(data=>{
-      this.getOrders();
-    })
+  updateOrderStatus(orderId: number, newStatus: string) {
+    // Find the order by id
+    const order = this.orders.find(order => order.orderId === orderId);
+    console.log(order);
+    // Check if the order exists
+    if (order) {
+      order.status = newStatus;
+      this.orderService.updateOrder(orderId, order).subscribe(data => {
+        console.log(data);
+        console.log("hiiiii")
+      })
+      console.log(`Order ${orderId} status updated to ${newStatus}`);
+    } else {
+      console.error(`Order with id ${orderId} not found.`);
+    }
   }
   
 }

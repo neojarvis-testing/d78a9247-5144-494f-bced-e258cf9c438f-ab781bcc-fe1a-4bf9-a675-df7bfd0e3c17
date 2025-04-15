@@ -17,12 +17,12 @@ import { UseraddcartComponent } from './components/useraddcart/useraddcart.compo
 import { AdminAuthGuard } from './admin-auth.guard';
 import { UserAuthGuard } from './user-auth.guard';
 import { UseraddfeedbackComponent } from './components/useraddfeedback/useraddfeedback.component';
+import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
  
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
- 
- 
+  {path:'forgetPassword', component:ForgetPasswordComponent}, 
   { path: 'userNavBar' ,component: UsernavbarComponent ,
   canActivate: [UserAuthGuard], 
   children: [

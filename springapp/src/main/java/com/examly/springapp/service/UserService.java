@@ -15,5 +15,6 @@ public interface UserService {
     boolean validateUserByUsername(String username, String password);
     void updateUser(User user);
     Optional<User> getUserByName(String name);
+    Optional<User> findByEmail(String email);
 
 }

@@ -1,3 +1,4 @@
+/* General Styles */
 .admin-view-orders {
   font-family: Arial, sans-serif;
   padding: 20px;
@@ -9,141 +10,133 @@ h1, h2 {
   text-align: center;
 }
 
+/* Table Styles */
 table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-table th, table td {
-  border: 1px solid #ddd;
-  padding: 12px;
-  text-align: left;
-  color: black;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden; /* Ensures rounded corners are visible */
 }
 
 table th {
-  background-color: #007bff;
-  color: black;
+  background-color: #007bff; /* Blue background for headers */
+  color: white; /* White text */
+  padding: 12px;
+  text-align: center; /* Center-aligns header text */
   position: sticky;
   top: 0;
   z-index: 1;
+  border-bottom: 2px solid #ffffff; /* Adds a white separation line */
+}
+
+table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center; /* Center-aligns cell text */
+  color: black; /* Makes text in table cells black */
 }
 
 table tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #f2f2f2; /* Alternate row background */
 }
 
 table tr:hover {
-  background-color: #ddd;
+  background-color: #ddd; /* Highlight row on hover */
   transition: background-color 0.3s ease;
 }
 
+/* Button Styles */
 button {
-  background-color: #007bff;
+  background-color: #ff4d4d; /* Red color for delete button */
   color: white;
   border: none;
   padding: 10px 20px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 14px;
+  font-size: 14px; /* Matches dropdown font size */
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 4px;
   transition: background-color 0.3s ease, transform 0.3s ease;
+  width: auto; /* Consistent size between button and dropdown */
 }
 
 button:hover {
-  background-color: #007bff;
+  background-color: #e60000; /* Darker red on hover */
   transform: scale(1.05);
 }
 
-.order-details {
-  background-color: #fff;
-  padding: 20px;
+/* Dropdown Styles */
+select {
+  padding: 10px 20px; /* Matches button padding */
+  font-size: 14px; /* Matches button font size */
   border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
-  transition: box-shadow 0.3s ease;
-}
-
-.order-details:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.order-details h2 {
-  margin-top: 0;
-  text-align: center;
-}
-
-.order-details p {
-  margin: 8px 0;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-ul li {
-  background: #eee;
-  margin: 5px 0;
-  padding: 10px;
   border-radius: 4px;
-  transition: background-color 0.3s ease;
+  background-color: #ffffff;
+  color: #333;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  width: auto; /* Matches button width */
 }
 
-ul li:hover {
+select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Blue glow effect */
+  outline: none;
+}
+
+select:hover {
+  background-color: #f2f2f2;
+}
+
+option {
+  background-color: #f9f9f9;
+  /* color: black; */
+}
+
+/* Hover Effects for Table and Dropdown */
+table tr:hover {
   background-color: #ddd;
 }
 
-/* Additional CSS for enhanced effects */
-.card {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin: 20px 0;
-  padding: 20px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+select:hover,
+button:hover {
+  transform: scale(1.05);
 }
 
-.card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+/* Dynamic Status Colors */
+.status-pending {
+  color: #ffc107; /* Bootstrap yellow (golden) */
 }
 
-.card-header {
-  background-color: #007bff;
-  color: white;
-  padding: 10px;
-  border-radius: 8px 8px 0 0;
-  text-align: center;
+.status-completed {
+  color: #28a745; /* Bootstrap green */
 }
 
-.card-body {
-  padding: 10px;
+.status-cancelled {
+  color: #dc3545; /* Bootstrap red */
 }
 
-.card-body p {
-  margin: 8px 0;
+.status-shipped {
+  color: #007bff; /* Bootstrap blue */
 }
 
-.card-body ul {
-  list-style-type: none;
-  padding: 0;
-}
+/* Responsive Design */
+@media (max-width: 768px) {
+  table {
+    font-size: 14px;
+  }
 
-.card-body ul li {
-  background: #eee;
-  margin: 5px 0;
-  padding: 10px;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-}
+  button {
+    font-size: 12px;
+    padding: 8px 16px;
+  }
 
-.card-body ul li:hover {
-  background-color: #ddd;
+  select {
+    font-size: 12px;
+    padding: 8px 16px; /* Matches button padding for small screens */
+  }
 }

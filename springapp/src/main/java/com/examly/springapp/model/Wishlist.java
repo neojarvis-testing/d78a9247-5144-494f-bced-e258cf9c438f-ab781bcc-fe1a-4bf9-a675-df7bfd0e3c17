@@ -1,0 +1,52 @@
+package com.examly.springapp.model;
+
+import jakarta.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "wishlist")
+public class Wishlist {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String userId;
+
+    @ElementCollection
+    private List<Long> productIds; // Store product IDs in wishlist
+
+    // Constructors
+    public Wishlist() {}
+
+    public Wishlist(String userId, List<Long> productIds) {
+        this.userId = userId;
+        this.productIds = productIds;
+    }
+
+    // Getters & Setters
+    public Long getId() {
+        return id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public List<Long> getProductIds() {
+        return productIds;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setProductIds(List<Long> productIds) {
+        this.productIds = productIds;
+    }
+}
+

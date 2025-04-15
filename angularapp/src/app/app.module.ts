@@ -28,11 +28,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './services/interceptor.service';
 import { FooterComponent } from './components/footer/footer.component';
 import { CommonModule } from '@angular/common';
+import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
+import { UserwishlistproductComponent } from './components/userwishlistproduct/userwishlistproduct.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-
     AdminaddproductComponent,
     AdminnavbarComponent,
     AdminviewfeedbackComponent,
@@ -51,7 +53,9 @@ import { CommonModule } from '@angular/common';
     UsernavbarComponent,
     UserviewfeedbackComponent,
     AuthguardComponent,
-    FooterComponent
+    FooterComponent,
+    ForgetPasswordComponent,
+    UserwishlistproductComponent
  
   ],
   imports: [

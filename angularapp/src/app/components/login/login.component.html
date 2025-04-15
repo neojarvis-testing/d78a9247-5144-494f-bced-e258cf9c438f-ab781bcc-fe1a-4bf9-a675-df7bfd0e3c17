@@ -1,10 +1,4 @@
-<div class="container-fluid">
-    <h1>SMART MART</h1>
-    <div class="links" style="cursor: pointer;">
-        <h5 style="margin-right: 2em;" routerLink="/register">Register</h5>
-        <h5 routerLink="/login">Login</h5>
-    </div>
-</div>
+<app-navbar></app-navbar>
 
 <div class="loggingForm">
     <div class="form-container" style="width: 80%; padding: 10px; margin: 0 auto;">
@@ -22,6 +16,9 @@
           <input id="loginPassword" type="password" formControlName="password" class="form-control" />
           <div *ngIf="loginForm.get('password').touched && loginForm.get('password').invalid" class="text-danger">
             Password is required (min 6 characters)
+          </div>
+          <div class="text-primary" style="cursor: pointer;" routerLink="/forgetPassword">
+            forgot password?
           </div>
         </div>        
         
