@@ -3,7 +3,7 @@ import { User } from "./user.model";
 
 export interface Order {
     orderId ?: number;
-    user: User; // Will be the logged-in user
+    user?: User; // Will be the logged-in user
     product: Product[]; // List of products in the cart
     shippingAddress: string;
     totalAmount: number;

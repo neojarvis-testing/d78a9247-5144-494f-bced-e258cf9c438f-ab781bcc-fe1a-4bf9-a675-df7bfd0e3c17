@@ -41,7 +41,7 @@ export class OrderService {
   }
 
   // Updates the status of a specific order by ID
-  updateOrderStatus(id: number, newStatus: any): Observable<any> {
+  updateOrderStatus(id: number, newStatus: string): Observable<any> {
     return this.http.patch(this.apiUrl+"/"+id, newStatus);
   }
 }

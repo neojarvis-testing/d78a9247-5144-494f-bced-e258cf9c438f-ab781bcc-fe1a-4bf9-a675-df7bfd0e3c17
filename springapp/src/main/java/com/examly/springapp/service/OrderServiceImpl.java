@@ -76,5 +76,19 @@ public class OrderServiceImpl implements OrderService{
             throw new IllegalArgumentException("User not found.");
         }
     }
+
+    
+public Order updateOrderStatus(Long orderId, OrderStatus status) {
+     Optional<Order> order = orderRepo.findById(orderId);
+        if (order.isPresent()) {
+            Order existingOrder = order.get();
+            existingOrder.setStatus(status);
+            return orderRepo.save(existingOrder);
+
+        } else {
+            throw new IllegalArgumentException("Order not found for ID: " + orderId);
+        }
+}
+    
     
 }

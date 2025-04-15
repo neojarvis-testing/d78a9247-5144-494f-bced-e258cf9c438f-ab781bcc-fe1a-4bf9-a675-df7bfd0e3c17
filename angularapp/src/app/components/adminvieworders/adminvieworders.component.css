@@ -20,11 +20,12 @@ table th, table td {
   border: 1px solid #ddd;
   padding: 12px;
   text-align: left;
+  color: black;
 }
 
 table th {
-  background-color: #4CAF50;
-  color: white;
+  background-color: #007bff;
+  color: black;
   position: sticky;
   top: 0;
   z-index: 1;
@@ -40,7 +41,7 @@ table tr:hover {
 }
 
 button {
-  background-color: #4CAF50;
+  background-color: #007bff;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -55,7 +56,7 @@ button {
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: #007bff;
   transform: scale(1.05);
 }
 
@@ -115,7 +116,7 @@ ul li:hover {
 }
 
 .card-header {
-  background-color: #4CAF50;
+  background-color: #007bff;
   color: white;
   padding: 10px;
   border-radius: 8px 8px 0 0;
