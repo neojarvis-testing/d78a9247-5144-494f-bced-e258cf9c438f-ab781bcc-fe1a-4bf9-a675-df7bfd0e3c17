@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Feedback } from 'src/app/models/feedback.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { FeedbackService } from 'src/app/services/feedback.service';
-import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/models/product.model';
 
 @Component({
@@ -23,7 +22,6 @@ export class AdminviewfeedbackComponent implements OnInit {
 
   constructor(
     private feedbackService: FeedbackService,
-    private productService: ProductService,
     private authService: AuthService,
     private router: Router
   ) { }

@@ -25,25 +25,27 @@
       <p *ngIf="feedbackTextRef.errors?.minlength">Feedback must be at least 5 characters long.</p>
     </div>
 
-    <div class="form-group">
-      <label for="ratings">Rating:<span class="text-danger">*</span></label><br>
-      <div class="star-rating">
-        <ng-container *ngFor="let star of [5, 4, 3, 2, 1]">
-          <input
-            type="radio"
-            id="star{{star}}"
-            name="rating"
-            [(ngModel)]="rating"
-            [value]="star"
-            required
-          />
-          <label for="star{{star}}" title="{{star}} stars">
-            <i class="fa" [ngClass]="{'fa-star': rating >= star, 'fa-star-o': rating < star}"></i>
-          </label>
-        </ng-container>
+<div class="form-group">
+  <label for="ratings">Rating:<span class="text-danger">*</span></label><br>
+  <div class="star-rating">
+    <ng-container *ngFor="let star of [5, 4, 3, 2, 1]">
+      <div class="star-item">
+        <input
+          type="radio"
+          id="star{{star}}"
+          name="rating"
+          [(ngModel)]="rating"
+          [value]="star"
+          required
+        />
+        <label for="star{{star}}" title="{{star}} stars">
+          <i class="fa" [ngClass]="{'fa-star': rating >= star, 'fa-star-o': rating < star}"></i>
+        </label>
       </div>
-    </div>
-    <button type="submit" class="btn btn-primary" [disabled]="feedbackForm.invalid">Submit</button>
+    </ng-container>
+  </div>
+</div>
+   <button type="submit" class="btn btn-primary" [disabled]="feedbackForm.invalid">Submit</button>
   </form>
 
   <div *ngIf="popupMessage" class="popup-overlay">
