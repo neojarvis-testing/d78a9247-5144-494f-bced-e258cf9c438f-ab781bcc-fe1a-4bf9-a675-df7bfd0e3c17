@@ -1,7 +1,10 @@
 package com.examly.springapp.controller;
 
 import com.examly.springapp.model.CartItem;
+import com.examly.springapp.model.User;
 import com.examly.springapp.service.CartService;
+import com.examly.springapp.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +17,8 @@ public class CartController {
 
     @Autowired
     private CartService cartService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/{userId}")
     public List<CartItem> getCartItems(@PathVariable Long userId) {
@@ -22,7 +27,11 @@ public class CartController {
 
     @PostMapping
     public CartItem addCartItem(@RequestBody CartItem cartItem) {
-        return cartService.addCartItem(cartItem);
+        
+        //  User user = userService.getById(cartItem.getUser().getUserId()).get();
+        //  cartItem.setUser(user);
+         return cartService.addCartItem(cartItem);
+ 
     }
 
     @DeleteMapping("/{id}")

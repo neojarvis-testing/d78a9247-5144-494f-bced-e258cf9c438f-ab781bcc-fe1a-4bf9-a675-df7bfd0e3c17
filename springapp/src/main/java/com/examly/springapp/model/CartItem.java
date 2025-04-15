@@ -1,10 +1,20 @@
 package com.examly.springapp.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Getter
+@Setter
+
 public class CartItem {
 
     @Id
@@ -22,6 +32,6 @@ public class CartItem {
     private String productImage;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false) // Ensure user_id is not nullable
+    @JoinColumn(name = "user_id") // Ensure user_id is not nullable
     private User user;
 }

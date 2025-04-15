@@ -2,7 +2,7 @@ import { User } from "./user.model";
 
 export interface Product {
 
-    productId : number;
+    productId ?: number;
     name : string;
     description : string;
     price : number;

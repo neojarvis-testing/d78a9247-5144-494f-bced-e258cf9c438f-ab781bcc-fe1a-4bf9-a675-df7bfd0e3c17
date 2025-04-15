@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 import { CartItem } from 'src/app/models/cart-item.model'; // Import the CartItem interface
-
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/models/user.model';
 @Component({
   selector: 'app-userviewproduct',
   templateUrl: './userviewproduct.component.html',
@@ -14,16 +15,20 @@ export class UserviewproductComponent implements OnInit {
   cart: CartItem[] = [];
   totalProductCount: number = 0;
   userId: number = 0;
-
+  user : User = null;
   constructor(
     private productService: ProductService,
     private cartService: CartService,
-    private router: Router
+    private userService : UserService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
     
     this.userId = parseInt(localStorage.getItem('userId') || '0', 10);
+    this.userService.getProfileById(this.userId).subscribe(data=>{
+      this.user = data;
+    })
     this.loadProducts();
     this.loadCart();
   }
@@ -46,15 +51,17 @@ export class UserviewproductComponent implements OnInit {
   }
 
   addToCart(product: any): void {
+    console.log("Inside add to cart")
+    console.log(this.userId)
     const cartItem: CartItem = {
-      productId: product.id,
+      productId: product.productId,
       productName: product.name,
       quantity: 1,
       productPrice: product.price,
-      userId: this.userId
+      user: {userId:this.userId}
     };
     console.log('Adding to cart:', cartItem); // Debugging log
-
+    
     this.cartService.addToCart(cartItem).subscribe(
       (response) => {
         console.log('Product added to cart:', response);
@@ -62,6 +69,7 @@ export class UserviewproductComponent implements OnInit {
         this.router.navigate(['/userNavBar/cart']);
       },
       (error) => {
+        
         console.error('Failed to add product to cart', error);
         alert(`Error: ${error.message}`); // Added error handling
       }
