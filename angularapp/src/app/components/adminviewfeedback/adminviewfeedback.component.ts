@@ -30,44 +30,23 @@ export class AdminviewfeedbackComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllFeedbacks();
-    this.getAllProducts();
   }
 
-  public getAllFeedbacks(): void {
-    this.feedbackService.getAllFeedbacks().subscribe(data => {
-      this.feedbacks = data;
-      this.mapProductNames();
-    });
-  }
+  private getAllFeedbacks(): void {
+    this.feedbackService.getAllFeedback().subscribe(feedbackData => {
+      this.feedbacks = feedbackData;
 
-  public getAllProducts(): void {
-    this.productService.getProducts().subscribe(data => {
-      this.products = data;
-      this.mapProductNames();
-    });
-  }
-
-  private mapProductNames(): void {
-    if (this.feedbacks.length > 0 && this.products.length > 0) {
       this.feedbacks.forEach(feedback => {
-        if (feedback.product && feedback.product.productId) {
-          const product = this.products.find(p => p.productId === feedback.product.productId);
-          if (product) {
-            feedback.product.name = product.name;
-          } else {
-            console.warn(`Product not found for feedback with productId: ${feedback.product.productId}`);
-          }
-        } else {
-          console.warn('Product or productId is undefined for feedback:', feedback);
-        }
+        feedback.product = feedback.product;
       });
-    } else {
-      console.warn('Feedbacks or products array is empty.');
-    }
+    }, 
+    error => {
+      console.error('Error fetching feedbacks:', error);
+    });
   }
 
+  
   triggerDelete(feedbackId: number): void {
-    console.log(feedbackId);
     this.selectedFeedbackId = feedbackId;
     this.showDeletePopup = true;
   }
@@ -75,7 +54,7 @@ export class AdminviewfeedbackComponent implements OnInit {
   confirmDelete(): void {
     if (this.selectedFeedbackId !== null) {
       this.feedbackService.deleteFeedback(this.selectedFeedbackId).subscribe(
-        response => {
+        () => {
           const index = this.feedbacks.findIndex(f => f.feedbackId === this.selectedFeedbackId);
           if (index !== -1) {
             this.feedbacks.splice(index, 1);
@@ -117,4 +96,5 @@ export class AdminviewfeedbackComponent implements OnInit {
     this.showProfilePopup = false;
     this.selectedUser = null;
   }
+
 }

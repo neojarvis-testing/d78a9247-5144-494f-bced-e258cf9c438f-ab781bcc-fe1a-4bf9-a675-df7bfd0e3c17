@@ -4,6 +4,7 @@
     <thead>
       <tr>
         <th>S.No</th>
+        <th>Product</th>
         <th>Feedback</th>
         <th>Rating</th>
         <th>Actions</th>
@@ -12,6 +13,7 @@
     <tbody>
       <tr *ngFor="let feedback of feedbacks; let i = index">
         <td>{{ i + 1 }}</td>
+        <td>{{feedback.product?.name}}</td> 
         <td>{{ feedback.message }}</td>
         <td>
           {{feedback.rating}}
