@@ -41,11 +41,24 @@ export class AdminviewproductComponent implements OnInit {
   // Fetch all products
   getProducts(): void {
     this.productService.getProducts().subscribe(data => {
-      this.products = data;
-      this.filteredProducts = data; // Initialize filtered products
+      this.products = data.map(product => {
+        //console.log("Raw Base64 Image Data:", product.productImage);
+        let imageData = product.productImage;
+        // Ensure the image data is valid and doesn't already contain the prefix
+        if (imageData && !imageData.startsWith('data:image')) {
+          imageData = `data:image/jpeg;base64,${imageData}`;
+        }
+        return {
+          ...product,
+          decodedImage: imageData  // Store the final image source format
+        };
+      });
+  
+      this.filteredProducts = this.products; // Initialize filtered products
       this.categories = [...new Set(this.products.map(p => p.category))]; // Extract unique categories
     });
   }
+  
 
   filterProducts(): void {
     if (this.selectedCategory === 'All') {
