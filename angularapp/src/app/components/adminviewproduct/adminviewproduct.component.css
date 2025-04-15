@@ -186,4 +186,13 @@ button:nth-child(2):hover {
   filter: blur(3px);
 }
 
+.product-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+
 

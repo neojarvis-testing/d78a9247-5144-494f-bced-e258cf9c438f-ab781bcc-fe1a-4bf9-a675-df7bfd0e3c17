@@ -27,11 +27,6 @@ export class AdminaddproductComponent implements OnInit {
     });
   }
 
-  // handleFileChange(event:any){
-  //   let file = event.target.files[0];
-  //   this.productForm.patchValue({productImage:file});
-  // }
-
   handleFileChange(event: any) {
     let file = event.target.files[0];
   
@@ -40,8 +35,8 @@ export class AdminaddproductComponent implements OnInit {
       reader.readAsDataURL(file);
   
       reader.onload = () => {
+        //console.log("Base64 Image Data:", reader.result); // Debugging
         this.productForm.patchValue({ productImage: reader.result });
-        console.log(reader.result);
       };
   
       reader.onerror = (error) => {
