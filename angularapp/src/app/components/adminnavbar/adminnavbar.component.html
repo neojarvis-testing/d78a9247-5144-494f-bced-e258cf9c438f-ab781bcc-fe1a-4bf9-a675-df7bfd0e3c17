@@ -12,19 +12,19 @@
             <div class="admin-section">
                 <nav>
                     <ul>
-                        <li style="cursor: pointer;">{{username}} / ADMIN</li>
-                        <li routerLink="/adminNavBar/home" style="cursor: pointer;"><a>Home</a></li>
-                        <li class="dropdown nav-item">
+                        <li class="nav-link" style="cursor: pointer;color:white">{{username}} / ADMIN</li>
+                        <li class="nav-link" routerLink="/adminNavBar/home" style="cursor: pointer;"><a>Home</a></li>
+                        <li  class="dropdown nav-item">
                             <a class="nav-link dropdown-toggle" style="cursor: pointer;">Products</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <li style="cursor: pointer;"><a routerLink="/adminNavBar/addProduct">Add Product</a></li>
                                 <li style="cursor: pointer;"><a routerLink="/adminNavBar/adminViewProduct">View Product</a></li>
                             </ul>
                         </li>
-                        <li routerLink="/adminNavBar/adminViewOrders" style="cursor: pointer;"><a>Requested Orders</a></li>
-                        <li routerLink="/adminNavBar/adminFeedback" style="cursor: pointer;"><a>Feedbacks</a></li>
-                        <li routerLink="/adminNavBar/adminViewUserDetails" style="cursor: pointer;"><a>Users</a></li>
-                        <li><a class="logout" style="cursor: pointer;" (click)="logout()">Logout</a></li>
+                        <li class="nav-link" routerLink="/adminNavBar/adminViewOrders" style="cursor: pointer;"><a>Requested Orders</a></li>
+                        <li class="nav-link" routerLink="/adminNavBar/adminFeedback" style="cursor: pointer;"><a>Feedbacks</a></li>
+                        <li class="nav-link" routerLink="/adminNavBar/adminViewUserDetails" style="cursor: pointer;"><a>Users</a></li>
+                        <li class="nav-link"><a class="logout" style="cursor: pointer;" (click)="logout()">Logout</a></li>
                     </ul>
                 </nav>
             </div>
