@@ -16,6 +16,7 @@ export class UserviewproductComponent implements OnInit {
   cart: CartItem[] = [];
   totalProductCount: number = 0;
   userId: number = 0;
+  user:User = null;
   filteredProducts: any[] = [];
   categories: string[] = [];
   selectedCategory: string = 'All';
