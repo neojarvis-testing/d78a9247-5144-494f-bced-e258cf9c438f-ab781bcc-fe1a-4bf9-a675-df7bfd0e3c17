@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="background-color: none;">
     <h2>Admin Product Management</h2>
 
     <!-- Dropdown for category filtering -->
@@ -69,24 +69,7 @@
                 <button type="button" (click)="cancelEdit()">Cancel</button>
             </div>
         </form>
-    </div>
-
-    <!-- Product container with blur effect -->
-    <!-- <div class="product-container" [ngClass]="{'blur': isEditing}">
-        <div *ngFor="let product of products" class="product-card">
-            <h3>{{ product.name }}</h3>
-            <p><strong>Description:</strong> {{ product.description }}</p>
-            <p><strong>Category:</strong> {{ product.category }}</p>
-            <p><strong>Price:</strong> ${{ product.price }}</p>
-            <p><strong>Stock:</strong> {{ product.stock }}</p>
-
-            <div class="button-group">
-                <button (click)="editProduct(product.productId)">Edit</button>
-                <button (click)="deleteProduct(product.productId)">Delete</button>
-            </div>
-        </div>
-    </div>
-</div> -->
+    </div>    
 
 
 <!-- Confirmation Popup -->
@@ -105,6 +88,10 @@
     <p>{{ successMessage }}</p>
     <button (click)="closePopup()">OK</button>
   </div>
+</div>
+
+<div *ngIf="products.length == 0" class="text text-danger">
+    Oops! Currently there are no products to display
 </div>
 
 

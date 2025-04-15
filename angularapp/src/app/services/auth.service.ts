@@ -50,6 +50,13 @@ export class AuthService {
   getUsername(): string {
    return localStorage.getItem('username');
   }
+
+  
+
+  updatePassword(email: string, newPassword: string): Observable<any> {
+     return this.http.post(`${this.baseUrl}/api/update-password`, { email, newPassword });
+  }
+    
   
 
 }

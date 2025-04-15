@@ -7,10 +7,10 @@
     border-top: 2px solid rgba(0, 0, 0, 0.2); /* Underline above the footer with opacity */
     padding: 10px 20px; /* Adjust padding as needed */
     background-color: #f8f9fa; /* Light background color */
+    position: fixed;
     bottom: 0; /* Align to the bottom of the screen */
     width: 100%; /* Full width */
-    z-index: 1000; /* Ensure it stays on top of other elements */
-    margin-top: 2.5em;
+   
 }
 
 .footer-heading {

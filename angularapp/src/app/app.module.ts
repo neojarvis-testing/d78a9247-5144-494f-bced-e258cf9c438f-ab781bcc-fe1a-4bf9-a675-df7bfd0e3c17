@@ -27,12 +27,13 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './services/interceptor.service';
 import { FooterComponent } from './components/footer/footer.component';
+import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 import { UserwishlistproductComponent } from './components/userwishlistproduct/userwishlistproduct.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-
     AdminaddproductComponent,
     AdminnavbarComponent,
     AdminviewfeedbackComponent,
@@ -52,6 +53,7 @@ import { UserwishlistproductComponent } from './components/userwishlistproduct/u
     UserviewfeedbackComponent,
     AuthguardComponent,
     FooterComponent,
+    ForgetPasswordComponent,
     UserwishlistproductComponent
  
   ],
