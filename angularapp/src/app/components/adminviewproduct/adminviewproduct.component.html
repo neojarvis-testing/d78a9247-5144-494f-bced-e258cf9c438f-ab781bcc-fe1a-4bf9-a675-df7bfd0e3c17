@@ -17,6 +17,9 @@
           <p><strong>Price:</strong> ${{ product.price }}</p>
           <p><strong>Stock:</strong> {{ product.stock }}</p>
 
+           <!-- Display product image -->
+          <img *ngIf="product.decodedImage" [src]="product.decodedImage" alt="Product Image" class="product-image"/>
+
           <div class="button-group">
               <button (click)="editProduct(product.productId)">Edit</button>
               <button (click)="deleteProduct(product.productId)">Delete</button>

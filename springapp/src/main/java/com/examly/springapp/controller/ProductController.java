@@ -30,10 +30,18 @@ public class ProductController {
     // Add a new product (POST, ADMIN)
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> addProduct(@RequestBody Product product,String base64Image) {
-        Product createdProduct = productService.addProduct(product,base64Image);
+    public ResponseEntity<?> addProduct(@RequestBody Product product) {
+        // Debugging: Log the received image data
+        System.out.println("Received Base64 Image: " + product.getProductImage());
+
+        if (product.getProductImage() == null || product.getProductImage().isEmpty()) {
+            return ResponseEntity.status(400).body("Error: Image data is missing or invalid.");
+        }
+
+        Product createdProduct = productService.addProduct(product);
         return ResponseEntity.status(201).body(createdProduct);
     }
+
  
     // Update an existing product by ID (PUT, ADMIN)
     @PutMapping("/{id}")

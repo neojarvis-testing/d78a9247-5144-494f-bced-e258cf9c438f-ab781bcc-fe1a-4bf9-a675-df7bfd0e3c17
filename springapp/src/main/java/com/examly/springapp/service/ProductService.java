@@ -9,7 +9,7 @@ import com.examly.springapp.model.Product;
 
 @Service
 public interface ProductService {
-    Product addProduct(Product product,String base64Image);
+    Product addProduct(Product product);
     List <Product> getAllProducts();
     Product getProductByProductId(Long id);
     List<Product> getProductsByUserId(Long userId);
