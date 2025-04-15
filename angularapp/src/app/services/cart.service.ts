@@ -1,33 +1,29 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Global } from '../resources/global';
+import { CartItem } from '../models/cart-item.model'; // Import the CartItem interface
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CartService {
+  private apiUrl: string = Global.apiUrl + '/api/cart';
 
-  private cart: any[] = [];
+  constructor(private http: HttpClient) {}
 
-  constructor() {}
-
-  getCart(): any[] {
-    return this.cart;
+  getCart(userId: number) {
+    return this.http.get<CartItem[]>(`${this.apiUrl}/${userId}`);
   }
 
-  addToCart(product: any): void {
-    const existingProduct = this.cart.find(item => item.id === product.id);
-    if (!existingProduct) {
-      this.cart.push({ ...product, quantity: 1 });
-    } else {
-      existingProduct.quantity += 1;
-    }
-    
+  addToCart(item: CartItem) {
+    return this.http.post<CartItem>(this.apiUrl, item); // Ensure this method is correctly implemented
   }
 
-  removeFromCart(product: any): void {
-    this.cart = this.cart.filter(item => item.id !== product.id);
+  removeFromCart(itemId: number) {
+    return this.http.delete(`${this.apiUrl}/${itemId}`);
   }
 
-  clearCart(): void {
-    this.cart = [];
+  clearCart(userId: number) {
+    return this.http.delete(`${this.apiUrl}/clear/${userId}`);
   }
 }

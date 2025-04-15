@@ -4,6 +4,7 @@ import { OrderService } from 'src/app/services/order.service';
 import { CartService } from 'src/app/services/cart.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Order } from 'src/app/models/order.model';
+import { CartItem } from 'src/app/models/cart-item.model'; // Import the CartItem interface
 
 @Component({
   selector: 'app-useraddcart',
@@ -11,11 +12,12 @@ import { Order } from 'src/app/models/order.model';
   styleUrls: ['./useraddcart.component.css']
 })
 export class UseraddcartComponent implements OnInit {
-
-  cart: any[] = [];
+  cart: CartItem[] = [];
   shippingAddress: string = '';
   orderPlaced: boolean = false;
   addressError: boolean = false;
+  userId: number = 0;
+  isAuthenticated: boolean = false;
 
   constructor(
     private ordersService: OrderService,
@@ -25,26 +27,51 @@ export class UseraddcartComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadCart();
-  }
-
-  loadCart(): void {
-    this.cart = this.cartService.getCart();
-  }
-
-  decreaseQuantity(item: any): void {
-    if (item.quantity > 1) {
-      item.quantity -= 1;
+    this.isAuthenticated = this.authService.isAuthenticated();
+    if (!this.isAuthenticated) {
+      alert('User not logged in. Redirecting to login page...');
+      this.router.navigate(['/login']);
+    } else {
+      this.userId = parseInt(localStorage.getItem('userId') || '0', 10);
+      this.loadCart();
     }
   }
 
-  increaseQuantity(item: any): void {
-    item.quantity += 1;
+  loadCart(): void {
+    this.cartService.getCart(this.userId).subscribe(
+      (data: CartItem[]) => {
+        this.cart = data;
+        console.log('Loaded cart:', this.cart);
+      },
+      (error) => {
+        console.error('Failed to load cart', error);
+      }
+    );
   }
 
-  removeFromCart(product: any): void {
-    this.cartService.removeFromCart(product);
-    this.loadCart();
+  increaseQuantity(item: CartItem): void {
+    item.quantity += 1;
+    this.cartService.addToCart(item).subscribe(
+      () => this.loadCart(),
+      (error) => console.error('Failed to increase quantity', error)
+    );
+  }
+
+  decreaseQuantity(item: CartItem): void {
+    if (item.quantity > 1) {
+      item.quantity -= 1;
+      this.cartService.addToCart(item).subscribe(
+        () => this.loadCart(),
+        (error) => console.error('Failed to decrease quantity', error)
+      );
+    }
+  }
+
+  removeFromCart(product: CartItem): void {
+    this.cartService.removeFromCart(product.id!).subscribe(
+      () => this.loadCart(),
+      (error) => console.error('Failed to remove item from cart', error)
+    );
   }
 
   calculateTotal(price: number, quantity: number): number {
@@ -54,15 +81,15 @@ export class UseraddcartComponent implements OnInit {
   }
 
   getSubtotal(): number {
-    return this.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    return this.cart.reduce((total, item) => total + (item.productPrice * item.quantity), 0);
   }
 
   getGST(): number {
-    return this.cart.reduce((total, item) => total + (item.price * 0.12 * item.quantity), 0);
+    return this.cart.reduce((total, item) => total + (item.productPrice * 0.12 * item.quantity), 0);
   }
 
   getDeliveryCharge(): number {
-    return this.cart.reduce((total, item) => total + (item.price * 0.03 * item.quantity), 0);
+    return this.cart.reduce((total, item) => total + (item.productPrice * 0.03 * item.quantity), 0);
   }
 
   getGrandTotal(): number {
@@ -76,14 +103,15 @@ export class UseraddcartComponent implements OnInit {
     }
     this.addressError = false;
 
-    const username = this.authService.getUsername(); 
+    const username = this.authService.getUsername();
     if (!username) {
-      alert('User not logged in');
+      alert('User not logged in. Redirecting to login page...');
+      this.router.navigate(['/login']);
       return;
     }
 
     const order: Order = {
-      user: { username }, 
+      user: { username },
       product: this.cart,
       shippingAddress: this.shippingAddress,
       totalAmount: this.getGrandTotal(),
@@ -93,11 +121,18 @@ export class UseraddcartComponent implements OnInit {
       updatedAt: new Date()
     };
 
-    this.ordersService.placeOrder(order).subscribe(() => {
-      this.orderPlaced = true;
-      this.cartService.clearCart();
-      this.loadCart();
-      this.router.navigate(['/userNavBar/uservieworders']);
-    });
+    this.ordersService.placeOrder(order).subscribe(
+      () => {
+        this.orderPlaced = true;
+        this.cartService.clearCart(this.userId).subscribe(
+          () => {
+            this.loadCart();
+            this.router.navigate(['/userNavBar/uservieworders']);
+          },
+          (error) => console.error('Failed to clear cart', error)
+        );
+      },
+      (error) => console.error('Failed to place order', error)
+    );
   }
 }
