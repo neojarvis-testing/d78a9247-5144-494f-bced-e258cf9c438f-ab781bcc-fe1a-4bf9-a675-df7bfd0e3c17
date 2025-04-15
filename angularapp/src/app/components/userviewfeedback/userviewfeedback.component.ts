@@ -18,7 +18,6 @@ export class UserviewfeedbackComponent implements OnInit {
   constructor(private feedbackService: FeedbackService) { }
 
   ngOnInit(): void {
-    // Retrieve user ID from local storage
     const userId = localStorage.getItem('userId');
     if (userId) {
       this.userId = parseInt(userId, 10);
@@ -33,12 +32,6 @@ export class UserviewfeedbackComponent implements OnInit {
     this.feedbackService.getFeedbackByUserId(this.userId).subscribe(
       (data: Feedback[]) => {
         this.feedbacks = data;
-        
-        // Ensure Product data exists in each Feedback object to avoid undefined errors
-        this.feedbacks.forEach(feedback => {
-          feedback.product = feedback.product;
-          //|| { productId: 0, name: 'Unknown Product' }
-        });
       },
       (error) => {
         console.error('Error fetching feedback by user ID:', error);
@@ -47,6 +40,7 @@ export class UserviewfeedbackComponent implements OnInit {
   }
 
   confirmDelete(feedback: Feedback): void {
+    console.log('Delete button clicked');
     this.feedbackToDelete = feedback;
   }
 
@@ -54,10 +48,7 @@ export class UserviewfeedbackComponent implements OnInit {
     if (this.feedbackToDelete) {
       this.feedbackService.deleteFeedback(this.feedbackToDelete.feedbackId).subscribe(
         () => {
-          const index = this.feedbacks.findIndex(f => f.feedbackId == this.feedbackToDelete!.feedbackId);
-          if (index !== -1) {
-            this.feedbacks.splice(index, 1);
-          }
+          this.feedbacks = this.feedbacks.filter(f => f.feedbackId !== this.feedbackToDelete!.feedbackId);
           this.feedbackToDelete = null;
         },
         (error) => {
@@ -78,6 +69,7 @@ export class UserviewfeedbackComponent implements OnInit {
         if (index != -1) {
           this.feedbacks[index] = updatedFeedback;
         }
+        this.selectedFeedback = null;
       },
       (error) => {
         console.error('Error updating feedback:', error);
@@ -86,10 +78,12 @@ export class UserviewfeedbackComponent implements OnInit {
   }
 
   selectFeedback(feedback: Feedback): void {
-    this.selectedFeedback = feedback;
+    console.log('Edit button clicked:', feedback);
+    this.selectedFeedback = { ...feedback };
   }
 
   clearSelection(): void {
     this.selectedFeedback = null;
   }
+  
 }

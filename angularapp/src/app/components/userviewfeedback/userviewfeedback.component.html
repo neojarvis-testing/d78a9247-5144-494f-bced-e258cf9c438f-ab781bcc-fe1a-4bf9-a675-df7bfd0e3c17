@@ -15,11 +15,9 @@
         <td>{{ i + 1 }}</td>
         <td>{{feedback.product?.name}}</td> 
         <td>{{ feedback.message }}</td>
+        <td>{{feedback.rating}}</td>
         <td>
-          {{feedback.rating}}
-        </td>
-        <td>
-          <!-- <button (click)="selectFeedback(feedback)">Edit</button> -->
+          <button (click)="selectFeedback(feedback)">Edit</button>
           <button (click)="confirmDelete(feedback)">Delete</button>
         </td>
       </tr>
@@ -36,4 +34,17 @@
       <button class="btn btn-secondary" (click)="cancelDelete()">Cancel</button>
     </div>
   </div>
+
+  <div *ngIf="selectedFeedback" class="modal">
+    <div class="modal-content">
+      <h3>Edit Feedback</h3>
+      <input [(ngModel)]="selectedFeedback.message" placeholder="Enter feedback" />
+      <input type="number" [(ngModel)]="selectedFeedback.rating" placeholder="Rating" />
+  
+      <button (click)="updateFeedback(selectedFeedback)">Save</button>
+      <button (click)="clearSelection()">Cancel</button>
+    </div>
+  </div>
+  
 </div>
+

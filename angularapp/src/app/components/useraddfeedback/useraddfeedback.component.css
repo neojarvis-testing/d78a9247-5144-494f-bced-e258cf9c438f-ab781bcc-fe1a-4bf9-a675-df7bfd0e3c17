@@ -1,110 +1,134 @@
 body {
-    font-family: Arial, sans-serif;
-  }
-  
-  .container {
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 20px;
-    margin: 50px auto;
-    width: 50%;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  form div {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    font-weight: bold;
-  }
+  font-family: Arial, sans-serif;
+}
 
-  .required {
-    color: red;
-  }
-  
-  input, textarea, select, button {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  button {
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  .error small {
-    color: red; /* Error messages in red color */
-    font-size: 12px;
-  }
-  
-  .popup {
-    background-color: #28a745;
-    color: white;
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
-    width: 300px;
-    margin: 20px auto;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .popup button {
-    background-color: white;
-    color: #28a745;
-    border: 1px solid #28a745;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-top: 10px;
-  }
-  
-  .popup button:hover {
-    background-color: #28a745;
-    color: white;
-  }
-  .star-rating {
-    direction: rtl;
-    display: inline-block;
-  }
-  
-  .star-rating input[type="radio"] {
-    display: none;
-  }
-  
-  .star-rating label {
-    color: gold;
-    font-size: 2em;
-    padding: 0 0.1em;
-    cursor: pointer;
-  }
-  
-  .star-rating label:hover,
-  .star-rating label:hover ~ label,
-  .star-rating input[type="radio"]:checked ~ label {
-    color: gold;
-  }
-
-  
 .container {
-   color: black; /* Apply black color to all text within the container */
-  }
-  
-  .container h2,
-  .container table,
-  .container th,
-  .container td,
-  .container p,
-  .container button {
-   color: black; /* Ensure buttons and other elements also have black text */
-  }
-  
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  margin: 50px auto;
+  width: 50%;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative; 
+  z-index: 1; 
+  color: black; 
+}
+
+.container h2 {
+  font-weight: bold; 
+  color: rgb(0, 0, 0); 
+  text-align: center; 
+}
+
+
+form div {
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: bold;
+}
+
+.required {
+  color: red;
+}
+
+input, textarea, select, button {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #a3a1a1;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #179ecb; 
+  color: white; 
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+
+button:hover {
+  background-color: #12a3dc; 
+}
+
+
+.error small {
+  color: red; 
+  font-size: 12px;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2; 
+}
+
+.popup {
+  background-color: #28a745;
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  width: 300px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.popup button {
+  background-color: white;
+  color: #28a745;
+  border: 1px solid #28a745;
+  cursor: pointer;
+  border-radius: 5px; /* Corrected this */
+  margin-top: 10px;
+}
+
+.popup button:hover {
+  background-color: #28a745;
+  color: white;
+}
+
+
+.star-rating input[type="radio"] {
+  display: none;
+}
+
+.star-rating {
+  direction: rtl;
+  display: flex; 
+  justify-content: center; 
+}
+
+.star-rating label {
+  display: inline-flex; 
+  align-items: center; 
+  color: gold;
+  font-size: 2em;
+  padding: 0 0.1em;
+  cursor: pointer;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label,
+.star-rating input[type="radio"]:checked ~ label {
+  color: gold;
+}
+
+.container h2,
+.container table,
+.container th,
+.container td,
+.container p,
+.container button {
+  color: rgb(93, 91, 91); 
+}
