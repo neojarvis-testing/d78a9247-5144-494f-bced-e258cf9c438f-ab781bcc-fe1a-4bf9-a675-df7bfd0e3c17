@@ -9,9 +9,9 @@ import { OrderService } from 'src/app/services/order.service';
 })
 export class AdminviewordersComponent implements OnInit {
 
-  orders  : Order [] = [];   // for the getOrders
+  orders  : Order [] = [];
 
-  order : Order = {   // for the getOrderDetails
+  order : Order = { 
     orderId : 0,
     user : {},
     product : [],
@@ -28,7 +28,10 @@ export class AdminviewordersComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getOrders();     // it will load the order list here 
+    console.log(this.getOrders())
+     this.getOrders();     // it will load the order list here 
+     this.updateOrderStatus(this.order.orderId, this.order.status);
+
   }
 
   // 1. deleting order using the particular id
@@ -52,9 +55,9 @@ export class AdminviewordersComponent implements OnInit {
     })
   }
 
-  // 4. update the orderStatus by using id ans providing the new status 
-  updateOrderStatus(id : number , newStatus : any){
-    this.orderService.updateOrderStatus(id , newStatus).subscribe(data=>{
+  // 4. update the order status
+  updateOrderStatus(id : number , status : string){
+    this.orderService.updateOrderStatus(id , status).subscribe(data=>{
       this.getOrders();
     })
   }

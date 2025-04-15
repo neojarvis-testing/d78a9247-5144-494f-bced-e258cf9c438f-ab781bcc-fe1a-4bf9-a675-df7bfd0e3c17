@@ -1,6 +1,7 @@
 package com.examly.springapp.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.examly.springapp.model.Order;
 import com.examly.springapp.model.OrderStatus; 
@@ -27,5 +28,7 @@ public interface OrderService {
 
    
     List<Order> getOrdersByUserId(Long userId);
+
+    Order updateOrderStatus(Long orderId, OrderStatus status);
     
 } 

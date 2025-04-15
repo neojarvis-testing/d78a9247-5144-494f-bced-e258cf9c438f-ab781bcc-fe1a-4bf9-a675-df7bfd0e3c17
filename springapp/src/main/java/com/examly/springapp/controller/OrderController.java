@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin; 
 import com.examly.springapp.model.Order;
+import com.examly.springapp.model.OrderStatus;
 import com.examly.springapp.service.OrderService;
  
 @RestController
@@ -110,5 +112,21 @@ public class OrderController {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }
+
+
+    @PutMapping("/{id}/status")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<?> updateOrderStatus(@PathVariable Long id, @RequestParam OrderStatus status) {
+        try {
+            Order response = orderService.updateOrderStatus(id, status);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+    }
+
+
 }
  
