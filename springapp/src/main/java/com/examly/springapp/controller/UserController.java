@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.examly.springapp.config.JwtUtils;
 import com.examly.springapp.model.LoginDTO;
+import com.examly.springapp.model.PasswordUpdateRequest;
 import com.examly.springapp.model.User;
 import com.examly.springapp.service.UserServiceImpl;
 
@@ -94,4 +96,19 @@ public class UserController {
         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
      }
     }
+
+   @PostMapping("/api/update-password")
+   public ResponseEntity<?> updatePassword(@RequestBody PasswordUpdateRequest request) {
+         
+         Optional<User> userOptional = userService.findByEmail(request.getEmail());
+         System.out.println("The method is called");
+         if (userOptional.isEmpty()) { 
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found for email: " + request.getEmail());
+         }
+
+         userService.updateUserPassword(request.getEmail(), request.getNewPassword());
+
+         return ResponseEntity.status(200).body("Password is updated successfully"); 
+   }
+
 }

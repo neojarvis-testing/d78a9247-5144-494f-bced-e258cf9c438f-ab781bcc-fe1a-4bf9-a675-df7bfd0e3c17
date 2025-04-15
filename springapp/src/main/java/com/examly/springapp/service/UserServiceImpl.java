@@ -13,6 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.examly.springapp.model.User;
@@ -26,27 +27,31 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private UserRepo userRepo;
 
     
+    
     @Override
-    public User createUser(User user) {
-    Optional<User> existingUserByUsername = userRepo.findByUsername(user.getUsername());
-    if (existingUserByUsername.isPresent()) {
-        throw new RuntimeException("Username is already present");
+        public User createUser(User user) {
+            // Check if user already exists
+            Optional<User> existingUserByUsername = userRepo.findByUsername(user.getUsername());
+            if (existingUserByUsername.isPresent()) {
+                throw new RuntimeException("Username is already present");
+            }
+
+            Optional<User> existingUserByEmail = userRepo.findByEmail(user.getEmail());
+            if (existingUserByEmail.isPresent()) {
+                throw new RuntimeException("Email is already present");
+            }
+
+            Optional<User> existingUserByMobileNumber = userRepo.findByMobileNumber(user.getMobileNumber());
+            if (existingUserByMobileNumber.isPresent()) {
+                throw new RuntimeException("Mobile number is already present");
+            }
+
+            // Hash the password before saving
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            user.setPassword(encoder.encode(user.getPassword()));
+
+            return userRepo.save(user);
         }
-
-        Optional<User> existingUserByEmail = userRepo.findByEmail(user.getEmail());
-        if (existingUserByEmail.isPresent()) {
-        throw new RuntimeException("Email is already present");
-        }
-
-        Optional<User> existingUserByMobileNumber = userRepo.findByMobileNumber(user.getMobileNumber());
-        if (existingUserByMobileNumber.isPresent()) {
-        throw new RuntimeException("Mobile number is already present");
-        }
-
-    return userRepo.save(user);
-    }
-
-
     
 
     
@@ -68,14 +73,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User loginUser(User user) {
-        Optional<User> userOptional = userRepo.findByUsername(user.getUsername());
-        User existingUser = userOptional.orElseThrow(() -> new RuntimeException("Invalid username or password"));
-        if (existingUser.getPassword().equals(user.getPassword())) {
-            return existingUser;
+        public User loginUser(User user) {
+            Optional<User> userOptional = userRepo.findByUsername(user.getUsername());
+            User existingUser = userOptional.orElseThrow(() -> new RuntimeException("Invalid username or password"));
+
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            
+            // Compare hashed password using BCrypt
+            if (encoder.matches(user.getPassword(), existingUser.getPassword())) {
+                return existingUser;
+            }
+
+            throw new RuntimeException("Invalid username or password");
         }
-        throw new RuntimeException("Invalid username or password");
-    }
+
 
     @Override
     public Optional<User> getById(long id) {
@@ -102,4 +113,28 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public Optional<User> getUserByName(String name) {
         return userRepo.findByUsername(name);
     }
+
+    public void updateUserPassword(String email, String newPassword) {
+        Optional<User> userOptional = userRepo.findByEmail(email);
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+
+            // Securely hash the new password before updating
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            user.setPassword(encoder.encode(newPassword));
+
+            userRepo.save(user);
+        } else {
+            throw new RuntimeException("User not found with email: " + email);
+        }
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return userRepo.findByEmail(email);
+    }
+
+
+    
 }

@@ -1,0 +1,24 @@
+.container-fluid{
+    display: flex;
+    justify-content: space-between;
+    height: 2em;
+    align-items: center;
+    height: 3.5em;
+   
+}
+*{
+  margin: 0px;
+  padding: 0px;
+}
+
+.links{
+    display: flex;
+    
+}
+
+.container-fluid {
+    background: linear-gradient(to right, blue, green);
+     padding: 20px;
+     color: white;
+     
+}

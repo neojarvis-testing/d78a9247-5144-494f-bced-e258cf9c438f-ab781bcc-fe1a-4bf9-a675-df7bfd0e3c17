@@ -45,7 +45,8 @@ public class SecurityConfig {
         httpSecurity.cors(withDefaults()).authorizeHttpRequests(authorizeHttpRequest -> 
                                             authorizeHttpRequest
                                                 .requestMatchers("/api/register",
-                                                                "/api/login"
+                                                                "/api/login",
+                                                                "/api/update-password"
                                                                 ).permitAll()
                                                 
                                                 .anyRequest().authenticated()
