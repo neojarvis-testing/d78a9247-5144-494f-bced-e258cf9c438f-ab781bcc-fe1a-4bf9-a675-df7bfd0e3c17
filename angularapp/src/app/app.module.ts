@@ -27,6 +27,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './services/interceptor.service';
 import { FooterComponent } from './components/footer/footer.component';
+import { UserwishlistproductComponent } from './components/userwishlistproduct/userwishlistproduct.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { FooterComponent } from './components/footer/footer.component';
     UsernavbarComponent,
     UserviewfeedbackComponent,
     AuthguardComponent,
-    FooterComponent
+    FooterComponent,
+    UserwishlistproductComponent
  
   ],
   imports: [

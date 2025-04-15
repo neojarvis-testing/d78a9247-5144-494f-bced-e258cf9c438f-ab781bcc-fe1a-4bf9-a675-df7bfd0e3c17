@@ -4,6 +4,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 import { CartItem } from 'src/app/models/cart-item.model'; // Import the CartItem interface
 
+
 @Component({
   selector: 'app-userviewproduct',
   templateUrl: './userviewproduct.component.html',
@@ -14,6 +15,10 @@ export class UserviewproductComponent implements OnInit {
   cart: CartItem[] = [];
   totalProductCount: number = 0;
   userId: number = 0;
+  filteredProducts: any[] = [];
+  categories: string[] = [];
+  selectedCategory: string = 'All';
+  wishlist: any[] = [];
 
   constructor(
     private productService: ProductService,
@@ -26,13 +31,35 @@ export class UserviewproductComponent implements OnInit {
     this.userId = parseInt(localStorage.getItem('userId') || '0', 10);
     this.loadProducts();
     this.loadCart();
+    this.loadWishlist();
   }
 
   loadProducts(): void {
-    this.productService.getProducts().subscribe(
-      (data) => this.products = data,
-      (error) => console.error('Failed to load products', error)
-    );
+    this.productService.getProducts().subscribe(data => {
+      this.products = data.map(product => {
+        //console.log("Raw Base64 Image Data:", product.productImage);
+        let imageData = product.productImage;
+        // Ensure the image data is valid and doesn't already contain the prefix
+        if (imageData && !imageData.startsWith('data:image')) {
+          imageData = `data:image/jpeg;base64,${imageData}`;
+        }
+        return {
+          ...product,
+          decodedImage: imageData  // Store the final image source format
+        };
+      });
+  
+      this.filteredProducts = this.products; // Initialize filtered products
+      this.categories = [...new Set(this.products.map(p => p.category))]; // Extract unique categories
+    });
+  }
+
+  filterProducts(): void {
+    if (this.selectedCategory === 'All') {
+      this.filteredProducts = this.products;
+    } else {
+      this.filteredProducts = this.products.filter(p => p.category === this.selectedCategory);
+    }
   }
 
   loadCart(): void {
@@ -100,4 +127,26 @@ export class UserviewproductComponent implements OnInit {
   isInCart(product: any): boolean {
     return this.cart.some(item => item.productId === product.id);
   }
+
+  /** Wishlist Functionality */
+  loadWishlist(): void {
+    const savedWishlist = localStorage.getItem('wishlist');
+    this.wishlist = savedWishlist ? JSON.parse(savedWishlist) : [];
+  }
+
+  addToWishlist(product: any): void {
+    let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    if (!wishlist.some((item: any) => item.id === product.id)) {
+      wishlist.push({ id: product.id, name: product.name, productImage: product.productImage });
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    }
+    this.loadWishlist(); // Reload the wishlist to reflect changes
+  }
+
+  isInWishlist(product: any): boolean {
+    return this.wishlist.some(item => item.id === product.id);
+  }
 }
+  
+  
+
