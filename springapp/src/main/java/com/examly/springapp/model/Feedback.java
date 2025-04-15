@@ -1,5 +1,6 @@
 package com.examly.springapp.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,5 +31,9 @@ public class Feedback {
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user; 
+
+    @ManyToOne
+    @JoinColumn(name = "productId")
+    private Product product;    
 
 }

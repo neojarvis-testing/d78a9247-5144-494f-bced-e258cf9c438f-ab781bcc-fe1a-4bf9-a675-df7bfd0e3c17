@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.examly.springapp.model.Feedback;
+import com.examly.springapp.model.Product;
 import com.examly.springapp.model.User;
 import com.examly.springapp.repository.FeedbackRepo;
+import com.examly.springapp.repository.ProductRepo;
 import com.examly.springapp.repository.UserRepo;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -22,11 +24,20 @@ public class FeedbackServiceImpl implements FeedbackService{
     @Autowired
     private UserRepo userRepo;
 
+    @Autowired
+    private ProductRepo productRepo;
+
     @Override
     public Feedback createFeedback(Feedback feedback) {
         User user = userRepo.findById(feedback.getUser().getUserId())
                             .orElseThrow(() -> new RuntimeException("User not found"));
-        feedback.setUser(user);
+        feedback.setUser(user); 
+        
+        Product product = productRepo.findById(feedback.getProduct().getProductId())
+                            .orElseThrow(() -> new RuntimeException("Product not found"));
+        feedback.setProduct(product);
+
+            
         return feedbackRepo.save(feedback);
     }
     
@@ -42,7 +53,14 @@ public class FeedbackServiceImpl implements FeedbackService{
 
     @Override
     public List<Feedback> getAllFeedback() {
-        return feedbackRepo.findAll();        
+        List<Feedback> feedbackList = feedbackRepo.findAll();
+        for (Feedback feedback : feedbackList) {
+            Product product = productRepo.findById(feedback.getProduct().getProductId()).orElse(null);
+            feedback.setProduct(product);
+        }
+        return feedbackList;
+        
+                
     }
 
     @Override
@@ -62,8 +80,24 @@ public class FeedbackServiceImpl implements FeedbackService{
             throw new EntityNotFoundException("User ID is not found.");
 
         }
+        for (Feedback feedback : feedbacklist) {
+            Product product = productRepo.findById(feedback.getProduct().getProductId()).orElse(null);
+            feedback.setProduct(product);
+        }
         return feedbacklist;
     }
+
+    @Override
+    public Feedback updateFeedback(Long feedbackId, Feedback feedback) {
+        Feedback existingFeedback = feedbackRepo.findById(feedbackId)
+                                .orElseThrow(() -> new EntityNotFoundException("Feedback not found"));
+        
+        existingFeedback.setMessage(feedback.getMessage());
+        existingFeedback.setRating(feedback.getRating());
+
+        return feedbackRepo.save(existingFeedback);
+    }
+
 
 
     

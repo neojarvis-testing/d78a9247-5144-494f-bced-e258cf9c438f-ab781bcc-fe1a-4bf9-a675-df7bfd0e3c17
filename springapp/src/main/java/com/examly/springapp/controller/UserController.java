@@ -48,7 +48,7 @@ public class UserController {
 
 
     @PostMapping("/api/login")
-      public ResponseEntity<LoginDTO> loginUser(@RequestBody User user) {
+      public ResponseEntity<?> loginUser(@RequestBody User user) {
          try {
             User loggedInUser = userService.loginUser(user);
             String token = jwtUtils.generateToken(loggedInUser.getUsername(), List.of("ROLE_"+loggedInUser.getUserRole())); // Generate the JWT token
@@ -61,8 +61,8 @@ public class UserController {
             loginDTO.setUserId(loggedInUser.getUserId().intValue());
 
             return new ResponseEntity<>(loginDTO, HttpStatus.OK);
-         } catch (RuntimeException e) {
-            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+         } catch (Exception e) {
+            return ResponseEntity.status(400).body(e);
          }
       }
 

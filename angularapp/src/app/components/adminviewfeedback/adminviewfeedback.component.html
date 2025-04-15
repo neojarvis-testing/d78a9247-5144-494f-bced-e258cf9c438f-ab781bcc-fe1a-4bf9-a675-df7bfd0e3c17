@@ -10,9 +10,9 @@
       <tr>
         <th>S.No</th>
         <th>User Name</th>
+        <th>Product</th>
         <th>Feedback</th>
-        <th>Rating</th>
-        <th>Product</th> <!-- Add Product column -->
+        <th>Rating</th> 
         <th>Action</th>
       </tr>
     </thead>
@@ -20,12 +20,12 @@
       <tr *ngFor="let feedback of feedbacks; let i = index">
         <td>{{ i + 1 }}</td>
         <td>{{ feedback.user.username }}</td>
+        <td>{{ feedback.product?.name }}</td> 
         <td>{{ feedback.message }}</td>
         <td>{{ feedback.rating }}</td>
-        <!-- <td>{{ feedback.productName }}</td> Display Product Name -->
-        <td>
-          <button (click)="triggerDelete(feedback.feedbackId)">Delete</button>
-          <button (click)="showProfile(feedback.user)">Show Profile</button>
+        <td class="action-buttons">
+          <button class="delete-btn" (click)="triggerDelete(feedback.feedbackId)">Delete</button>
+          <button class="profile-btn" (click)="showProfile(feedback.user)">Show Profile</button>
         </td>
       </tr>
     </tbody>

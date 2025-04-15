@@ -9,23 +9,36 @@ import { FeedbackService } from 'src/app/services/feedback.service';
   styleUrls: ['./userviewfeedback.component.css']
 })
 export class UserviewfeedbackComponent implements OnInit {
-
   feedbacks: Feedback[] = [];
   selectedFeedback: Feedback | null = null;
   feedbackToDelete: Feedback | null = null;
-  userId: number | null = 2;  // dummy Id
-  user : User;
+  userId: number;
+  user: User;
 
   constructor(private feedbackService: FeedbackService) { }
 
   ngOnInit(): void {
+    // Retrieve user ID from local storage
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      this.userId = parseInt(userId, 10);
+    } else {
+      console.error('User ID not found in local storage.');
+    }
+
     this.getFeedbackByUserId();
   }
 
   getFeedbackByUserId(): void {
     this.feedbackService.getFeedbackByUserId(this.userId).subscribe(
-      (data) => {
+      (data: Feedback[]) => {
         this.feedbacks = data;
+        
+        // Ensure Product data exists in each Feedback object to avoid undefined errors
+        this.feedbacks.forEach(feedback => {
+          feedback.product = feedback.product;
+          //|| { productId: 0, name: 'Unknown Product' }
+        });
       },
       (error) => {
         console.error('Error fetching feedback by user ID:', error);
@@ -41,7 +54,7 @@ export class UserviewfeedbackComponent implements OnInit {
     if (this.feedbackToDelete) {
       this.feedbackService.deleteFeedback(this.feedbackToDelete.feedbackId).subscribe(
         () => {
-          const index = this.feedbacks.findIndex(f => f.feedbackId === this.feedbackToDelete!.feedbackId);
+          const index = this.feedbacks.findIndex(f => f.feedbackId == this.feedbackToDelete!.feedbackId);
           if (index !== -1) {
             this.feedbacks.splice(index, 1);
           }
@@ -61,8 +74,8 @@ export class UserviewfeedbackComponent implements OnInit {
   updateFeedback(feedback: Feedback): void {
     this.feedbackService.updateFeedback(feedback.feedbackId, feedback).subscribe(
       (updatedFeedback: Feedback) => {
-        const index = this.feedbacks.findIndex(f => f.feedbackId === updatedFeedback.feedbackId);
-        if (index !== -1) {
+        const index = this.feedbacks.findIndex(f => f.feedbackId == updatedFeedback.feedbackId);
+        if (index != -1) {
           this.feedbacks[index] = updatedFeedback;
         }
       },

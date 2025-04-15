@@ -20,7 +20,7 @@ export class FeedbackService {
     return this.httpClient.post(this.baseUrl+"/api/feedback",feedback);
   }
 
-  public getAllFeedbacks() : Observable<any>{
+  public getAllFeedback() : Observable<any>{
     return this.httpClient.get(this.baseUrl+"/api/feedback");
   }
   

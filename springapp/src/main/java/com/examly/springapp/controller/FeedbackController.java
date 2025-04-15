@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -50,7 +51,7 @@ public class FeedbackController {
     }
 
     @GetMapping("/api/feedback/user/{userId}")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<?> getFeedbackByUserId(@PathVariable Long userId){
         try{
             List<Feedback> feedbackByUserId = feedbackService.getFeedbackByUserId(userId);
@@ -74,6 +75,20 @@ public class FeedbackController {
 
         }
     }
+
+    @PutMapping("/api/feedback/{feedbackId}")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
+    public ResponseEntity<?> updateFeedback(@PathVariable Long feedbackId, @RequestBody Feedback feedback){
+        try{
+            Feedback updatedFeedback = feedbackService.updateFeedback(feedbackId, feedback);
+            return ResponseEntity.status(200).body(updatedFeedback);
+        }
+        catch(Exception e){
+            System.out.println(e);
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
+    }
+
 
     
 
