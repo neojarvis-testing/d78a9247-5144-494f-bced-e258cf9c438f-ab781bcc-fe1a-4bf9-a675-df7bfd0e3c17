@@ -27,6 +27,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './services/interceptor.service';
 import { FooterComponent } from './components/footer/footer.component';
+import { CommonModule } from '@angular/common';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 import { UserwishlistproductComponent } from './components/userwishlistproduct/userwishlistproduct.component';
 
@@ -63,6 +64,7 @@ import { UserwishlistproductComponent } from './components/userwishlistproduct/u
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    CommonModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]

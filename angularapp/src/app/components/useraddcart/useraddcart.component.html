@@ -6,15 +6,15 @@
         <img [src]="item.image" alt="{{ item.name }}" />
       </div>
       <div class="item-details">
-        <h3>{{ item.name }}</h3>
-        <p>Price: ₹{{ item.price }}</p>
+        <h3>{{ item.productName }}</h3>
+        <p>Price: ₹{{ item.productPrice }}</p>
         <div class="quantity-container">
           <p>Quantity:</p>
           <button (click)="decreaseQuantity(item)">-</button>
           <span>{{ item.quantity }}</span>
           <button (click)="increaseQuantity(item)">+</button>
         </div>
-        <p>Total: ₹{{ calculateTotal(item.price, item.quantity) }}</p>
+        <p>Total: ₹{{ calculateTotal(item.productPrice, item.quantity) }}</p>
         <button (click)="removeFromCart(item)">Remove</button>
       </div>
     </li>
