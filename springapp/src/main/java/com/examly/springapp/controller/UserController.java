@@ -40,8 +40,8 @@ public class UserController {
             User addNewUser = userService.createUser(user);
             return ResponseEntity.status(201).body(addNewUser);
         }
-        catch(EntityNotFoundException e ){
-            return ResponseEntity.status(401).body(e.getMessage());
+        catch(Exception e){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
  
         }
     }

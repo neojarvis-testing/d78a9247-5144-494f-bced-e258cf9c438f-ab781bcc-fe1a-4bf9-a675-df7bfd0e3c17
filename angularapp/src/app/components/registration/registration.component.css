@@ -91,3 +91,8 @@ h2 {
 .card {
   border: none;
 }
+
+.blur {
+  filter: blur(5px); /* Adjust the blur intensity */
+  pointer-events: none; /* Prevent interaction with blurred elements */
+}

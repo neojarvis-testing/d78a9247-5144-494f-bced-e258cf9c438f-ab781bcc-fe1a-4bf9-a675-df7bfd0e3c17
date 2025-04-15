@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { User } from '../models/user.model';
 import { Login } from '../models/login.model';
 import { Global } from '../resources/global';
+import { Observable } from 'rxjs';
  
 @Injectable({
   providedIn: 'root'
@@ -16,36 +17,20 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
  
   register(user: User) {
+    if(localStorage.getItem('token')){
+      localStorage.clear()
+    }
     return this.http.post(`${this.baseUrl}/api/register`, user);
   }
 
   
-  login(login: Login) {
-
-    this.http.post<{ token: string; userRole: string; username:string; userId:number}>(`${this.baseUrl}/api/login`, login).subscribe(
-        response => {
-          console.log(response)
-            const { token, userRole, username, userId } = response;
-
-            // Store token and role in localStorage
-            localStorage.setItem('token', token);
-            localStorage.setItem('userRole', userRole);
-            localStorage.setItem('username', username);
-            localStorage.setItem('userId', userId.toString());
-
-
-            // Navigate based on user role
-            if (userRole == 'ADMIN') {
-                this.router.navigate(['/adminNavBar']); // Navigate to adminnavbar
-            } else if (userRole == 'USER') {
-                this.router.navigate(['/userNavBar']); // Navigate to usernavbar
-            }
-        },
-        error => {
-            console.error('Login failed', error);
-        }
+  login(login: Login): Observable<{ token: string; userRole: string; username: string; userId: number }> {
+    return this.http.post<{ token: string; userRole: string; username: string; userId: number }>(
+      `${this.baseUrl}/api/login`,
+      login
     );
-}
+  }
+  
 
   logout() {
     localStorage.removeItem('token');

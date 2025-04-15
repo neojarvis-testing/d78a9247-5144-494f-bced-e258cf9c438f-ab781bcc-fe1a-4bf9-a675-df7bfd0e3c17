@@ -28,6 +28,9 @@
         <div class="d-flex justify-content-center">
           <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
         </div>
+        <div *ngIf="errorMessage" style="text-align: center; color: red;">
+          {{errorMessage}}
+        </div>
 
       </form>
       <p style="text-align: center;">Don't have and account? <span style="color: lightskyblue; cursor: pointer;" routerLink="/register">Regsiter Here</span></p>

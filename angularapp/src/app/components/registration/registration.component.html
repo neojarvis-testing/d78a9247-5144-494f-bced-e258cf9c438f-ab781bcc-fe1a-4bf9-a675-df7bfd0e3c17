@@ -6,7 +6,7 @@
   </div>
 </div>
 
-<div class="registrationForm" *ngIf="!registrationSuccess">
+<div class="registrationForm" [class.blur]="registrationSuccess">
   <div class="form-container">
     <h2>Register</h2>
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
@@ -62,7 +62,9 @@
       </div>
       <div class="d-flex justify-content-center">
         <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Register</button>
-      </div>      
+         
+      </div> 
+      <div *ngIf="errorMessage" class="text-danger mt-2" style="text-align: center;">{{ errorMessage }}</div>     
     </form>
     <p style="text-align: center;">Already have an account?<span style="color: lightskyblue; cursor: pointer;" routerLink="/login"> Login</span></p>
   </div>
@@ -70,12 +72,13 @@
 
 
 
-<div *ngIf="registrationSuccess" class="card mt-3 container centered-card no-border">
- <div class="card-body text-center">
-   <h5 class="card-title">Registration Successful</h5>
-   <p class="card-text">You have successfully registered.</p>
-   <a routerLink="/login" class="btn btn-primary" (click)="registrationSuccess = false">Go to Login</a>
- </div>
+<div *ngIf="registrationSuccess" class="card mt-3 container centered-card no-border" style="z-index: 1000; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+  <div class="card-body text-center">
+    <h5 class="card-title">Registration Successful</h5>
+    <p class="card-text">You have successfully registered.</p>
+    <a routerLink="/login" class="btn btn-primary" (click)="registrationSuccess = false">Go to Login</a>
+  </div>
 </div>
+
   
   
