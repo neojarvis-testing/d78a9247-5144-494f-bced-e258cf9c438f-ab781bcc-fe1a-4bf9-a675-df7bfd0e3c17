@@ -50,7 +50,7 @@ export class UserviewproductComponent implements OnInit {
       productId: product.id,
       productName: product.name,
       quantity: 1,
-      price: product.price,
+      productPrice: product.price,
       userId: this.userId
     };
     console.log('Adding to cart:', cartItem); // Debugging log
