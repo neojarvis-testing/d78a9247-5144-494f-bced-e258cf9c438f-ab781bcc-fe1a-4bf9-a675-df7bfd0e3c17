@@ -5,6 +5,8 @@ import { ProductService } from 'src/app/services/product.service';
 import { CartItem } from 'src/app/models/cart-item.model'; // Import the CartItem interface
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
+import { WishlistService } from 'src/app/services/wishlist.service';
+
 
 @Component({
   selector: 'app-userviewproduct',
@@ -28,6 +30,7 @@ export class UserviewproductComponent implements OnInit {
     private cartService: CartService,
     private userService : UserService,
     private router: Router,
+    private wishlistService: WishlistService
   ) {}
 
   ngOnInit(): void {
@@ -140,22 +143,45 @@ export class UserviewproductComponent implements OnInit {
 
   /** Wishlist Functionality */
   loadWishlist(): void {
-    const savedWishlist = localStorage.getItem('wishlist');
-    this.wishlist = savedWishlist ? JSON.parse(savedWishlist) : [];
+    this.wishlistService.getWishlist(this.userId).subscribe(
+      (data) => {
+        this.wishlist = data;
+        localStorage.setItem('wishlist', JSON.stringify(data)); // Sync local storage
+      },
+      (error) => {
+        console.error('Error fetching wishlist:', error);
+      }
+    );
   }
 
   addToWishlist(product: any): void {
-    let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
-    if (!wishlist.some((item: any) => item.id === product.id)) {
-      wishlist.push({ id: product.id, name: product.name, productImage: product.productImage });
-      localStorage.setItem('wishlist', JSON.stringify(wishlist));
-    }
-    this.loadWishlist(); // Reload the wishlist to reflect changes
+    this.wishlistService.addToWishlist(this.userId, product.id).subscribe(
+      () => {
+        this.wishlist.push(product); // Update UI
+        localStorage.setItem('wishlist', JSON.stringify(this.wishlist)); // Sync local storage
+      },
+      (error) => {
+        console.error('Error adding to wishlist:', error);
+      }
+    );
+  }
+
+  removeFromWishlist(productId: number): void {
+    this.wishlistService.removeFromWishlist(this.userId, productId).subscribe(
+      () => {
+        this.wishlist = this.wishlist.filter(item => item.id !== productId);
+        localStorage.setItem('wishlist', JSON.stringify(this.wishlist)); // Sync local storage
+      },
+      (error) => {
+        console.error('Error removing from wishlist:', error);
+      }
+    );
   }
 
   isInWishlist(product: any): boolean {
     return this.wishlist.some(item => item.id === product.id);
   }
+
 }
   
   

@@ -16,7 +16,7 @@ export class UseraddcartComponent implements OnInit {
   shippingAddress: string = '';
   orderPlaced: boolean = false;
   addressError: boolean = false;
-  userId: number = parseInt(localStorage.getItem('userId'));
+  userId: number=0;
   isAuthenticated: boolean = false;
 
   constructor(
@@ -111,8 +111,8 @@ export class UseraddcartComponent implements OnInit {
     }
 
     const order: Order = {
-      user: { username },
       product: this.cart,
+      user: {userId:this.userId},
       shippingAddress: this.shippingAddress,
       totalAmount: this.getGrandTotal(),
       quantity: this.cart.reduce((total, item) => total + item.quantity, 0),

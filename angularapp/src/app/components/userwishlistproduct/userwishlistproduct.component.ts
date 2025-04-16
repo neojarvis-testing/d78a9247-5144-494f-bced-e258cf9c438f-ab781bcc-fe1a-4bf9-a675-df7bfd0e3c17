@@ -17,23 +17,31 @@ export class UserwishlistproductComponent implements OnInit {
   }
 
   loadWishlist(): void {
-    const savedWishlist = localStorage.getItem('wishlist');
-    this.wishlist = savedWishlist ? JSON.parse(savedWishlist) : [];
+    const storedWishlist = localStorage.getItem('wishlist');
+    this.wishlist = storedWishlist ? JSON.parse(storedWishlist) : [];
   }
 
   removeFromWishlist(productId: number): void {
-    this.wishlist = this.wishlist.filter(item => item.id !== productId);
-    localStorage.setItem('wishlist', JSON.stringify(this.wishlist));
+    const updatedWishlist = this.wishlist.filter(item => item.id !== productId);
+    if (updatedWishlist.length !== this.wishlist.length) {
+      this.wishlist = updatedWishlist;
+      localStorage.setItem('wishlist', JSON.stringify(this.wishlist));
+    }
   }
 
   addToCart(product: any): void {
-    // Navigate to cart with the selected product
-    this.router.navigate(['/userNavBar/cart']);
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    cart.push(product);
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // Navigate to cart page
+    this.router.navigate(['/cart']);
   }
 
   isWishlistEmpty(): boolean {
     return this.wishlist.length === 0;
   }
+
 
 
 }

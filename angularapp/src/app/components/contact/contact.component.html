@@ -1,0 +1,18 @@
+<form (ngSubmit)="onSubmit()" #emailForm="ngForm" >
+    <div class="mb-3">
+      <label for="name">Your Name</label>
+      <input type="text" [(ngModel)]="emailData.name" name="name"  class="form-control"id="name" required>
+    </div>
+  
+    <div class="mb-3">
+      <label for="email">Email address</label>
+      <input type="email" [(ngModel)]="emailData.email" class="form-control" name="email"   id="email" required>
+    </div>
+  
+    <div class="mb-3">
+      <label for="message">Message</label>
+      <textarea class="form-control"  [(ngModel)]="emailData.message"  name="message"  id="message" required></textarea>
+    </div>
+  
+    <button  type="submit" class="btn btn-primary">Submit</button>
+  </form>

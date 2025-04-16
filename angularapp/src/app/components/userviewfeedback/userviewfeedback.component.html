@@ -17,8 +17,8 @@
         <td>{{ feedback.message }}</td>
         <td>{{feedback.rating}}</td>
         <td>
-          <button (click)="selectFeedback(feedback)">Edit</button>
-          <button (click)="confirmDelete(feedback)">Delete</button>
+          <button (click)="selectFeedback(feedback)" class="btn btn-primary" style="margin-right: 0.8em;">Edit</button>
+          <button (click)="confirmDelete(feedback)" class="btn btn-danger">Delete</button>
         </td>
       </tr>
     </tbody>
@@ -41,8 +41,8 @@
       <input [(ngModel)]="selectedFeedback.message" placeholder="Enter feedback" />
       <input type="number" [(ngModel)]="selectedFeedback.rating" placeholder="Rating" />
   
-      <button (click)="updateFeedback(selectedFeedback)">Save</button>
-      <button (click)="clearSelection()">Cancel</button>
+      <button (click)="updateFeedback(selectedFeedback)" class="btn btn-success" style="margin-bottom: 0.8em;">Save</button>
+      <button (click)="clearSelection()" class="btn btn-danger">Cancel</button>
     </div>
   </div> -->
   <div *ngIf="selectedFeedback" class="modal animated-modal">
