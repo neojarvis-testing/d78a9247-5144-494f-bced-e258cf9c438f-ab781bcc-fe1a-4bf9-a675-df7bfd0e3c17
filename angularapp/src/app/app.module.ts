@@ -30,6 +30,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 import { UserwishlistproductComponent } from './components/userwishlistproduct/userwishlistproduct.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { UserwishlistproductComponent } from './components/userwishlistproduct/u
     AuthguardComponent,
     FooterComponent,
     ForgetPasswordComponent,
-    UserwishlistproductComponent
+    UserwishlistproductComponent,
+    ContactComponent
  
   ],
   imports: [
