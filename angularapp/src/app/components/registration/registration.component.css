@@ -96,3 +96,23 @@ h2 {
   filter: blur(5px); /* Adjust the blur intensity */
   pointer-events: none; /* Prevent interaction with blurred elements */
 }
+.moving-cart {
+  width: 100px; /* Adjust size as needed */
+  animation: moveCart 2s ease-in-out infinite; /* 'infinite' ensures the animation keeps looping */
+  position: relative;
+}
+
+@keyframes moveCart {
+  0% {
+    transform: translateX(-300px) translateY(0); /* Starts off-screen to the left */
+    opacity: 0; /* Invisible */
+  }
+  50% {
+    transform: translateX(0px) translateY(-30px); /* Bounces up slightly */
+    opacity: 1; /* Fully visible */
+  }
+  100% {
+    transform: translateX(300px) translateY(0); /* Moves off-screen to the right */
+    opacity: 0; /* Invisible again */
+  }
+}

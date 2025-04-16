@@ -77,3 +77,93 @@ input {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+/* Modal Container */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 400px;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  text-align: center;
+  z-index: 1000;
+  opacity: 0; /* Initially invisible */
+  pointer-events: none; /* Prevent interaction */
+}
+
+/* Animation for Modal Appearance */
+.animated-modal {
+  animation: modalFadeIn 0.5s ease-out forwards; /* Makes modal visible */
+}
+
+@keyframes modalFadeIn {
+  0% {
+    transform: translate(-50%, -60%) scale(0.9); /* Starts lower and smaller */
+    opacity: 0; /* Invisible */
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1); /* Reaches full size and position */
+    opacity: 1; /* Fully visible */
+  }
+}
+
+/* Save Button Style */
+.save-button {
+  background-color: #4caf50; /* Green for confirmation */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.save-button:hover {
+  background-color: #45a049; /* Slightly darker green on hover */
+}
+
+/* Cancel Button Style */
+.cancel-button {
+  background-color: #f44336; /* Red for cancel */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-button:hover {
+  background-color: #d32f2f; /* Slightly darker red on hover */
+}
+
+/* Modal Content Padding */
+.modal-content {
+  padding: 20px;
+}
+
+/* Input Fields */
+input {
+  width: 90%;
+  margin: 10px auto;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Overlay Effect (optional) */
+.modal::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 999;
+}
+

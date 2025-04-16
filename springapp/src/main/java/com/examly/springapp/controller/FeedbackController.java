@@ -1,8 +1,6 @@
 package com.examly.springapp.controller;
 
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,19 +10,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.examly.springapp.model.Feedback;
 import com.examly.springapp.service.FeedbackService;
 
 @RestController
+@RequestMapping("/api/feedback")
 @CrossOrigin(allowedHeaders="*", origins="*")
 public class FeedbackController {
 
-    @Autowired
-    private FeedbackService feedbackService;
+    private final FeedbackService feedbackService;
 
-    @PostMapping("/api/feedback")
+    // Constructor injection
+    public FeedbackController(FeedbackService feedbackService) {
+        this.feedbackService = feedbackService;
+    }
+
+    @PostMapping
     @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<?> createFeedback(@RequestBody Feedback feedback){
         try{
@@ -37,7 +41,7 @@ public class FeedbackController {
         }        
     }
 
-    @GetMapping("/api/feedback")
+    @GetMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> getAllFeedback(){
         try{
@@ -50,7 +54,7 @@ public class FeedbackController {
         }
     }
 
-    @GetMapping("/api/feedback/user/{userId}")
+    @GetMapping("/user/{userId}")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<?> getFeedbackByUserId(@PathVariable Long userId){
         try{
@@ -63,7 +67,7 @@ public class FeedbackController {
         }
     }
 
-    @DeleteMapping("/api/feedback/{id}")
+    @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     public ResponseEntity<?> deleteFeedback(@PathVariable Long id){
         try{
@@ -76,7 +80,7 @@ public class FeedbackController {
         }
     }
 
-    @PutMapping("/api/feedback/{feedbackId}")
+    @PutMapping("/{feedbackId}")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<?> updateFeedback(@PathVariable Long feedbackId, @RequestBody Feedback feedback){
         try{

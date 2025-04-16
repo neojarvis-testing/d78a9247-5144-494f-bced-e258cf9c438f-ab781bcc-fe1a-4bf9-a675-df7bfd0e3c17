@@ -4,8 +4,6 @@ import com.examly.springapp.model.CartItem;
 import com.examly.springapp.model.User;
 import com.examly.springapp.service.CartService;
 import com.examly.springapp.service.UserService;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,10 +13,14 @@ import java.util.List;
 @CrossOrigin(allowedHeaders = "*", origins = "*")
 public class CartController {
 
-    @Autowired
-    private CartService cartService;
-    @Autowired
-    private UserService userService;
+    private final CartService cartService;
+    private final UserService userService;
+
+    // Constructor injection
+    public CartController(CartService cartService, UserService userService) {
+        this.cartService = cartService;
+        this.userService = userService;
+    }
 
     @GetMapping("/{userId}")
     public List<CartItem> getCartItems(@PathVariable Long userId) {
