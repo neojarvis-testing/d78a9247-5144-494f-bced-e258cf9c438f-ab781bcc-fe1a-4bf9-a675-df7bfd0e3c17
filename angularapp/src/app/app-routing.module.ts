@@ -18,6 +18,7 @@ import { AdminAuthGuard } from './admin-auth.guard';
 import { UserAuthGuard } from './user-auth.guard';
 import { UseraddfeedbackComponent } from './components/useraddfeedback/useraddfeedback.component';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
+import { UserwishlistproductComponent } from './components/userwishlistproduct/userwishlistproduct.component';
  
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -32,6 +33,7 @@ const routes: Routes = [
     { path: 'userviewfeedback', component: UserviewfeedbackComponent },
     { path: 'useraddfeedback', component: UseraddfeedbackComponent},
     { path: 'uservieworders', component: UserviewordersComponent },
+    {path: 'wishlist', component: UserwishlistproductComponent},
     {path: '', redirectTo:'/userNavBar/home', pathMatch:'full'}]
   },
   {path:'adminNavBar',
