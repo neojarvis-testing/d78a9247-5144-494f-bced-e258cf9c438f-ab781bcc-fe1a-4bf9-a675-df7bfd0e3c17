@@ -1,5 +1,10 @@
 <app-navbar></app-navbar>
-
+<body style="background-image: url('/assets/bg2.avif'); 
+             background-size: cover; 
+             background-position: center; 
+             background-repeat: no-repeat; 
+             margin: 0; 
+             font-family: Arial, sans-serif;">
 <div class="registrationForm" [class.blur]="registrationSuccess">
   <div class="form-container">
     <h2>Register</h2>
@@ -66,13 +71,23 @@
 
 
 
-<div *ngIf="registrationSuccess" class="card mt-3 container centered-card no-border" style="z-index: 1000; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+<!-- <div *ngIf="registrationSuccess" class="card mt-3 container centered-card no-border" style="z-index: 1000; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
   <div class="card-body text-center">
     <h5 class="card-title">Registration Successful</h5>
     <p class="card-text">You have successfully registered.</p>
     <a routerLink="/login" class="btn btn-primary" (click)="registrationSuccess = false">Go to Login</a>
   </div>
+</div> -->
+<div *ngIf="registrationSuccess" class="card mt-3 container centered-card no-border" 
+     style="z-index: 1000; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+  <div class="card-body text-center">
+    <img src="assets/trans.png" alt="Success Cart" class="moving-cart" />
+    <h5 class="card-title">Registration Successful</h5>
+    <p class="card-text">You have successfully registered.</p>
+    <a routerLink="/login" class="btn btn-primary" (click)="registrationSuccess = false">Go to Login</a>
+  </div>
 </div>
+
 
   
   

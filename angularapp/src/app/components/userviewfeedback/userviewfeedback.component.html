@@ -35,7 +35,7 @@
     </div>
   </div>
 
-  <div *ngIf="selectedFeedback" class="modal">
+  <!-- <div *ngIf="selectedFeedback" class="modal">
     <div class="modal-content">
       <h3>Edit Feedback</h3>
       <input [(ngModel)]="selectedFeedback.message" placeholder="Enter feedback" />
@@ -44,7 +44,18 @@
       <button (click)="updateFeedback(selectedFeedback)">Save</button>
       <button (click)="clearSelection()">Cancel</button>
     </div>
+  </div> -->
+  <div *ngIf="selectedFeedback" class="modal animated-modal">
+    <div class="modal-content">
+      <h3>Edit Feedback</h3>
+      <input [(ngModel)]="selectedFeedback.message" placeholder="Enter feedback" />
+      <input type="number" [(ngModel)]="selectedFeedback.rating" placeholder="Rating" />
+    
+      <button (click)="updateFeedback(selectedFeedback)" class="save-button">Save</button>
+      <button (click)="clearSelection()" class="cancel-button">Cancel</button>
+    </div>
   </div>
+  
   
 </div>
 

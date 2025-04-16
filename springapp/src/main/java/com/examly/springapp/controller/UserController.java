@@ -2,8 +2,6 @@ package com.examly.springapp.controller;
 
 import java.util.List;
 import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.examly.springapp.config.JwtUtils;
@@ -25,18 +24,22 @@ import com.examly.springapp.service.UserServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
 
 @RestController
+@RequestMapping("/api")
 @CrossOrigin(allowedHeaders = "*",origins = "*")
 public class UserController {
 
-    @Autowired
-    UserServiceImpl userService;
+   private final UserServiceImpl userService;
+   private final JwtUtils jwtUtils;
 
-    @Autowired
-    JwtUtils jwtUtils;
+   // Constructor injection
+   public UserController(UserServiceImpl userService, JwtUtils jwtUtils) {
+       this.userService = userService;
+       this.jwtUtils = jwtUtils;
+   }
 
     
     
-@PostMapping("/api/register")
+@PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody User user){
         try{
             User addNewUser = userService.createUser(user);
@@ -49,7 +52,7 @@ public class UserController {
     }
 
 
-    @PostMapping("/api/login")
+    @PostMapping("/login")
       public ResponseEntity<?> loginUser(@RequestBody User user) {
          try {
             User loggedInUser = userService.loginUser(user);
@@ -69,7 +72,7 @@ public class UserController {
       }
 
     
-    @GetMapping("/api/user")
+    @GetMapping("/user")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<User>> getAllUsers() {
      try {
@@ -81,7 +84,7 @@ public class UserController {
       }
 
     
-    @DeleteMapping("/api/user/{userId}")
+    @DeleteMapping("/user/{userId}")
     @PreAuthorize("hasAuthority('ADMIN')")
      public ResponseEntity<User> deleteUser(@PathVariable int userId) {
     try {
@@ -97,7 +100,7 @@ public class UserController {
      }
     }
 
-   @PostMapping("/api/update-password")
+   @PostMapping("/update-password")
    public ResponseEntity<?> updatePassword(@RequestBody PasswordUpdateRequest request) {
          
          Optional<User> userOptional = userService.findByEmail(request.getEmail());

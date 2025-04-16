@@ -2,16 +2,18 @@ package com.examly.springapp.controller;
 
 import com.examly.springapp.service.WishlistService;
 import com.examly.springapp.model.Wishlist;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/wishlist")
 public class WishlistController {
 
-    @Autowired
-    private WishlistService wishlistService;
+    private final WishlistService wishlistService;
+
+    // Constructor injection
+    public WishlistController(WishlistService wishlistService) {
+        this.wishlistService = wishlistService;
+    }
 
 
     @GetMapping("/{userId}")

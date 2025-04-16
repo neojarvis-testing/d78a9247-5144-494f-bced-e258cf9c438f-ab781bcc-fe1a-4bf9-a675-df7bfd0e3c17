@@ -1,8 +1,6 @@
 package com.examly.springapp.controller;
  
 import java.util.List;
- 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,9 +25,12 @@ import jakarta.persistence.EntityNotFoundException;
 @RequestMapping("/api/orders")
 @CrossOrigin(allowedHeaders="*", origins="*")
 public class OrderController {
-    @Autowired
-    private OrderService orderService;
- 
+    private final OrderService orderService;
+
+    // Constructor injection
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
     // Add Order (USER Role)
     @PostMapping
     @PreAuthorize("hasAuthority('USER')")
