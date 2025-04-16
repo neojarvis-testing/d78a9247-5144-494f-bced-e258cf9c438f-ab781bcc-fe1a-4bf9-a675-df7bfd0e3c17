@@ -1,6 +1,8 @@
 package com.examly.springapp.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,17 +100,22 @@ public class UserController {
     }
 
    @PostMapping("/api/update-password")
-   public ResponseEntity<?> updatePassword(@RequestBody PasswordUpdateRequest request) {
-         
+      public ResponseEntity<Map<String, String>> updatePassword(@RequestBody PasswordUpdateRequest request) {
          Optional<User> userOptional = userService.findByEmail(request.getEmail());
          System.out.println("The method is called");
+
          if (userOptional.isEmpty()) { 
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found for email: " + request.getEmail());
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", "User not found for email: " + request.getEmail());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
          }
 
          userService.updateUserPassword(request.getEmail(), request.getNewPassword());
 
-         return ResponseEntity.status(200).body("Password is updated successfully"); 
-   }
+         // Return JSON response instead of plain text
+         Map<String, String> successResponse = new HashMap<>();
+         successResponse.put("message", "Password updated successfully");
+         return ResponseEntity.ok(successResponse);
+      }
 
 }
