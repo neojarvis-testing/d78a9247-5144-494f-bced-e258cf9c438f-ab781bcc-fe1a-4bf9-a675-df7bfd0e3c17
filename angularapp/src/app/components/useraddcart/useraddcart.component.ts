@@ -16,7 +16,7 @@ export class UseraddcartComponent implements OnInit {
   shippingAddress: string = '';
   orderPlaced: boolean = false;
   addressError: boolean = false;
-  userId: number = parseInt(localStorage.getItem('userId'));
+  userId: number=0;
   isAuthenticated: boolean = false;
 
   constructor(
