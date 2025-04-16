@@ -85,5 +85,16 @@ export class UserviewfeedbackComponent implements OnInit {
   clearSelection(): void {
     this.selectedFeedback = null;
   }
+
+  ratingError: boolean = false;
+
+checkRating() {
+  if (this.selectedFeedback.rating > 5) {
+    this.ratingError = true;
+  } else {
+    this.ratingError = false;
+  }
+}
+
   
 }

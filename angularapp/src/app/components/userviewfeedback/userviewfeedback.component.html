@@ -43,9 +43,16 @@
     <div class="modal-content">
       <h3>Edit Feedback</h3>
       <input [(ngModel)]="selectedFeedback.message" placeholder="Enter feedback" />
-      <input type="number" [(ngModel)]="selectedFeedback.rating" placeholder="Rating" />
+      <input 
+        type="number" 
+        [(ngModel)]="selectedFeedback.rating" 
+        placeholder="Rating" 
+        (input)="checkRating()" 
+      />
+      <p *ngIf="ratingError" style="color: red;">Rating must not exceed 5.</p>
       <button (click)="updateFeedback(selectedFeedback)" class="btn btn-success" style="margin-bottom: 0.8em;">Save</button>
       <button (click)="clearSelection()" class="btn btn-secondary">Cancel</button>
     </div>
   </div>
+  
 </div>
