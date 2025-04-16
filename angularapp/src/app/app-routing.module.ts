@@ -33,6 +33,7 @@ const routes: Routes = [
     { path: 'userviewproduct', component: UserviewproductComponent },
     { path: 'userviewfeedback', component: UserviewfeedbackComponent },
     { path: 'useraddfeedback', component: UseraddfeedbackComponent},
+    { path: 'useraddfeedback/:productid', component: UseraddfeedbackComponent},
     { path: 'contact', component: ContactComponent},
     { path: 'uservieworders', component: UserviewordersComponent },
     {path: 'wishlist', component: UserwishlistproductComponent},

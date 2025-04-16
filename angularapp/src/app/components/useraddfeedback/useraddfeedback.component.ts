@@ -5,6 +5,7 @@ import { Feedback } from 'src/app/models/feedback.model';
 import { Product } from 'src/app/models/product.model';
 import { FeedbackService } from 'src/app/services/feedback.service';
 import { ProductService } from 'src/app/services/product.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-useraddfeedback',
@@ -19,10 +20,11 @@ export class UseraddfeedbackComponent implements OnInit, OnDestroy {
   rating: number = 5; // Default rating value, adjust as needed
   popupMessage: string | null = null;
   userId: number = 0;
+  productId: number = 0;
 
   private subscriptions: Subscription = new Subscription(); // Manage multiple subscriptions
 
-  constructor(private feedbackService: FeedbackService, private productService: ProductService) {}
+  constructor(private feedbackService: FeedbackService, private productService: ProductService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     const userId = localStorage.getItem('userId');
@@ -31,6 +33,16 @@ export class UseraddfeedbackComponent implements OnInit, OnDestroy {
     const productSubscription = this.productService.getProducts().subscribe(
       (data) => this.products = data,
       (error) => console.error('Error fetching products:', error)
+    );
+
+    // Extract productId from route parameters
+    this.productId = parseInt(this.route.snapshot.paramMap.get('productid'), 10);
+    console.log("Navigated product ID:", this.productId);
+
+    // Fetch the selected product based on productId
+    this.productService.getProductById(this.productId).subscribe(
+      (product) => this.selectedProduct = product,
+      (error) => console.error("Error fetching product:", error)
     );
 
     this.subscriptions.add(productSubscription);
@@ -57,6 +69,7 @@ export class UseraddfeedbackComponent implements OnInit, OnDestroy {
       next: () => {
         this.popupMessage = 'Successfully Added!';
         this.feedbackText = '';
+        this.router.navigate(['/userNavBar/userviewfeedback']);
       },
       error: (error) => {
         console.error('Error submitting feedback:', error);
@@ -64,6 +77,7 @@ export class UseraddfeedbackComponent implements OnInit, OnDestroy {
     });
 
     this.subscriptions.add(feedbackSubscription);
+    
   }
 
   closePopup(): void {
