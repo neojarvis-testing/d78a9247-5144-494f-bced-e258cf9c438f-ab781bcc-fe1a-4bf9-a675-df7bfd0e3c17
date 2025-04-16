@@ -31,7 +31,7 @@ public class OrderController {
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
     }
-    // Add Order (USER Role)
+
     @PostMapping
     @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<?> addOrder(@RequestBody Order order) {
