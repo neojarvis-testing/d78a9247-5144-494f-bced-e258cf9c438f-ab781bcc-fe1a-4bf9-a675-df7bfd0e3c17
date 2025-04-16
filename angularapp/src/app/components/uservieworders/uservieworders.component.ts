@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Order } from 'src/app/models/order.model';
 import { OrderService } from 'src/app/services/order.service';
 import { ChangeDetectorRef } from '@angular/core';
@@ -8,16 +9,15 @@ import { ChangeDetectorRef } from '@angular/core';
   templateUrl: './uservieworders.component.html',
   styleUrls: ['./uservieworders.component.css']
 })
-export class UserviewordersComponent implements OnInit {
+export class UserviewordersComponent implements OnInit, OnDestroy {
 
-  // Updated to handle multiple orders
   orders: Order[] = [];
-  userId: number;
+  userId: number = 0;
+  private subscriptions: Subscription = new Subscription(); // Manage multiple subscriptions
 
   constructor(private orderService: OrderService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    // Retrieve userId from localStorage
     const storedUserId = localStorage.getItem('userId');
     console.log("Getting ID from local storage: " + storedUserId);
 
@@ -32,14 +32,23 @@ export class UserviewordersComponent implements OnInit {
     }
   }
 
-  getOrdersByUserId(userId: number) {
-    this.orderService.getOrderByUserId(userId).subscribe((data: Order[]) => {
-      console.log("Raw data: ", data);
-      this.orders = data; // Assign array to orders
-      console.log("Orders array: ", JSON.stringify(this.orders));
-    },
-    error => {
-      console.error("Error fetching orders: ", error);
-    });
+  getOrdersByUserId(userId: number): void {
+    const orderSubscription = this.orderService.getOrderByUserId(userId).subscribe(
+      (data: Order[]) => {
+        console.log("Raw data: ", data);
+        this.orders = data;
+        console.log("Orders array: ", JSON.stringify(this.orders));
+      },
+      (error) => {
+        console.error("Error fetching orders: ", error);
+      }
+    );
+
+    this.subscriptions.add(orderSubscription);
+  }
+
+  // Cleanup subscriptions when component is destroyed
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

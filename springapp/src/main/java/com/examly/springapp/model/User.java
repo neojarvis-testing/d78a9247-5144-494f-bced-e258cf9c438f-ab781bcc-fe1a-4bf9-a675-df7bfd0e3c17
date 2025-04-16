@@ -1,6 +1,8 @@
 package com.examly.springapp.model;
 
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -21,7 +23,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class User {
+public class User implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

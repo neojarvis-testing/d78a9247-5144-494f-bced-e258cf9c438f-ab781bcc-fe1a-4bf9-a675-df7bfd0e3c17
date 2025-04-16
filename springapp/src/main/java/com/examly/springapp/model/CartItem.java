@@ -1,5 +1,7 @@
 package com.examly.springapp.model;
 
+import java.io.Serializable;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +17,7 @@ import lombok.ToString;
 @Getter
 @Setter
 
-public class CartItem {
+public class CartItem implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

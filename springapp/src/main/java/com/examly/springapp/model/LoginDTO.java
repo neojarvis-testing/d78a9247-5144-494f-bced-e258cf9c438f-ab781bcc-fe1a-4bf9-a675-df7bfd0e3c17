@@ -1,5 +1,7 @@
 package com.examly.springapp.model;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -12,7 +14,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class LoginDTO {
+public class LoginDTO implements Serializable{
     
     private String token;
     private String username;

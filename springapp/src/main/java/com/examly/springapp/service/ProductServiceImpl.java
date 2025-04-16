@@ -14,11 +14,15 @@ import com.examly.springapp.repository.UserRepo;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-    @Autowired
-    ProductRepo productRepo;
+    
+    private final ProductRepo productRepo;
+    private final UserRepo userRepo;
 
-    @Autowired
-    UserRepo userRepo;
+    // Constructor Injection
+    public ProductServiceImpl(ProductRepo productRepo, UserRepo userRepo) {
+        this.productRepo = productRepo;
+        this.userRepo = userRepo;
+    }
 
     @Override
     public Product addProduct(Product product) {

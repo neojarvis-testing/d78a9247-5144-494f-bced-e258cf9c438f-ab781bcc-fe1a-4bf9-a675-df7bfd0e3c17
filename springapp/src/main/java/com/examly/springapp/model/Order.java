@@ -1,5 +1,6 @@
 package com.examly.springapp.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -31,7 +32,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;

@@ -1,135 +1,138 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
-import { CartItem } from 'src/app/models/cart-item.model'; // Import the CartItem interface
+import { CartItem } from 'src/app/models/cart-item.model';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
 import { WishlistService } from 'src/app/services/wishlist.service';
-
 
 @Component({
   selector: 'app-userviewproduct',
   templateUrl: './userviewproduct.component.html',
   styleUrls: ['./userviewproduct.component.css']
 })
-export class UserviewproductComponent implements OnInit {
+export class UserviewproductComponent implements OnInit, OnDestroy {
   products: any[] = [];
   cart: CartItem[] = [];
   totalProductCount: number = 0;
   userId: number = 0;
-  user:User = null;
+  user: User | null = null;
   filteredProducts: any[] = [];
   categories: string[] = [];
   selectedCategory: string = 'All';
   wishlist: any[] = [];
-
+  private subscriptions: Subscription = new Subscription(); // Manage multiple subscriptions
 
   constructor(
     private productService: ProductService,
     private cartService: CartService,
-    private userService : UserService,
+    private userService: UserService,
     private router: Router,
     private wishlistService: WishlistService
   ) {}
 
   ngOnInit(): void {
-    
     this.userId = parseInt(localStorage.getItem('userId') || '0', 10);
-    this.userService.getProfileById(this.userId).subscribe(data=>{
-      this.user = data;
-    })
+
+    const userSubscription = this.userService.getProfileById(this.userId).subscribe(
+      (data) => this.user = data,
+      (error) => console.error('Error fetching user profile:', error)
+    );
+    this.subscriptions.add(userSubscription);
+
     this.loadProducts();
     this.loadCart();
     this.loadWishlist();
   }
 
   loadProducts(): void {
-    this.productService.getProducts().subscribe(data => {
-      this.products = data.map(product => {
-        //console.log("Raw Base64 Image Data:", product.productImage);
-        let imageData = product.productImage;
-        // Ensure the image data is valid and doesn't already contain the prefix
-        if (imageData && !imageData.startsWith('data:image')) {
-          imageData = `data:image/jpeg;base64,${imageData}`;
-        }
-        return {
-          ...product,
-          decodedImage: imageData  // Store the final image source format
-        };
-      });
-  
-      this.filteredProducts = this.products; // Initialize filtered products
-      this.categories = [...new Set(this.products.map(p => p.category))]; // Extract unique categories
-    });
+    const productSubscription = this.productService.getProducts().subscribe(
+      (data) => {
+        this.products = data.map(product => {
+          let imageData = product.productImage;
+          if (imageData && !imageData.startsWith('data:image')) {
+            imageData = `data:image/jpeg;base64,${imageData}`;
+          }
+          return { ...product, decodedImage: imageData };
+        });
+
+        this.filteredProducts = this.products;
+        this.categories = [...new Set(this.products.map(p => p.category))];
+      },
+      (error) => console.error('Error fetching products:', error)
+    );
+
+    this.subscriptions.add(productSubscription);
   }
 
   filterProducts(): void {
-    if (this.selectedCategory === 'All') {
-      this.filteredProducts = this.products;
-    } else {
-      this.filteredProducts = this.products.filter(p => p.category === this.selectedCategory);
-    }
+    this.filteredProducts = this.selectedCategory === 'All' 
+      ? this.products 
+      : this.products.filter(p => p.category === this.selectedCategory);
   }
 
   loadCart(): void {
-    this.cartService.getCart(this.userId).subscribe(
+    const cartSubscription = this.cartService.getCart(this.userId).subscribe(
       (data) => {
         this.cart = Array.isArray(data) ? data : [];
         this.updateTotalCount();
       },
       (error) => console.error('Failed to load cart', error)
     );
+
+    this.subscriptions.add(cartSubscription);
   }
 
   addToCart(product: any): void {
-    console.log("Inside add to cart")
-    console.log(this.userId)
     const cartItem: CartItem = {
       productId: product.productId,
       productName: product.name,
       quantity: 1,
       productPrice: product.price,
-      user: {userId:this.userId}
+      user: { userId: this.userId }
     };
-    console.log('Adding to cart:', cartItem); // Debugging log
-    
-    this.cartService.addToCart(cartItem).subscribe(
-      (response) => {
-        console.log('Product added to cart:', response);
-        this.loadCart(); // Ensure the cart is reloaded after adding an item
+
+    const addToCartSubscription = this.cartService.addToCart(cartItem).subscribe(
+      () => {
+        this.loadCart();
         this.router.navigate(['/userNavBar/cart']);
       },
-      (error) => {
-        
-        console.error('Failed to add product to cart', error);
-        alert(`Error: ${error.message}`); // Added error handling
-      }
+      (error) => console.error('Failed to add product to cart', error)
     );
+
+    this.subscriptions.add(addToCartSubscription);
   }
 
   increaseQuantity(product: any): void {
     const existingProduct = this.cart.find(item => item.productId === product.id);
     if (existingProduct) {
-      this.cartService.addToCart({ ...existingProduct, quantity: existingProduct.quantity + 1 }).subscribe(
+      const increaseSubscription = this.cartService.addToCart({ ...existingProduct, quantity: existingProduct.quantity + 1 }).subscribe(
         () => this.loadCart(),
         (error) => console.error('Failed to increase quantity', error)
       );
+
+      this.subscriptions.add(increaseSubscription);
     }
   }
 
   decreaseQuantity(product: any): void {
     const existingProduct = this.cart.find(item => item.productId === product.id);
     if (existingProduct && existingProduct.quantity > 1) {
-      this.cartService.addToCart({ ...existingProduct, quantity: existingProduct.quantity - 1 }).subscribe(
+      const decreaseSubscription = this.cartService.addToCart({ ...existingProduct, quantity: existingProduct.quantity - 1 }).subscribe(
         () => this.loadCart(),
         (error) => console.error('Failed to decrease quantity', error)
       );
+
+      this.subscriptions.add(decreaseSubscription);
     } else if (existingProduct && existingProduct.quantity === 1) {
-      this.cartService.removeFromCart(existingProduct.id!).subscribe(
+      const removeSubscription = this.cartService.removeFromCart(existingProduct.id!).subscribe(
         () => this.loadCart(),
         (error) => console.error('Failed to remove product from cart', error)
       );
+
+      this.subscriptions.add(removeSubscription);
     }
   }
 
@@ -143,46 +146,47 @@ export class UserviewproductComponent implements OnInit {
 
   /** Wishlist Functionality */
   loadWishlist(): void {
-    this.wishlistService.getWishlist(this.userId).subscribe(
+    const wishlistSubscription = this.wishlistService.getWishlist(this.userId).subscribe(
       (data) => {
         this.wishlist = data;
-        localStorage.setItem('wishlist', JSON.stringify(data)); // Sync local storage
+        localStorage.setItem('wishlist', JSON.stringify(data));
       },
-      (error) => {
-        console.error('Error fetching wishlist:', error);
-      }
+      (error) => console.error('Error fetching wishlist:', error)
     );
+
+    this.subscriptions.add(wishlistSubscription);
   }
 
   addToWishlist(product: any): void {
-    this.wishlistService.addToWishlist(this.userId, product.id).subscribe(
+    const addWishlistSubscription = this.wishlistService.addToWishlist(this.userId, product.id).subscribe(
       () => {
-        this.wishlist.push(product); // Update UI
-        localStorage.setItem('wishlist', JSON.stringify(this.wishlist)); // Sync local storage
+        this.wishlist.push(product);
+        localStorage.setItem('wishlist', JSON.stringify(this.wishlist));
       },
-      (error) => {
-        console.error('Error adding to wishlist:', error);
-      }
+      (error) => console.error('Error adding to wishlist:', error)
     );
+
+    this.subscriptions.add(addWishlistSubscription);
   }
 
   removeFromWishlist(productId: number): void {
-    this.wishlistService.removeFromWishlist(this.userId, productId).subscribe(
+    const removeWishlistSubscription = this.wishlistService.removeFromWishlist(this.userId, productId).subscribe(
       () => {
         this.wishlist = this.wishlist.filter(item => item.id !== productId);
-        localStorage.setItem('wishlist', JSON.stringify(this.wishlist)); // Sync local storage
+        localStorage.setItem('wishlist', JSON.stringify(this.wishlist));
       },
-      (error) => {
-        console.error('Error removing from wishlist:', error);
-      }
+      (error) => console.error('Error removing from wishlist:', error)
     );
+
+    this.subscriptions.add(removeWishlistSubscription);
   }
 
   isInWishlist(product: any): boolean {
     return this.wishlist.some(item => item.id === product.id);
   }
 
+  // Cleanup subscriptions when component is destroyed
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 }
-  
-  
-

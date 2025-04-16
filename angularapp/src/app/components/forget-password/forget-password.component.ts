@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './forget-password.component.html',
   styleUrls: ['./forget-password.component.css']
 })
-export class ForgetPasswordComponent implements OnInit {
+export class ForgetPasswordComponent implements OnInit, OnDestroy {
   forgotPasswordForm: FormGroup;
   otpForm: FormGroup;
   resetPasswordForm: FormGroup;
@@ -17,6 +18,8 @@ export class ForgetPasswordComponent implements OnInit {
   isRedirecting = false; // New variable for hiding forms during redirect
   message = '';
   errorMessage = '';
+
+  private subscriptions: Subscription = new Subscription(); // Manage subscriptions
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {}
 
@@ -41,9 +44,9 @@ export class ForgetPasswordComponent implements OnInit {
     return newPassword && confirmPassword && newPassword === confirmPassword ? null : { passwordsMismatch: true };
   }
 
-  sendOTP() {
+  sendOTP(): void {
     const email = this.forgotPasswordForm.get('email')?.value;
-    this.authService.sendOtp(email).subscribe({
+    const otpSubscription = this.authService.sendOtp(email).subscribe({
       next: () => {
         this.showOtpSection = true;
         this.message = 'OTP sent successfully. Check your email.';
@@ -54,13 +57,15 @@ export class ForgetPasswordComponent implements OnInit {
         this.message = '';
       }
     });
+
+    this.subscriptions.add(otpSubscription);
   }
 
-  verifyOTP() {
+  verifyOTP(): void {
     const email = this.forgotPasswordForm.get('email')?.value;
     const otp = this.otpForm.get('otp')?.value;
 
-    this.authService.verifyOtp(email, otp).subscribe({
+    const verifySubscription = this.authService.verifyOtp(email, otp).subscribe({
       next: (response) => {
         if (response.success) {
           this.showOtpSection = false;
@@ -77,13 +82,15 @@ export class ForgetPasswordComponent implements OnInit {
         this.message = '';
       }
     });
+
+    this.subscriptions.add(verifySubscription);
   }
 
-  updatePassword() {
+  updatePassword(): void {
     const { newPassword } = this.resetPasswordForm.value;
     const email = this.forgotPasswordForm.get('email')?.value;
 
-    this.authService.updatePassword(email, newPassword).subscribe({
+    const updateSubscription = this.authService.updatePassword(email, newPassword).subscribe({
       next: (response) => {
         if (response && response.message) {
           this.message = response.message;
@@ -116,5 +123,12 @@ export class ForgetPasswordComponent implements OnInit {
         }, 3000);
       }
     });
+
+    this.subscriptions.add(updateSubscription);
+  }
+
+  // Cleanup subscriptions when component is destroyed
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe(); // Ensures proper memory cleanup
   }
 }

@@ -1,5 +1,6 @@
 package com.examly.springapp.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,7 +24,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Product {
+public class Product implements Serializable{
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      private Long productId;

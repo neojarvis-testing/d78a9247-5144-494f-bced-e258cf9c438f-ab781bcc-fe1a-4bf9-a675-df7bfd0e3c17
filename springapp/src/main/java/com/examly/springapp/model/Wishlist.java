@@ -1,11 +1,13 @@
 package com.examly.springapp.model;
 
 import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "wishlist")
-public class Wishlist {
+public class Wishlist implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

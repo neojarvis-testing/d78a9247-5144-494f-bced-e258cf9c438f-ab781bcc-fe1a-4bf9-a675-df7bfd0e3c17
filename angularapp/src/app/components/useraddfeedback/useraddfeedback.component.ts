@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { Feedback } from 'src/app/models/feedback.model';
 import { Product } from 'src/app/models/product.model';
@@ -10,29 +11,29 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './useraddfeedback.component.html',
   styleUrls: ['./useraddfeedback.component.css']
 })
-export class UseraddfeedbackComponent implements OnInit {
+export class UseraddfeedbackComponent implements OnInit, OnDestroy {
 
   products: Product[] = [];
-  selectedProduct: Product;
+  selectedProduct: Product | null = null;
   feedbackText: string = '';
   rating: number = 5; // Default rating value, adjust as needed
   popupMessage: string | null = null;
-  userId: number;
+  userId: number = 0;
+
+  private subscriptions: Subscription = new Subscription(); // Manage multiple subscriptions
 
   constructor(private feedbackService: FeedbackService, private productService: ProductService) {}
 
   ngOnInit(): void {
     const userId = localStorage.getItem('userId');
-    if (userId) {
-      this.userId = parseInt(userId, 10);
-    } else {
-      console.error('User ID not found in local storage.');
-    }
+    this.userId = userId ? parseInt(userId, 10) : 0;
 
-    // Fetch product list from the server
-    this.productService.getProducts().subscribe(data => {
-      this.products = data;
-    });
+    const productSubscription = this.productService.getProducts().subscribe(
+      (data) => this.products = data,
+      (error) => console.error('Error fetching products:', error)
+    );
+
+    this.subscriptions.add(productSubscription);
   }
 
   submitFeedback(fm: NgForm): void {
@@ -47,25 +48,30 @@ export class UseraddfeedbackComponent implements OnInit {
 
     const feedback: Feedback = {
       message: this.feedbackText,
-      user: {
-        userId: this.userId
-      },
+      user: { userId: this.userId },
       rating: this.rating,
       product: this.selectedProduct // Include the selected product
     };
 
-    this.feedbackService.createFeedback(feedback).subscribe(
-      () => {
+    const feedbackSubscription = this.feedbackService.createFeedback(feedback).subscribe({
+      next: () => {
         this.popupMessage = 'Successfully Added!';
         this.feedbackText = '';
       },
-      (error) => {
+      error: (error) => {
         console.error('Error submitting feedback:', error);
       }
-    );
+    });
+
+    this.subscriptions.add(feedbackSubscription);
   }
 
   closePopup(): void {
     this.popupMessage = null;
+  }
+
+  // Cleanup subscriptions when component is destroyed
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }
