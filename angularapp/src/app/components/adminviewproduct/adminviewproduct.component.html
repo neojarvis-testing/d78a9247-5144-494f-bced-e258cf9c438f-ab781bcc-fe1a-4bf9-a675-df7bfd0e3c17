@@ -11,15 +11,13 @@
     <!-- Product List: Shows only filtered products -->
     <div class="product-container">
       <div *ngFor="let product of filteredProducts" class="product-card">
+          <img *ngIf="product.decodedImage" [src]="product.decodedImage" alt="Product Image" class="product-image"/>
           <h3>{{ product.name }}</h3>
           <p><strong>Description:</strong> {{ product.description }}</p>
           <p><strong>Category:</strong> {{ product.category }}</p>
           <p><strong>Price:</strong> ${{ product.price }}</p>
           <p><strong>Stock:</strong> {{ product.stock }}</p>
-
-           <!-- Display product image -->
-          <img *ngIf="product.decodedImage" [src]="product.decodedImage" alt="Product Image" class="product-image"/>
-
+          
           <div class="button-group">
               <button (click)="editProduct(product.productId)">Edit</button>
               <button (click)="deleteProduct(product.productId)">Delete</button>
