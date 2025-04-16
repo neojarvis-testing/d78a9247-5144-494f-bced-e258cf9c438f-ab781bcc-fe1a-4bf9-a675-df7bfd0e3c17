@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Feedback } from 'src/app/models/feedback.model';
 import { User } from 'src/app/models/user.model';
 import { FeedbackService } from 'src/app/services/feedback.service';
@@ -8,28 +9,26 @@ import { FeedbackService } from 'src/app/services/feedback.service';
   templateUrl: './userviewfeedback.component.html',
   styleUrls: ['./userviewfeedback.component.css']
 })
-export class UserviewfeedbackComponent implements OnInit {
+export class UserviewfeedbackComponent implements OnInit, OnDestroy {
   feedbacks: Feedback[] = [];
   selectedFeedback: Feedback | null = null;
   feedbackToDelete: Feedback | null = null;
-  userId: number;
-  user: User;
+  userId: number = 0;
+  user: User | null = null;
+  
+  private subscriptions: Subscription = new Subscription(); // Manage multiple subscriptions
 
-  constructor(private feedbackService: FeedbackService) { }
+  constructor(private feedbackService: FeedbackService) {}
 
   ngOnInit(): void {
     const userId = localStorage.getItem('userId');
-    if (userId) {
-      this.userId = parseInt(userId, 10);
-    } else {
-      console.error('User ID not found in local storage.');
-    }
+    this.userId = userId ? parseInt(userId, 10) : 0;
 
     this.getFeedbackByUserId();
   }
 
   getFeedbackByUserId(): void {
-    this.feedbackService.getFeedbackByUserId(this.userId).subscribe(
+    const feedbackSubscription = this.feedbackService.getFeedbackByUserId(this.userId).subscribe(
       (data: Feedback[]) => {
         this.feedbacks = data;
       },
@@ -37,6 +36,8 @@ export class UserviewfeedbackComponent implements OnInit {
         console.error('Error fetching feedback by user ID:', error);
       }
     );
+
+    this.subscriptions.add(feedbackSubscription);
   }
 
   confirmDelete(feedback: Feedback): void {
@@ -46,7 +47,7 @@ export class UserviewfeedbackComponent implements OnInit {
 
   deleteFeedback(): void {
     if (this.feedbackToDelete) {
-      this.feedbackService.deleteFeedback(this.feedbackToDelete.feedbackId).subscribe(
+      const deleteSubscription = this.feedbackService.deleteFeedback(this.feedbackToDelete.feedbackId).subscribe(
         () => {
           this.feedbacks = this.feedbacks.filter(f => f.feedbackId !== this.feedbackToDelete!.feedbackId);
           this.feedbackToDelete = null;
@@ -55,6 +56,8 @@ export class UserviewfeedbackComponent implements OnInit {
           console.error('Error deleting feedback:', error);
         }
       );
+
+      this.subscriptions.add(deleteSubscription);
     }
   }
 
@@ -63,10 +66,10 @@ export class UserviewfeedbackComponent implements OnInit {
   }
 
   updateFeedback(feedback: Feedback): void {
-    this.feedbackService.updateFeedback(feedback.feedbackId, feedback).subscribe(
+    const updateSubscription = this.feedbackService.updateFeedback(feedback.feedbackId, feedback).subscribe(
       (updatedFeedback: Feedback) => {
-        const index = this.feedbacks.findIndex(f => f.feedbackId == updatedFeedback.feedbackId);
-        if (index != -1) {
+        const index = this.feedbacks.findIndex(f => f.feedbackId === updatedFeedback.feedbackId);
+        if (index !== -1) {
           this.feedbacks[index] = updatedFeedback;
         }
         this.selectedFeedback = null;
@@ -75,6 +78,8 @@ export class UserviewfeedbackComponent implements OnInit {
         console.error('Error updating feedback:', error);
       }
     );
+
+    this.subscriptions.add(updateSubscription);
   }
 
   selectFeedback(feedback: Feedback): void {
@@ -84,6 +89,12 @@ export class UserviewfeedbackComponent implements OnInit {
 
   clearSelection(): void {
     this.selectedFeedback = null;
+  }
+
+
+  // Cleanup subscriptions when component is destroyed
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   ratingError: boolean = false;
@@ -97,4 +108,5 @@ checkRating() {
 }
 
   
+
 }

@@ -17,11 +17,14 @@ import jakarta.persistence.EntityNotFoundException;
 @Service
 public class OrderServiceImpl implements OrderService{
 
-    @Autowired
-    private OrderRepo orderRepo;
+    private final OrderRepo orderRepo;
+    private final UserRepo userRepo;
 
-    @Autowired
-    private UserRepo userRepo;
+    // Constructor Injection
+    public OrderServiceImpl(OrderRepo orderRepo, UserRepo userRepo) {
+        this.orderRepo = orderRepo;
+        this.userRepo = userRepo;
+    }
 
     @Override
     public Order addOrder(Order order) {

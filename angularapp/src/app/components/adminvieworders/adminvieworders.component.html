@@ -20,14 +20,14 @@
           <td>{{ ord.orderId }}</td>  
           <td>{{ userName}}</td>
           <td>
-            <ul>
+            <ul style="list-style: none;">
               <li *ngFor="let product of ord.product">
                 {{ product.name }}
               </li>
             </ul>
           </td>
           <td>
-            <ul>
+            <ul style="list-style: none;">
               <li *ngFor="let product of ord.product">
                 {{ product.price }}
               </li>

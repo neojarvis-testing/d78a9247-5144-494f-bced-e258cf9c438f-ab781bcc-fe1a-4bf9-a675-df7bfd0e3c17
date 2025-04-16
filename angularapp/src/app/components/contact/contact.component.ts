@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 import { EmailService } from 'src/app/services/email.service';
 import { Email } from 'src/app/models/email.model';
 
@@ -7,26 +10,30 @@ import { Email } from 'src/app/models/email.model';
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.css']
 })
-export class ContactComponent implements OnInit {
+export class ContactComponent implements OnInit, OnDestroy {
 
   isLoggedIn: boolean = false;
   isSubmit: boolean = false;
-  userId : number = 0;
-  
+
+  userId: number = 0;
+
   emailData: Email = {
     name: '',
     email: '',
     message: ''
   };
 
-  constructor(private emailService: EmailService) { }
+  private subscriptions: Subscription = new Subscription(); // Manage multiple subscriptions
+
+  constructor(private emailService: EmailService) {}
 
   ngOnInit(): void {
-    this.userId = parseInt(localStorage.getItem('userId') || '0', 10);
+    const storedUserId = localStorage.getItem('userId');
+    this.userId = storedUserId ? parseInt(storedUserId, 10) : 0;
   }
 
   onSubmit(): void {
-    this.emailService.sendEmail(this.emailData).subscribe({
+    const emailSubscription = this.emailService.sendEmail(this.emailData).subscribe({
       next: (response) => {
         console.log(this.emailData);
         alert(response);
@@ -37,7 +44,13 @@ export class ContactComponent implements OnInit {
         console.log(error);
       }
     });
+
+    this.subscriptions.add(emailSubscription);
   }
 
+  // Cleanup subscriptions when component is destroyed
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe(); // Ensures proper memory cleanup
+  }
 }
 

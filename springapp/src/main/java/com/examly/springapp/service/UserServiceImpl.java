@@ -22,10 +22,14 @@ import com.examly.springapp.repository.UserRepo;
 @Primary
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
-
+    
     @Autowired
-    private UserRepo userRepo;
+    private final UserRepo userRepo;
 
+    
+    public UserServiceImpl(UserRepo userRepo) {
+        this.userRepo = userRepo;
+    }
     
     
     @Override

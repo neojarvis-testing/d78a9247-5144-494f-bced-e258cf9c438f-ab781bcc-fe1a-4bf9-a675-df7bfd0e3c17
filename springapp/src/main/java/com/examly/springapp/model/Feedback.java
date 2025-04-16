@@ -1,5 +1,7 @@
 package com.examly.springapp.model;
 
+import java.io.Serializable;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,7 +22,7 @@ import lombok.ToString;
 @Getter
 @ToString
 
-public class Feedback {
+public class Feedback implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

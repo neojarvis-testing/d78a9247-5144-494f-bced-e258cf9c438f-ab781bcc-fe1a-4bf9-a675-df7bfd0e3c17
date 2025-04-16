@@ -1,23 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { OrderService } from 'src/app/services/order.service';
 import { CartService } from 'src/app/services/cart.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Order } from 'src/app/models/order.model';
-import { CartItem } from 'src/app/models/cart-item.model'; // Import the CartItem interface
+import { CartItem } from 'src/app/models/cart-item.model';
 
 @Component({
   selector: 'app-useraddcart',
   templateUrl: './useraddcart.component.html',
   styleUrls: ['./useraddcart.component.css']
 })
-export class UseraddcartComponent implements OnInit {
+export class UseraddcartComponent implements OnInit, OnDestroy {
   cart: CartItem[] = [];
   shippingAddress: string = '';
   orderPlaced: boolean = false;
   addressError: boolean = false;
-  userId: number=0;
+  userId: number = 0;
   isAuthenticated: boolean = false;
+
+  private subscriptions: Subscription = new Subscription(); // Manage multiple subscriptions
 
   constructor(
     private ordersService: OrderService,
@@ -38,40 +41,46 @@ export class UseraddcartComponent implements OnInit {
   }
 
   loadCart(): void {
-    this.cartService.getCart(this.userId).subscribe(
+    const cartSubscription = this.cartService.getCart(this.userId).subscribe(
       (data: CartItem[]) => {
         this.cart = data;
         console.log('Loaded cart:', this.cart);
       },
-      (error) => {
-        console.error('Failed to load cart', error);
-      }
+      (error) => console.error('Failed to load cart', error)
     );
+
+    this.subscriptions.add(cartSubscription);
   }
 
   increaseQuantity(item: CartItem): void {
     item.quantity += 1;
-    this.cartService.addToCart(item).subscribe(
+    const increaseSubscription = this.cartService.addToCart(item).subscribe(
       () => this.loadCart(),
       (error) => console.error('Failed to increase quantity', error)
     );
+
+    this.subscriptions.add(increaseSubscription);
   }
 
   decreaseQuantity(item: CartItem): void {
     if (item.quantity > 1) {
       item.quantity -= 1;
-      this.cartService.addToCart(item).subscribe(
+      const decreaseSubscription = this.cartService.addToCart(item).subscribe(
         () => this.loadCart(),
         (error) => console.error('Failed to decrease quantity', error)
       );
+
+      this.subscriptions.add(decreaseSubscription);
     }
   }
 
   removeFromCart(product: CartItem): void {
-    this.cartService.removeFromCart(product.id!).subscribe(
+    const removeSubscription = this.cartService.removeFromCart(product.id!).subscribe(
       () => this.loadCart(),
       (error) => console.error('Failed to remove item from cart', error)
     );
+
+    this.subscriptions.add(removeSubscription);
   }
 
   calculateTotal(price: number, quantity: number): number {
@@ -112,7 +121,7 @@ export class UseraddcartComponent implements OnInit {
 
     const order: Order = {
       product: this.cart,
-      user: {userId:this.userId},
+      user: { userId: this.userId },
       shippingAddress: this.shippingAddress,
       totalAmount: this.getGrandTotal(),
       quantity: this.cart.reduce((total, item) => total + item.quantity, 0),
@@ -121,18 +130,27 @@ export class UseraddcartComponent implements OnInit {
       updatedAt: new Date()
     };
 
-    this.ordersService.placeOrder(order).subscribe(
+    const orderSubscription = this.ordersService.placeOrder(order).subscribe(
       () => {
         this.orderPlaced = true;
-        this.cartService.clearCart(this.userId).subscribe(
+        const clearCartSubscription = this.cartService.clearCart(this.userId).subscribe(
           () => {
             this.loadCart();
             this.router.navigate(['/userNavBar/uservieworders']);
           },
           (error) => console.error('Failed to clear cart', error)
         );
+
+        this.subscriptions.add(clearCartSubscription);
       },
       (error) => console.error('Failed to place order', error)
     );
+
+    this.subscriptions.add(orderSubscription);
+  }
+
+  // Cleanup subscriptions when component is destroyed
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

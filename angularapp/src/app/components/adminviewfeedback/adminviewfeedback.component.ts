@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Feedback } from 'src/app/models/feedback.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { FeedbackService } from 'src/app/services/feedback.service';
@@ -10,7 +11,7 @@ import { Product } from 'src/app/models/product.model';
   templateUrl: './adminviewfeedback.component.html',
   styleUrls: ['./adminviewfeedback.component.css']
 })
-export class AdminviewfeedbackComponent implements OnInit {
+export class AdminviewfeedbackComponent implements OnInit, OnDestroy {
 
   feedbacks: Feedback[] = [];
   products: Product[] = [];
@@ -19,6 +20,8 @@ export class AdminviewfeedbackComponent implements OnInit {
   showLogoutPopup: boolean = false;
   showProfilePopup: boolean = false;
   selectedUser: any = null;
+
+  private feedbackSubscription!: Subscription; // Property to store subscription
 
   constructor(
     private feedbackService: FeedbackService,
@@ -31,19 +34,13 @@ export class AdminviewfeedbackComponent implements OnInit {
   }
 
   private getAllFeedbacks(): void {
-    this.feedbackService.getAllFeedback().subscribe(feedbackData => {
+    this.feedbackSubscription = this.feedbackService.getAllFeedback().subscribe(feedbackData => {
       this.feedbacks = feedbackData;
-
-      this.feedbacks.forEach(feedback => {
-        feedback.product = feedback.product;
-      });
-    }, 
-    error => {
+    }, error => {
       console.error('Error fetching feedbacks:', error);
     });
   }
 
-  
   triggerDelete(feedbackId: number): void {
     this.selectedFeedbackId = feedbackId;
     this.showDeletePopup = true;
@@ -51,12 +48,9 @@ export class AdminviewfeedbackComponent implements OnInit {
 
   confirmDelete(): void {
     if (this.selectedFeedbackId !== null) {
-      this.feedbackService.deleteFeedback(this.selectedFeedbackId).subscribe(
+      this.feedbackSubscription = this.feedbackService.deleteFeedback(this.selectedFeedbackId).subscribe(
         () => {
-          const index = this.feedbacks.findIndex(f => f.feedbackId === this.selectedFeedbackId);
-          if (index !== -1) {
-            this.feedbacks.splice(index, 1);
-          }
+          this.feedbacks = this.feedbacks.filter(f => f.feedbackId !== this.selectedFeedbackId);
           this.closeDeletePopup();
         },
         error => {
@@ -95,4 +89,10 @@ export class AdminviewfeedbackComponent implements OnInit {
     this.selectedUser = null;
   }
 
+  // Cleanup the subscription when component is destroyed
+  ngOnDestroy(): void {
+    if (this.feedbackSubscription) {
+      this.feedbackSubscription.unsubscribe();
+    }
+  }
 }

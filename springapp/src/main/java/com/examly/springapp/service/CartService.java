@@ -10,8 +10,12 @@ import java.util.List;
 @Service
 public class CartService {
 
-    @Autowired
-    private CartItemRepository cartItemRepository;
+    private final CartItemRepository cartItemRepository;
+
+    // Constructor Injection
+    public CartService(CartItemRepository cartItemRepository) {
+        this.cartItemRepository = cartItemRepository;
+    }
 
     public List<CartItem> getCartItems(Long userId) {
         return cartItemRepository.findByUserId(userId);

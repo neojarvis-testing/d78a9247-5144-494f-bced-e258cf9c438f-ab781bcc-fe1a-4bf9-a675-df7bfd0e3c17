@@ -18,14 +18,16 @@ import jakarta.persistence.EntityNotFoundException;
 @Service
 public class FeedbackServiceImpl implements FeedbackService{
 
-    @Autowired
-    private FeedbackRepo feedbackRepo;
+    private final FeedbackRepo feedbackRepo;
+    private final UserRepo userRepo;
+    private final ProductRepo productRepo;
 
-    @Autowired
-    private UserRepo userRepo;
-
-    @Autowired
-    private ProductRepo productRepo;
+    // Constructor Injection
+    public FeedbackServiceImpl(FeedbackRepo feedbackRepo, UserRepo userRepo, ProductRepo productRepo) {
+        this.feedbackRepo = feedbackRepo;
+        this.userRepo = userRepo;
+        this.productRepo = productRepo;
+    }
 
     @Override
     public Feedback createFeedback(Feedback feedback) {
