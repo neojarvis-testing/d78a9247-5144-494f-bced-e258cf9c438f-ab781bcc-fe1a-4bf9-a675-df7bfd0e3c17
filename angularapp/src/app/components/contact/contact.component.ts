@@ -1,3 +1,4 @@
+
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -13,7 +14,9 @@ export class ContactComponent implements OnInit, OnDestroy {
 
   isLoggedIn: boolean = false;
   isSubmit: boolean = false;
+
   userId: number = 0;
+
   emailData: Email = {
     name: '',
     email: '',
@@ -50,3 +53,4 @@ export class ContactComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe(); // Ensures proper memory cleanup
   }
 }
+

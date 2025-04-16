@@ -91,8 +91,22 @@ export class UserviewfeedbackComponent implements OnInit, OnDestroy {
     this.selectedFeedback = null;
   }
 
+
   // Cleanup subscriptions when component is destroyed
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
+
+  ratingError: boolean = false;
+
+checkRating() {
+  if (this.selectedFeedback.rating > 5) {
+    this.ratingError = true;
+  } else {
+    this.ratingError = false;
+  }
+}
+
+  
+
 }
