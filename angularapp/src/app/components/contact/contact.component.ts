@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
 import { EmailService } from 'src/app/services/email.service';
 import { Email } from 'src/app/models/email.model';
 
@@ -11,9 +10,9 @@ import { Email } from 'src/app/models/email.model';
 export class ContactComponent implements OnInit {
 
   isLoggedIn: boolean = false;
-  //userId: number;
   isSubmit: boolean = false;
   userId : number = 0;
+  
   emailData: Email = {
     name: '',
     email: '',
@@ -41,3 +40,4 @@ export class ContactComponent implements OnInit {
   }
 
 }
+

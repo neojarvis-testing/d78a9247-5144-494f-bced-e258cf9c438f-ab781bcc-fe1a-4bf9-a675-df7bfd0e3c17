@@ -1,0 +1,111 @@
+/* Contact Form Container */
+.contact {
+    text-align: center;
+    background-color: #f8f9fa; /* Light background */
+    padding: 30px; /* Increased padding */
+    max-width: 600px; /* Restrict width for better readability */
+    margin: 40px auto; /* Center align */
+    border-radius: 12px; /* Softer border */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+  }
+  
+  /* Heading */
+  .contact h2 {
+    font-size: 28px; /* Larger heading */
+    color: #007bff; /* Primary blue */
+    margin-bottom: 25px; /* Increased spacing */
+  }
+  
+  /* Form Inputs */
+  .contact .form-control {
+    width: 100%;
+    border: 1px solid #ced4da;
+    border-radius: 6px; /* Softer edges */
+    padding: 12px;
+    font-size: 17px;
+    transition: all 0.3s ease-in-out; /* Smooth effect */
+  }
+  
+  /* Form Inputs Focus Effect */
+  .contact .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+  }
+  
+  /* Labels */
+  .contact label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 6px; /* Better spacing */
+    color: #343a40;
+    font-size: 16px;
+  }
+  
+  /* Submit Button */
+  .contact button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 24px; /* Larger button */
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background 0.3s ease-in-out;
+    width: 100%;
+  }
+  
+  .contact button:hover {
+    background-color: #0056b3; /* Darker shade */
+  }
+  
+  /* Contact Info Section */
+  .contact-info {
+    margin-top: 35px;
+    font-size: 18px;
+  }
+  
+  /* Contact Info Spacing */
+  .contact-info p {
+    margin-bottom: 14px;
+    color: #212529;
+  }
+  
+  /* Contact Info Links */
+  .contact-info a {
+    color: #343a40;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  .contact-info a:hover {
+    color: #007bff;
+  }
+  
+  /* Icons Styling */
+  .contact-info i {
+    margin-right: 8px;
+    color: #007bff;
+    font-size: 20px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .contact {
+      width: 90%;
+      padding: 25px;
+    }
+    
+    .contact h2 {
+      font-size: 24px;
+    }
+  
+    .contact button {
+      font-size: 16px;
+    }
+  
+    .contact-info {
+      font-size: 16px;
+    }
+  }
+  
