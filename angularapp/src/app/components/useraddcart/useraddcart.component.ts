@@ -111,8 +111,8 @@ export class UseraddcartComponent implements OnInit {
     }
 
     const order: Order = {
-      user: { username },
       product: this.cart,
+      user: {userId:this.userId},
       shippingAddress: this.shippingAddress,
       totalAmount: this.getGrandTotal(),
       quantity: this.cart.reduce((total, item) => total + item.quantity, 0),
