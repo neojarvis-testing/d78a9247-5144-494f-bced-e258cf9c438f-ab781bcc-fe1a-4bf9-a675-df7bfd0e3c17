@@ -32,7 +32,7 @@ export class OrderService {
 
   // Retrieves orders for a specific user by user ID
   getOrderByUserId(userId: number): Observable<any> {
-    return this.http.get(this.apiUrl+"/"+userId);
+    return this.http.get(this.apiUrl+"/user/"+userId);
   }
 
   // Fetches all orders

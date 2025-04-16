@@ -1,26 +1,30 @@
-<div class="single-order">
-  <h1>Order Details</h1>
+<div class="orders-container">
+  <h1>All Orders</h1>
 
-  <!-- Display Order Summary -->
-  <div class="order-summary">
-    <h2>Order Summary</h2>
-    <p><strong>Order ID:</strong> {{ order.orderId }}</p>
-    <p><strong>Status:</strong> {{ order.status }}</p>
-    <p><strong>Shipping Address:</strong> {{ order.shippingAddress }}</p>
-    <p><strong>Total Amount:</strong> ₹{{ order.totalAmount }}</p>
-    <p><strong>Quantity:</strong> {{ order.quantity }}</p>
-  </div>
+  <!-- Loop through orders array -->
+  <div *ngFor="let order of orders" class="single-order">
+    <h2>Order ID: {{ order.orderId }}</h2>
 
-  <!-- Display Products -->
-  <div class="product-details">
-    <h2>Products</h2>
-    <ul>
-      <li *ngFor="let product of order.product">
-        <p><strong>Product Name:</strong> {{ product.name }}</p>
-        <p><strong>Category:</strong> {{ product.category }}</p>
-        <p><strong>Description:</strong> {{ product.description }}</p>
-        <p><strong>Price:</strong> ₹{{ product.price }}</p>
-      </li>
-    </ul>
+    <!-- Display Order Summary -->
+    <div class="order-summary">
+      <p><strong>Status:</strong> {{ order.status }}</p>
+      <p><strong>Shipping Address:</strong> {{ order.shippingAddress }}</p>
+      <p><strong>Total Amount:</strong> ₹{{ order.totalAmount }}</p>
+      <p><strong>Quantity:</strong> {{ order.quantity }}</p>
+    </div>
+
+    <!-- Display Products -->
+    <div class="product-details">
+      <h3>Products</h3>
+      <ul>
+        <li *ngFor="let product of order.product">
+          <p><strong>Product Name:</strong> {{ product.name }}</p>
+          <p><strong>Category:</strong> {{ product.category }}</p>
+          <p><strong>Description:</strong> {{ product.description }}</p>
+          <p><strong>Price:</strong> ₹{{ product.price }}</p>
+        </li>
+      </ul>
+    </div>
+    <hr />
   </div>
 </div>

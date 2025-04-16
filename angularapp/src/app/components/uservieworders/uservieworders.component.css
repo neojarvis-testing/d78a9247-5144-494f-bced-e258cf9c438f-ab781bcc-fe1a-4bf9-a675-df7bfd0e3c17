@@ -1,9 +1,26 @@
 /* General Styles */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f9f9f9;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Container for all orders */
+.orders-container {
+  text-align: center;
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  background-color: #fdfdfd;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  color: #000; /* Ensures text color is black */
 }
 
 /* Single Order Container */
@@ -15,20 +32,21 @@ body {
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #000;
 }
 
 /* Heading Styles */
-.single-order h1,
+.orders-container h1,
 .single-order h2 {
   color: #000; /* Ensures headings have black font */
   margin: 0 0 20px;
-  text-align: center;
-}
-
-h1 {
   font-size: 2rem;
   border-bottom: 2px solid #007BFF;
   padding-bottom: 10px;
+}
+
+h2 {
+  font-size: 1.5rem;
 }
 
 /* Order Summary Section */
@@ -38,13 +56,12 @@ h1 {
   background-color: #f4f8fc;
   border: 1px solid #cce1f7;
   border-radius: 8px;
-  color: #000; /* Ensures all text in this section has black font */
 }
 
 .order-summary p {
   margin: 5px 0;
   font-size: 1rem;
-  color: #000; /* Text in summary is black */
+  color: #000;
 }
 
 /* Product Details Section */
@@ -53,7 +70,6 @@ h1 {
   background-color: #f8fdf4;
   border: 1px solid #cde6cd;
   border-radius: 8px;
-  color: #000; /* Ensures all text in this section has black font */
 }
 
 .product-details ul {
@@ -73,7 +89,7 @@ h1 {
 
 .product-details p {
   margin: 5px 0;
-  color: #000; /* Text in product details is black */
+  color: #000;
 }
 
 .product-details p strong {

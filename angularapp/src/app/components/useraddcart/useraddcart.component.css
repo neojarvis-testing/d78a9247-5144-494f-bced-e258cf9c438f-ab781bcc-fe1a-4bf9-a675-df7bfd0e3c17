@@ -1,68 +1,133 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #ffffff; /* Light background */
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
 .cart-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .cart-item {
-    border: 1px solid #ccc;
-    padding: 16px;
-    margin: 16px;
-    width: 300px;
-    box-sizing: border-box;
-    text-align: center;
-  }
-  .cart-summary {
-    margin: 20px;
-  }
-  
-  .order-popup {
-    color: green;
-    font-weight: bold;
-  }
-  .cart-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .item-image img {
-    width: 100px;
-    height: 100px;
-    margin-right: 20px;
-  }
-  
-  .item-details {
-    flex-grow: 1;
-  }
-  
-  .quantity-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .summary-container {
-    margin-top: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-  }
-  
-  .error-message {
-    color: red;
-    font-weight: bold;
-    margin-top: 10px;
-  }
-  
-  textarea {
-    width: 100%;
-    height: 80px;
-  }
-  
-  .cart-summary,
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.cart-item {
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin: 20px;
+  width: 320px;
+  box-sizing: border-box;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ffffff, #ffe0b2); /* Bright gradient with orange */
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.cart-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.cart-summary {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ffffff, #ffe0b2); /* Bright gradient with orange */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.order-popup {
+  color: green;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.item-image img {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+  border-radius: 12px;
+  transition: transform 0.3s;
+}
+
+.item-image img:hover {
+  transform: scale(1.1);
+}
+
+.item-details {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.quantity-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantity-container button {
+  background-color: #ff9800; /* Bright orange */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.quantity-container button:hover {
+  background-color: #e68900;
+}
+
+.summary-container {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ffffff, #ffe0b2); /* Bright gradient with orange */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.summary-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+textarea {
+  width: 100%;
+  height: 80px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+textarea:focus {
+  border-color: #ff9800; /* Bright orange */
+}
+
+.cart-summary,
 .summary-container,
 .order-popup {
-    color: black; /* Apply black color to all text within these containers */
+  color: black; /* Apply black color to all text within these containers */
 }
 
 .cart-summary h2,
@@ -77,5 +142,19 @@
 .summary-container textarea,
 .summary-container button,
 .order-popup {
-    color: black; /* Ensure all text elements have black color */
+  color: black; /* Ensure all text elements have black color */
+}
+
+button {
+  background-color: #ff9800; /* Bright orange */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #e68900;
 }
