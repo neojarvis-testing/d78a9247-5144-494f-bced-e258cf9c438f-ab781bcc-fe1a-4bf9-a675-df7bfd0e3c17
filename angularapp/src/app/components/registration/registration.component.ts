@@ -53,7 +53,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Cleanup subscriptions when component is destroyed
+  
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }

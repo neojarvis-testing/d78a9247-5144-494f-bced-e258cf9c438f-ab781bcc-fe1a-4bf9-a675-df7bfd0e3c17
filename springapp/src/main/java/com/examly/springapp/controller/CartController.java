@@ -1,25 +1,20 @@
 package com.examly.springapp.controller;
 
 import com.examly.springapp.model.CartItem;
-import com.examly.springapp.model.User;
 import com.examly.springapp.service.CartService;
-import com.examly.springapp.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/cart")
-@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class CartController {
 
     private final CartService cartService;
-    private final UserService userService;
 
     // Constructor injection
-    public CartController(CartService cartService, UserService userService) {
+    public CartController(CartService cartService) {
         this.cartService = cartService;
-        this.userService = userService;
     }
 
     @GetMapping("/{userId}")

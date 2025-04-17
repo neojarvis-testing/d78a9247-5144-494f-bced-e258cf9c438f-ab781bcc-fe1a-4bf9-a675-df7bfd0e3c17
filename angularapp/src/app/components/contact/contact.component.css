@@ -109,3 +109,9 @@
     }
   }
   
+  .btn.btn-primary {
+    padding: 6px 12px; 
+    font-size: 14px; 
+    max-width: 170px;
+    height: 45px;
+  }

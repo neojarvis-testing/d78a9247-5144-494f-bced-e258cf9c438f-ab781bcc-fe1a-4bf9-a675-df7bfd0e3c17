@@ -7,8 +7,6 @@ import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,11 +21,9 @@ import com.examly.springapp.model.PasswordUpdateRequest;
 import com.examly.springapp.model.User;
 import com.examly.springapp.service.UserServiceImpl;
 
-import jakarta.persistence.EntityNotFoundException;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(allowedHeaders = "*",origins = "*")
 public class UserController {
 
    private final UserServiceImpl userService;
@@ -58,7 +54,7 @@ public class UserController {
       public ResponseEntity<?> loginUser(@RequestBody User user) {
          try {
             User loggedInUser = userService.loginUser(user);
-            String token = jwtUtils.generateToken(loggedInUser.getUsername(), List.of("ROLE_"+loggedInUser.getUserRole())); // Generate the JWT token
+            String token = jwtUtils.generateToken(loggedInUser.getUsername(), List.of("ROLE_"+loggedInUser.getUserRole()));
 
             // Create and populate LoginDTO
             LoginDTO loginDTO = new LoginDTO();
