@@ -1,322 +1,56 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    
+/* Blur background when modal appears */
+.blur-background {
+    filter: blur(5px);
+    pointer-events: none;
 }
 
-.navbar {
-    background: linear-gradient(to right, blue, green);
-    display: flex;
-    justify-content: space-between;
-    height: 70px; /* Set your desired height */
-    align-items: center; /* Ensures the content is vertically centered */
-    padding: 0 20px; /* Optional: Add horizontal padding for spacing */
-}
- 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    color: #333;
-}
- 
-header {
-    
-    padding: 1em 0;
-}
- 
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
- 
-h1 {
-    color: #ffffff;
-}
- 
-.admin-section {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
- 
-.admin-section nav ul {
-    list-style-type: none;
-    display: flex;
-    
-}
- 
-.admin-section nav ul li {
-    margin: 0 15px;
-}
- 
-.admin-section nav a {
-    color: #ffffff;
-    text-decoration: none;
-}
- 
-.admin-section nav a.logout {
-    background-color: #dc3545; /* Red for logout */
-    padding: 5px 10px;
-    border-radius: 5px;
-}
- 
-.admin-section nav a:hover {
-    text-decoration: underline;
-}
- 
-main {
+/* Logout confirmation box styling */
+.logout-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
     padding: 20px;
-    max-width: 800px;
-    margin: 20px auto;
-    background: #ffffff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-}
- 
-h2 {
-    color: #007bff;
-}
- 
-p {
-    line-height: 1.6;
-}
-nav ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    z-index: 1000;
 }
 
-nav ul li {
-    position: relative;
-    display: inline-block;
-    margin-right: 15px;
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-nav ul li a {
-    text-decoration: none;
+.modal-content button {
+    margin: 10px;
 }
 
-nav ul li .dropdown-menu {
-    display: none;
-    position: absolute;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    top: 100%;
-    left: 0;
-    background-color: white;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+/* Background blur effect */
+body.modal-active {
+    backdrop-filter: blur(5px);
 }
 
-nav ul li:hover .dropdown-menu {
+/* Dropdown customization */
+.dropdown-custom {
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-custom a {
+    width: 100%;
+    text-align: center;
+}
+
+/* Smooth Dropdown Close */
+.nav-item:hover .dropdown-menu {
     display: block;
 }
 
-.dropdown-menu li {
-    margin: 0;
-    padding: 5px 10px;
+.nav-link:hover {
+    color: #ffcc00 !important; /* Change text color */
+    background-color: rgba(255, 255, 255, 0.1); /* Add light background */
+    transition: 0.3s ease-in-out; /* Smooth transition */
 }
-
-.dropdown-menu li a {
-    display: block;
-    text-decoration: none;
-    color: black;
-}
-.dropdown-menu li a:hover {
-    background-color: blue; /* Changes background to blue when hovered */
-    color: white; /* Adjusts text color to white for better visibility */
-    border-radius: 5px; /* Optional: Adds rounded corners to the hovered item */
-    transition: background-color 0.3s ease; /* Adds a smooth transition effect */
-}
-/* Custom Navbar Styles */
-        
-
-        .navbar-brand {
-            color: #ffffff !important;
-            font-weight: bold;
-        }
-
-        .navbar-nav > li > a {
-            color: #ffffff !important;
-            font-weight: 500;
-        }
-
-        /* Navbar hover effect */
-        .navbar-nav > li > a:hover {
-            background-color: rgba(0, 123, 255, 0.3); /* Semi-transparent blue background */
-            color: #ffffff !important; /* White text for better visibility */
-            border-radius: 5px; /* Rounded corners */
-            transition: all 0.3s ease; /* Smooth transition effect */
-        }
-
-        /* Dropdown menu styles */
-        .dropdown-menu > li > a {
-            color: #333 !important; /* Default text color */
-        }
-
-        .dropdown-menu > li > a:hover {
-            background-color: rgba(40, 167, 69, 0.5); /* Semi-transparent green background */
-            color: #ffffff !important; /* White text */
-            border-radius: 5px; /* Rounded corners */
-            transition: all 0.3s ease; /* Smooth transition */
-        }
-        /* Custom Navbar Styles */
-        
-
-        .navbar-brand {
-            color: #ffffff !important;
-            font-weight: bold;
-        }
-
-        .navbar-nav > li > a {
-            color: #ffffff !important;
-            font-weight: 500;
-            text-decoration: none; /* Remove underline */
-            transition: all 0.3s ease; /* Smooth transition for effects */
-        }
-
-        /* Navbar hover "pop-out" effect */
-        .navbar-nav > li > a:hover {
-            transform: scale(1.1); /* Slightly increase size */
-            color: #ffffff !important; /* Keep text color white */
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
-            border-radius: 5px; /* Rounded corners */
-            background-color: rgba(0, 123, 255, 0.3); /* Light blue background */
-        }
-
-        /* Dropdown menu styles */
-        .dropdown-menu > li > a {
-            color: #333 !important; /* Default text color */
-            text-decoration: none; /* Remove underline */
-            transition: all 0.3s ease; /* Smooth transition */
-        }
-
-        .dropdown-menu > li > a:hover {
-            transform: scale(1.1); /* Slightly increase size */
-            background-color: rgba(40, 167, 69, 0.5); /* Semi-transparent green background */
-            color: #ffffff !important; /* White text */
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
-            border-radius: 5px; /* Rounded corners */
-        }
-         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
-        }
-
-
-        .navbar h1 {
-            color: #ffffff;
-            margin: 0;
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .admin-section nav ul {
-            list-style-type: none;
-            display: flex;
-        }
-
-        .admin-section nav ul li {
-            margin: 0 15px;
-            position: relative;
-        }
-
-        .admin-section nav ul li a {
-            color: #ffffff;
-            text-decoration: none !important; /* Ensure underline is removed */
-            font-weight: 500;
-            transition: all 0.3s ease; /* Smooth transition for hover effects */
-        }
-
-        .admin-section nav ul li a:hover {
-            transform: scale(1.1); /* Pop-out effect */
-            background-color: rgba(0, 123, 255, 0.3); /* Light blue background */
-            color: white !important;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
-            border-radius: 5px; /* Rounded corners */
-        }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: white;
-            border: 1px solid #ccc;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            width: 150px;
-        }
-
-        .dropdown-menu li {
-            margin: 0;
-            padding: 5px 10px;
-        }
-
-        .dropdown-menu li a {
-            display: block;
-            text-decoration: none !important; /* Remove underline from dropdown */
-            color: black !important;
-            transition: all 0.3s ease;
-        }
-
-        .dropdown-menu li a:hover {
-            transform: scale(1.1); /* Pop-out effect for dropdown */
-            background-color: rgba(40, 167, 69, 0.5); /* Semi-transparent green background */
-            color: white !important;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 5px;
-        }
-
-        li.dropdown:hover .dropdown-menu {
-            display: block; /* Ensure dropdown shows on hover */
-        }
-
-        .logout {
-            background-color: #dc3545;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .logout:hover {
-            background-color: #a71d2a; /* Darker red on hover */
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        }
-       
-        .nav-link {
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            color: white;
-           }
-           
-       
-       .nav-link:hover {
-           transform: scale(1.1);
-           /* Slightly enlarge the element */
-           background-color: rgba(0, 123, 255, 0.3);
-           /* Add semi-transparent blue background */
-           color: white !important;
-           /* Maintain white text color */
-           box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-           /* Add shadow for pop-out effect */
-           border-radius: 5px;
-           /* Add rounded corners */
-       }
-       
