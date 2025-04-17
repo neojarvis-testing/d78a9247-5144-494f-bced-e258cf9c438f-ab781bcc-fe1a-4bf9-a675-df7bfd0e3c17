@@ -124,6 +124,12 @@ export class AdminviewproductComponent implements OnInit, OnDestroy {
     }
   }
 
+  cancelEdit(): void {
+    this.isEditing = false; // Hide the edit form
+    this.selectedProductId = null; // Reset the selected product
+    // this.productForm.reset(); // Clear the form inputs
+  }
+
   closePopup(): void {
     this.showPopup = false;
   }
