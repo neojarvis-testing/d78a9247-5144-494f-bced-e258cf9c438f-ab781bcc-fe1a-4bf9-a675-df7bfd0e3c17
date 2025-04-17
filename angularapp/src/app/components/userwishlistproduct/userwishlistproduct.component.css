@@ -1,70 +1,102 @@
-/* General Styling */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f8f9fa;
-  margin: 0;
-  padding: 0;
+/* Container */
+.container {
+  max-width: 90%;
+  margin: 20px auto;
+  text-align: center;
 }
 
-/* Wishlist Container */
+/* Wishlist Title */
 h2 {
-  text-align: center;
-  color: #343a40;
+  color: #333;
+  font-size: 24px;
   margin-bottom: 20px;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-  margin: auto;
-  max-width: 600px;
+/* Product Grid Layout */
+.product-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+  gap: 20px;
+  padding: 20px;
 }
 
-/* Individual Wishlist Items */
-li {
-  background: #ffffff;
+/* Product Card Styling */
+.product-card {
+  border: 1px solid #ddd;
   border-radius: 8px;
+  background: #f9f9f9;
   padding: 15px;
-  margin: 10px 0;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Product Image */
+.product-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
 }
 
 /* Product Details */
-h3 {
-  color: #007bff;
-  margin-bottom: 8px;
+.product-card h2 {
+  font-size: 20px;
+  color: #333;
 }
 
-p {
+.product-card p {
+  font-size: 16px;
+  color: #555;
   margin: 5px 0;
-  color: #6c757d;
+}
+
+/* Button Group */
+.button-group {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 /* Buttons */
 button {
-  background-color: #28a745;
-  color: white;
+  padding: 10px 15px;
   border: none;
-  padding: 8px 12px;
-  margin-top: 10px;
   cursor: pointer;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 16px;
+  transition: 0.3s;
 }
 
-button:hover {
-  opacity: 0.8;
+/* Add to Cart Button (Green) */
+.btn-success {
+  background-color: #28a745;
+  color: white;
 }
 
-/* Remove Button */
-button:first-of-type {
+.btn-success:hover {
+  background-color: #218838;
+}
+
+/* Remove Button (Red) */
+.btn-danger {
   background-color: #dc3545;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #b02a37;
 }
 
 /* Empty Wishlist Message */
 ng-template {
-  text-align: center;
-  color: #6c757d;
   font-size: 18px;
+  color: #777;
   margin-top: 20px;
 }

@@ -43,8 +43,8 @@ export class UserviewproductComponent implements OnInit, OnDestroy {
     this.subscriptions.add(userSubscription);
 
     this.loadProducts();
-    this.loadCart();
-    this.loadWishlist();
+    // this.loadCart();
+    // this.loadWishlist();
   }
 
   loadProducts(): void {
@@ -58,8 +58,11 @@ export class UserviewproductComponent implements OnInit, OnDestroy {
           return { ...product, decodedImage: imageData };
         });
 
-        this.filteredProducts = this.products;
-        this.categories = [...new Set(this.products.map(p => p.category))];
+        // Populate categories dropdown without duplicates
+        this.categories = ['All', ...new Set(this.products.map(p => p.category))];
+
+        // Initially, display all products
+        this.filteredProducts = [...this.products];
       },
       (error) => console.error('Error fetching products:', error)
     );
@@ -67,11 +70,11 @@ export class UserviewproductComponent implements OnInit, OnDestroy {
     this.subscriptions.add(productSubscription);
   }
 
+  // Filtering function triggered when a category is selected
   filterProducts(): void {
-    this.filteredProducts = this.selectedCategory === 'All' 
-      ? this.products 
-      : this.products.filter(p => p.category === this.selectedCategory);
+    this.filteredProducts = this.products.filter(product => product.category === this.selectedCategory || this.selectedCategory === 'All');
   }
+  
 
   loadCart(): void {
     const cartSubscription = this.cartService.getCart(this.userId).subscribe(
@@ -144,12 +147,11 @@ export class UserviewproductComponent implements OnInit, OnDestroy {
     return this.cart.some(item => item.productId === product.id);
   }
 
-  /** Wishlist Functionality */
+  /** Fetch Wishlist from Backend */
   loadWishlist(): void {
     const wishlistSubscription = this.wishlistService.getWishlist(this.userId).subscribe(
       (data) => {
-        this.wishlist = data;
-        localStorage.setItem('wishlist', JSON.stringify(data));
+        this.wishlist = data; // Directly update wishlist without local storage
       },
       (error) => console.error('Error fetching wishlist:', error)
     );
@@ -157,30 +159,36 @@ export class UserviewproductComponent implements OnInit, OnDestroy {
     this.subscriptions.add(wishlistSubscription);
   }
 
+  /** Add Product to Wishlist */
   addToWishlist(product: any): void {
-    const addWishlistSubscription = this.wishlistService.addToWishlist(this.userId, product.id).subscribe(
+    if (!product.productId || !this.userId) {
+      console.error("Error: Product ID or User ID is undefined", { product, userId: this.userId });
+      return;
+    }
+
+    const addWishlistSubscription = this.wishlistService.addToWishlist(this.userId, product.productId).subscribe(
       () => {
-        this.wishlist.push(product);
-        localStorage.setItem('wishlist', JSON.stringify(this.wishlist));
+        this.loadWishlist(); // Refresh wishlist after successful addition
       },
-      (error) => console.error('Error adding to wishlist:', error)
+      (error) => console.error("Error adding to wishlist:", error)
     );
 
     this.subscriptions.add(addWishlistSubscription);
   }
 
+  /** Remove Product from Wishlist */
   removeFromWishlist(productId: number): void {
     const removeWishlistSubscription = this.wishlistService.removeFromWishlist(this.userId, productId).subscribe(
       () => {
-        this.wishlist = this.wishlist.filter(item => item.id !== productId);
-        localStorage.setItem('wishlist', JSON.stringify(this.wishlist));
+        this.loadWishlist(); // Refresh wishlist after successful removal
       },
-      (error) => console.error('Error removing from wishlist:', error)
+      (error) => console.error("Error removing from wishlist:", error)
     );
 
     this.subscriptions.add(removeWishlistSubscription);
   }
 
+  /** Check if Product is in Wishlist */
   isInWishlist(product: any): boolean {
     return this.wishlist.some(item => item.id === product.id);
   }

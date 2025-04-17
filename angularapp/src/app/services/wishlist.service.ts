@@ -9,7 +9,7 @@ import { Wishlist } from '../models/wishlist.model';
 })
 export class WishlistService {
 
-  public baseUrl : string = Global.apiUrl+"/api/wishlist";
+  public baseUrl : string = Global.apiUrl+"/wishlist";
 
   constructor(private httpClient : HttpClient) { }
 

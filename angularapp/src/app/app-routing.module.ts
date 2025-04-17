@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { UserviewproductComponent } from './components/userviewproduct/userviewproduct.component';
@@ -19,6 +19,7 @@ import { UserAuthGuard } from './user-auth.guard';
 import { UseraddfeedbackComponent } from './components/useraddfeedback/useraddfeedback.component';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 import { UserwishlistproductComponent } from './components/userwishlistproduct/userwishlistproduct.component';
+import { ContactComponent } from './components/contact/contact.component';
  
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -32,6 +33,7 @@ const routes: Routes = [
     { path: 'userviewproduct', component: UserviewproductComponent },
     { path: 'userviewfeedback', component: UserviewfeedbackComponent },
     { path: 'useraddfeedback', component: UseraddfeedbackComponent},
+    { path: 'contact', component: ContactComponent},
     { path: 'uservieworders', component: UserviewordersComponent },
     {path: 'wishlist', component: UserwishlistproductComponent},
     {path: '', redirectTo:'/userNavBar/home', pathMatch:'full'}]
