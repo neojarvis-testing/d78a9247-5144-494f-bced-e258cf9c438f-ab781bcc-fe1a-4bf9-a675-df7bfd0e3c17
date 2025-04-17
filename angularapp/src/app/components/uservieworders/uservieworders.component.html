@@ -21,7 +21,13 @@
           <p><strong>Product Name:</strong> {{ product.name }}</p>
           <p><strong>Category:</strong> {{ product.category }}</p>
           <p><strong>Description:</strong> {{ product.description }}</p>
-          <p><strong>Price:</strong> ₹{{ product.price }}</p>
+          <p><strong>Price:</strong> ₹{{ product.price }}</p> 
+          <button 
+            class="feedback-btn" 
+            [disabled]="order.status.toLowerCase() !== 'completed'"
+            [routerLink]="['/userNavBar/useraddfeedback', product.productId]">
+            Give Feedback
+          </button>         
         </li>
       </ul>
     </div>

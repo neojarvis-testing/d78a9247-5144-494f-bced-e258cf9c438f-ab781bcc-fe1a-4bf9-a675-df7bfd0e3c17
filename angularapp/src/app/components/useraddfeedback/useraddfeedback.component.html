@@ -2,11 +2,6 @@
   <h2>Add Feedback</h2><br>
   <form (ngSubmit)="submitFeedback(feedbackForm)" #feedbackForm="ngForm">
     <div class="form-group">
-      
-      <label for="product">Select Product:<span class="text-danger">*</span></label>
-          <select id="product" [(ngModel)]="selectedProduct" name="product">
-        <option *ngFor="let product of products" [ngValue]="product">{{ product.name }}</option>
-          </select>
 
       <label for="feedback">Feedback:<span class="text-danger">*</span></label><br>
       <textarea
@@ -56,6 +51,7 @@
   </div>
   
 </div>
+
 
 
 
