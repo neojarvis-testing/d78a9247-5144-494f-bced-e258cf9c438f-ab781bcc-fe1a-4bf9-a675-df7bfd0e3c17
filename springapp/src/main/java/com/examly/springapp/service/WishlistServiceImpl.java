@@ -19,12 +19,12 @@ public class WishlistServiceImpl implements WishlistService {
     }
 
     @Override
-    public Wishlist getWishlistByUserId(String userId) {
+    public Wishlist getWishlistByUserId(Long userId) {
         return wishlistRepository.findByUserId(userId);
     }
 
     @Override
-    public Wishlist addToWishlist(String userId, Long productId) {
+    public Wishlist addToWishlist(Long userId, Long productId) {
         Wishlist wishlist = wishlistRepository.findByUserId(userId);
         if (wishlist == null) {
             wishlist = new Wishlist(userId, List.of(productId));
@@ -35,7 +35,7 @@ public class WishlistServiceImpl implements WishlistService {
     }
 
     @Override
-    public Wishlist removeFromWishlist(String userId, Long productId) {
+    public Wishlist removeFromWishlist(Long userId, Long productId) {
         Wishlist wishlist = wishlistRepository.findByUserId(userId);
         if (wishlist != null) {
             wishlist.getProductIds().remove(productId);
