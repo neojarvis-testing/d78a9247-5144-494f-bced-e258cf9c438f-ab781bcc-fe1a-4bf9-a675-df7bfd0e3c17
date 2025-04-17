@@ -1,4 +1,4 @@
-body {
+body::before {
     margin: 0;
     background-image: url('/assets/background.jpg');
     background-size: cover;
@@ -8,10 +8,14 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    
 }
+
 
 .container {
     background: rgba(0, 0, 0, 0.6);
+    background: rgba(255, 255, 255, 0.2); 
+
     /* Semi-transparent background */
     color: white;
     /* Text color */
@@ -263,3 +267,82 @@ h2 {
 .fa-map-marker {
     color: #28a745; /* Green color for the address icon */
 }
+
+.white-text{
+    color:white;
+}
+
+
+/* Updated Carousel Styling */
+#productCarousel .carousel-inner {
+    background-color: transparent; /* Makes the background transparent */
+    box-shadow: none; /* Removes any shadow */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#productCarousel .card {
+    background-color: rgba(0, 0, 0, 0); /* Semi-transparent dark background */
+    border: none;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Adds depth with darker shadows */
+}
+
+#productCarousel .card-title {
+    color: #ffffff; /* White text color for better contrast */
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+#productCarousel .card-text {
+    color: #dddddd; /* Lighter text color for readability */
+    font-size: 1em;
+}
+
+.about {
+    background-color: rgba(0, 0, 0, 0); /* Semi-transparent dark background */
+    border: none;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Adds depth with darker shadows */
+}
+
+.about h2 {
+    color: black; /* Retains the heading color */
+}
+
+.about p {
+    color: black; /* Adjusts text color for readability against the background */
+}
+
+.contact {
+    background-color: rgba(0, 0, 0, 0); /* Semi-transparent dark background */
+    border: none;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Adds depth with darker shadows */
+}
+
+.contact h2 {
+    color: black; /* Retains the heading color */
+}
+
+.contact p {
+    color: black; /* Adjusts text color for readability against the background */
+}
+.black-text{
+    color: #000;
+}
+
+.map{
+    background: white;
+    border-radius: 5px;
+}
+.map h2{
+    margin-top: 15px;
+}
+
+
+
+
+
+
+

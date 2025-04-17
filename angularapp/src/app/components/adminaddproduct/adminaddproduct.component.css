@@ -1,7 +1,16 @@
+
+body {
+  background: linear-gradient(135deg, #007bff, #0056b3, #f8f9fa); /* Mixed colors matching your theme */
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #333; /* Text color for readability */
+}
+
 .container {
   width: 50%;
-  margin: auto;
-  padding: 20px;
+  /* margin: auto; */
+  /* padding: 20px; */
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -9,7 +18,7 @@
 
 h2 {
   text-align: center;
-  color: #333;
+  color: #FFBA49;
 }
 
 form div {
@@ -41,7 +50,7 @@ button {
   display: block;
   width: 100%;
   padding: 10px;
-  background-color: #28a745;
+  background-color: #FFBA49;
   color: white;
   border: none;
   border-radius: 5px;
@@ -88,3 +97,53 @@ button:disabled {
   filter: blur(5px); /* Blurs the form */
   pointer-events: none; /* Prevents interactions with the form */
 }
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+    border: 1px solid #FFBA49; /* Solid border with specified color */
+    border-radius: 4px; /* Optional: Adds slight rounding to corners */
+    padding: 10px; /* Optional: Adds some padding for better usability */
+    box-sizing: border-box; /* Ensures consistent sizing */
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+    border-color: #FFBA49; /* Retains the border color when focused */
+    outline: none; /* Removes default focus outline */
+    box-shadow: 5 2 4px rgba(255, 186, 73, 0.5); /* Optional: Adds glow effect on focus */
+}
+
+/* General input field styling */
+input[type="text"],
+input[type="number"],
+textarea,
+select,
+input[type="file"] {
+    border: 1px solid #FFBA49; /* Apply solid border with your preferred color */
+    border-radius: 4px; /* Add slight rounding to corners */
+    padding: 10px; /* Add some padding for consistency */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Adds subtle shadow for a clean look */
+    transition: all 0.3s ease-in-out; /* Smooth animations on focus/hover */
+}
+
+/* Add focus effect */
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus,
+input[type="file"]:focus {
+    border-color: #FFBA49; /* Keeps the same border color on focus */
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 6px rgba(255, 186, 73, 0.5); /* Adds a glowing focus effect */
+}
+
+/* Specific styling for file input to ensure consistency */
+input[type="file"] {
+    padding: 6px; /* Adjust padding if necessary */
+    cursor: pointer; /* Add pointer cursor for better user experience */
+}
+

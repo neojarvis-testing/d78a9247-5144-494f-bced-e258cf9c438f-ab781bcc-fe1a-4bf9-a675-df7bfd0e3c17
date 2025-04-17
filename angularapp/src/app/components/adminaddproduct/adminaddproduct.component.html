@@ -1,17 +1,12 @@
-<body style="background-image: url('/assets/loginsmart.png'); 
-             background-size: cover; 
-             background-position: center; 
-             background-repeat: no-repeat; 
-             margin: 0; 
-             font-family: Arial, sans-serif;">
-
   <div class="container" 
        style="background-color: rgba(255, 255, 255, 0.8); 
               padding: 20px; 
               border-radius: 10px; 
               max-width: 600px; 
               margin: 50px auto; 
-              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+              border: 1px solid #FFBA49;">
+
   <h2>Add New Product</h2>
   <form [formGroup]="productForm" (ngSubmit)="addProduct()">
     <div>

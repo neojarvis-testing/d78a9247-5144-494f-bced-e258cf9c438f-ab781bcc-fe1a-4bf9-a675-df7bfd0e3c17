@@ -18,7 +18,7 @@
         <td>{{ feedback.message }}</td>
         <td>{{ feedback.rating }}</td>
         <td>
-          <button (click)="selectFeedback(feedback)" class="btn btn-primary" >Edit</button>
+          <button (click)="selectFeedback(feedback)" class="btn edit" >Edit</button>
           <button (click)="confirmDelete(feedback)" class="btn btn-danger" style="margin-left: 0.8em;">Delete</button>
         </td>
       </tr>
@@ -50,7 +50,7 @@
         (input)="checkRating()" 
       />
       <p *ngIf="ratingError" style="color: red;">Rating must not exceed 5.</p>
-      <button (click)="updateFeedback(selectedFeedback)" class="btn btn-success" style="margin-bottom: 0.8em;">Save</button>
+      <button (click)="updateFeedback(selectedFeedback)" class="btn edit" style="margin-bottom: 0.8em;">Save</button>
       <button (click)="clearSelection()" class="btn btn-secondary">Cancel</button>
     </div>
   </div>

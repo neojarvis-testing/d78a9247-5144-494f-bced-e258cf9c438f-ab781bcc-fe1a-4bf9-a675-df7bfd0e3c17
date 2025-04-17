@@ -4,6 +4,7 @@
     margin: 20px auto;
     padding: 20px;
     text-align: center;
+    border: 1.5px solid #FFBf49;
   }
   
   /* Category Filter */
@@ -43,6 +44,7 @@
     gap: 20px;
     padding: 20px;
     justify-content: center;
+    border: 1px solid #000;
   }
   
   /* Product Card */
@@ -53,6 +55,7 @@
     padding: 15px;
     text-align: center;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border: 1px solid #FFBA49;
   }
   
   .product:hover {
@@ -111,7 +114,7 @@
   }
   
   button:nth-child(1):hover {
-    background-color: #0056b3;
+    background-color: palevioletred;
   }
   
   /* Quantity Buttons */
@@ -143,3 +146,14 @@
     color: red;
   }
   
+  .btn{
+    background: #FFBA49;
+  }
+
+  .wish{
+    background: pink;
+  }
+
+  .cart:hover{
+    background: linear-gradient(to right, black, #FFBA49);
+  }

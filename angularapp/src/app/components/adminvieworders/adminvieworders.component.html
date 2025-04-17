@@ -18,7 +18,7 @@
       <tbody>
         <tr *ngFor="let ord of orders">
           <td>{{ ord.orderId }}</td>  
-          <td>{{ userName}}</td>
+          <td>{{ ord.user.username}}</td>
           <td>
             <ul style="list-style: none;">
               <li *ngFor="let product of ord.product">
