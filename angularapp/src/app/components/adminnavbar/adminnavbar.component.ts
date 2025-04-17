@@ -8,16 +8,25 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class AdminnavbarComponent implements OnInit {
 
-  constructor(private authService:AuthService) { }
+  username: string;
+  showLogoutConfirm: boolean = false;
 
-  username:string;
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.username = this.authService.getUsername()
+    this.username = this.authService.getUsername();
   }
 
-  logout(){
+  confirmLogout(): void {
+    this.showLogoutConfirm = true;
+  }
+
+  cancelLogout(): void {
+    this.showLogoutConfirm = false;
+  }
+
+  logout(): void {
     this.authService.logout();
+    this.showLogoutConfirm = false;
   }
-
 }

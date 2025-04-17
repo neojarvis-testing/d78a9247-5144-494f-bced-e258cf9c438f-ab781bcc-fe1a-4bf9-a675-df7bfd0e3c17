@@ -19,7 +19,7 @@
 }
 
 .container-fluid {
-    background: linear-gradient(to right, blue, green);
+    background: linear-gradient(to right, #ffba49, #0a0908);
      padding: 20px;
      color: white;
      

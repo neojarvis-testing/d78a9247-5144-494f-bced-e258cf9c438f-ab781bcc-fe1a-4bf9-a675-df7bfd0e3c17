@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
@@ -12,13 +12,18 @@ import { Router } from '@angular/router';
 export class AdminviewuserdetailsComponent implements OnInit, OnDestroy {
 
   users: User[] = [];
-  loggedInUserId: number = 0; // Initialize to prevent undefined issues
-  private subscriptions: Subscription = new Subscription(); // Manage subscriptions
+  loggedInUserId: number = 0;
+  private subscriptions: Subscription = new Subscription();
 
-  constructor(private userService: UserService, private router: Router) { }
+  showDeleteConfirm: boolean = false;
+  userIdToDelete: number | null = null;
+
+  searchTerm: string = ''; // Search functionality
+  selectedRole: string = ''; // Filter functionality
+
+  constructor(private userService: UserService, private router: Router, private renderer: Renderer2) { }
 
   ngOnInit(): void {
-    // Fetch logged-in user ID from local storage (ensure fallback)
     const storedUserId = localStorage.getItem('userId');
     this.loggedInUserId = storedUserId ? Number(storedUserId) : 0;
 
@@ -29,19 +34,44 @@ export class AdminviewuserdetailsComponent implements OnInit, OnDestroy {
     this.subscriptions.add(userSubscription);
   }
 
-  public deleteUser(userId: number): void {
-    const deleteSubscription = this.userService.deleteUser(userId).subscribe(() => {
-      // If the deleted user is the logged-in user
-      if (userId === this.loggedInUserId) {
-        localStorage.clear();
-        this.router.navigate(['/logout']); // Replace with actual logout route
-      } else {
-        this.refreshUserList();
-      }
+  filteredUsers(): User[] {
+    return this.users.filter(user => {
+      const rowData = `${user.username} ${user.email} ${user.userRole} ${user.mobileNumber}`.toLowerCase();
+      return rowData.includes(this.searchTerm.toLowerCase()) &&
+        (this.selectedRole === '' || user.userRole === this.selectedRole);
     });
-
-    this.subscriptions.add(deleteSubscription);
   }
+
+  confirmDelete(userId: number): void {
+    this.userIdToDelete = userId;
+    this.showDeleteConfirm = true;
+    this.renderer.addClass(document.body, 'modal-active');
+  }
+
+  cancelDelete(): void {
+    this.showDeleteConfirm = false;
+    this.userIdToDelete = null;
+    this.renderer.removeClass(document.body, 'modal-active');
+  }
+
+  deleteUser(): void {
+    if (this.userIdToDelete !== null) {
+      const deleteSubscription = this.userService.deleteUser(this.userIdToDelete).subscribe(() => {
+        if (this.userIdToDelete === this.loggedInUserId) {
+          localStorage.clear();
+          this.router.navigate(['/logout']);
+        } else {
+          this.refreshUserList();
+        }
+      });
+
+      this.subscriptions.add(deleteSubscription);
+    }
+
+    this.showDeleteConfirm = false;
+    this.renderer.removeClass(document.body, 'modal-active');
+  }
+
 
   private refreshUserList(): void {
     const refreshSubscription = this.userService.getAllUsers().subscribe(data => {
@@ -51,8 +81,7 @@ export class AdminviewuserdetailsComponent implements OnInit, OnDestroy {
     this.subscriptions.add(refreshSubscription);
   }
 
-  // Cleanup subscriptions when component is destroyed
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe(); // Ensures cleanup of all tracked subscriptions
+    this.subscriptions.unsubscribe();
   }
 }

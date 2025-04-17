@@ -1,15 +1,15 @@
 <app-navbar></app-navbar>
-<!-- <body style="background-image: url('/assets/bg2.avif'); 
+<body style="background-image: url('/assets/HomeImg.jpg'); 
              background-size: cover; 
              background-position: center; 
              background-repeat: no-repeat;
              height: 100vh; 
              margin: 0; 
-             font-family: Arial, sans-serif;"> -->
+             font-family: Arial, sans-serif;">
 
 <div class="loggingForm">
     <div class="form-container" style="width: 80%; padding: 10px; margin: 0 auto;">
-      <h2>Login</h2>
+      <h2 style="font-weight: 500;">Login</h2>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="loginUsername">Username <span class="text-danger">*</span></label>
@@ -24,8 +24,8 @@
           <div *ngIf="loginForm.get('password').touched && loginForm.get('password').invalid" class="text-danger">
             Password is required (min 6 characters)
           </div>
-          <div class="text-primary" style="cursor: pointer;" routerLink="/forgetPassword">
-            forgot password?
+          <div class="text-primary" style="cursor: pointer" routerLink="/forgetPassword">
+            <span style="color: #b87333;">forgot password?</span>
           </div>
         </div>        
         
@@ -37,7 +37,7 @@
         </div>
 
       </form>
-      <p style="text-align: center;">Don't have and account? <span style="color: lightskyblue; cursor: pointer;" routerLink="/register">Regsiter Here</span></p>
+      <p style="text-align: center;">Don't have and account? <span style="color: #C77800; cursor: pointer;" routerLink="/register">Regsiter Here</span></p>
     </div>
   </div>
   

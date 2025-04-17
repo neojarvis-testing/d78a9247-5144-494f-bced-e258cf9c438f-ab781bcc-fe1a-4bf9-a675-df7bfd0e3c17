@@ -1,147 +1,79 @@
-body {
+/* General Styles */
+.feedback-container.container {
   font-family: Arial, sans-serif;
-  background-color: #f8f9fa;
-  margin: 0;
-  padding: 0;
+  margin: 20px auto;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-
-.container {
-  background-color: rgba(255, 255, 255, 0.95);
-  padding: 25px;
-  margin: 30px auto;
-  width: 75%; 
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+h2 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-
-form div {
-  margin-bottom: 15px;
+/* Table Styles */
+table {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-label {
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center; /* Horizontal centering */
+  vertical-align: middle; /* Vertical centering */
+}
+
+table th {
+  background-color: #ffba49; /* Blue header background */
+  color: white;
   font-weight: bold;
 }
 
-.required {
-  color: red;
+table tbody tr:nth-child(even) {
+  background-color: #f2f2f2; /* Alternating row colors */
 }
 
-input, textarea, select, button {
-  width: 100%;
-  padding: 10px;
-  margin: 5px 0;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
+table tbody tr:hover {
+  background-color: #ddd;
+  transition: background-color 0.3s ease;
 }
 
-button {
-  background-color: #007BFF;
-  color: white;
+/* Button Styles */
+.action-buttons button {
   border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 4px;
   cursor: pointer;
-  border-radius: 5px;
 }
 
-button:hover {
-  background-color: #0056b3;
-}
-
-
-.feedback-container h2 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.feedback-actions {
-  display: flex;
-  gap: 10px; 
-}
-
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
-}
-
-.table th, .table td {
-  padding: 12px;
-  border: 1px solid #dee2e6;
-  text-align: left;
-}
-
-.table th {
-  background-color: #343a40;
+.action-buttons .delete-btn {
+  background-color: #ff4d4d;
   color: white;
 }
 
-
-.table-striped tbody tr:nth-child(odd) {
-  background-color: #f2f2f2;
+.action-buttons .delete-btn:hover {
+  background-color: #e60000;
 }
 
-
-.action-buttons {
-  display: flex;
-  gap: 10px; 
-}
-
-
-.delete-btn {
-  background-color: #dc3545; 
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-}
-
-.delete-btn:hover {
-  background-color: #a71d2a;
-}
-
-
-.profile-btn {
-  background-color: #17a2b8; 
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-}
-
-.profile-btn:hover {
-  background-color: #117a8b;
-}
-
-
-.popup {
-  background-color: #28a745;
-  color: white;
-  padding: 15px;
-  border-radius: 10px;
-  text-align: center;
-  width: 300px;
-  margin: 20px auto;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.popup button {
-  background-color: white;
-  color: #28a745;
-  border: 1px solid #28a745;
-  cursor: pointer;
-  border-radius: 5px;
-  margin-top: 10px;
-}
-
-.popup button:hover {
-  background-color: #28a745;
+.action-buttons .profile-btn {
+  background-color: #ffba49;
   color: white;
 }
 
+.action-buttons .profile-btn:hover {
+  background-color: #ffba49;
+}
 
+/* Popup Styles */
 .popup-overlay {
   position: fixed;
   top: 0;
@@ -154,3 +86,41 @@ button:hover {
   align-items: center;
 }
 
+.popup {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.popup button {
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #ffba49;
+  color: white;
+}
+
+.popup button:hover {
+  background-color: #ffba49;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  table {
+    font-size: 14px;
+  }
+
+  .action-buttons button {
+    font-size: 12px;
+    padding: 8px 16px;
+  }
+
+  .popup button {
+    font-size: 12px;
+    padding: 8px 16px;
+  }
+}

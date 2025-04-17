@@ -1,209 +1,93 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-
-}
-
+/* Navbar Styling */
 .navbar {
-    background: linear-gradient(to right, blue, green);
+    background-color: #343a40; /* Same as admin navbar */
     display: flex;
     justify-content: space-between;
-    height: 70px;
-    /* Set your desired height */
     align-items: center;
-    /* Ensures the content is vertically centered */
+    height: 70px;
     padding: 0 20px;
-    /* Optional: Add horizontal padding for spacing */
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+/* Navbar Link Styles */
+.nav-link {
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
     color: white;
 }
 
-header {
-
-    padding: 1em 0;
+.nav-link:hover {
+    color: #ffcc00 !important; /* Admin hover color */
+    background-color: rgba(255, 255, 255, 0.1); /* Light transparent background */
+    transition: 0.3s ease-in-out;
 }
 
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+/* Dropdown Menu */
+.nav-item:hover .dropdown-menu {
+    display: block;
 }
 
-h1 {
-    color: #ffffff;
-}
-
-.user-section {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.user-section nav ul {
-    list-style-type: none;
-    display: flex;
-
-}
-
-.user-section nav ul li {
-    margin: 0 15px;
-}
-
-.admin-section nav a {
-    color: #ffffff;
-    text-decoration: none;
-}
-
-.user-section nav a.logout {
-    background-color: #dc3545;
-    /* Red for logout */
-    padding: 5px 10px;
-    border-radius: 5px;
-}
-
-.user-section nav a:hover {
-    text-decoration: underline;
-}
-
-main {
-    padding: 20px;
-    max-width: 800px;
-    margin: 20px auto;
-    background: #ffffff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-}
-
-h2 {
-    color: #007bff;
-}
-
-p {
-    line-height: 1.6;
-}
-nav ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-nav ul li {
-    position: relative;
-    display: inline-block;
-    margin-right: 15px;
-    cursor: pointer;
-    color: white
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: white
-}
-
-nav ul li .dropdown-menu {
-    display: none;
+.dropdown-menu {
     position: absolute;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    top: 100%;
-    left: 0;
     background-color: white;
     border: 1px solid #ccc;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-nav ul li:hover .dropdown-menu {
-    display: block;
-}
-
-.dropdown-menu li {
-    margin: 0;
-    padding: 5px 10px;
-}
-
-.dropdown-menu li a {
-    display: block;
-    text-decoration: none;
-    color: black;
-}
-
-.bag-image {
-    width: 24px;
-    /* Adjust width to make it proportional to other elements in the navbar */
-    height: auto;
-    /* Maintain aspect ratio for the image */
-    vertical-align: middle;
-    /* Align the image vertically with the text */
-    margin-left: 5px;
-    /* Create spacing between the text and the image */
-}
-
-
-.nav-link {
-     text-decoration: none;
-     transition: all 0.3s ease;
-     font-weight: 500;
-     color: white;
-    }
-    
-
-.nav-link:hover {
-    transform: scale(1.1);
-    /* Slightly enlarge the element */
-    background-color: rgba(0, 123, 255, 0.3);
-    /* Add semi-transparent blue background */
-    color: white !important;
-    /* Maintain white text color */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    /* Add shadow for pop-out effect */
-    border-radius: 5px;
-    /* Add rounded corners */
-}
-
-/* Dropdown menu hover effect */
+/* Dropdown Items */
 .dropdown-item {
     text-decoration: none;
-    /* Remove underline */
     transition: all 0.3s ease;
 }
 
 .dropdown-item:hover {
-    transform: scale(1.1);
-    /* Slightly enlarge the dropdown item */
-    background-color: rgba(40, 167, 69, 0.5);
-    /* Add semi-transparent green background */
+    background-color: rgba(222, 241, 17, 0.811); /* Admin dropdown hover effect */
     color: white;
-    /* Change text color to white */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    /* Add shadow */
     border-radius: 5px;
-    /* Add rounded corners */
 }
 
-.navbar {
-    background: linear-gradient(to right, blue, green);
-    /* Gradient background */
-}
-
+/* Logout Button */
 .logout {
-    background-color: #dc3545 !important;
-    /* Red for logout button */
+    background-color: #dc3545 !important; /* Same red color for logout */
     padding: 5px 10px;
     border-radius: 5px;
 }
 
 .logout:hover {
     background-color: #a71d2a !important;
-    /* Darker red on hover */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    /* Add shadow */
+}
+
+/* Modal Styles */
+.logout-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-content button {
+    margin: 10px;
+}
+
+/* Background Blur Effect */
+body.modal-active {
+    backdrop-filter: blur(5px);
+}
+
+.bag-image{
+    width: 24px;
 }

@@ -1,31 +1,10 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* General styling */
 body {
   overflow-x: hidden;
+  /* font-family: 'Roboto', sans-serif; Clean and modern font style */
 }
 
-.container-fluid {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 3.5em;
-  background: linear-gradient(to right, blue, green);
-  padding: 20px;
-  color: white;
-  width: 100%;
-}
-
-.links {
-  display: flex;
-  gap: 2em;
-  cursor: pointer;
-}
-
-/* Center the form on the screen */
+/* Center the form */
 .registrationForm {
   display: flex;
   justify-content: center;
@@ -34,85 +13,102 @@ body {
 }
 
 .form-container {
-  background: white;
-  padding: 15px; /* Reduced padding */
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px); /* Blur effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  padding: 20px; /* Adjusted padding for spaciousness */
+  border-radius: 15px; /* Rounded corners for a softer look */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25); /* Slightly deeper shadow */
   width: 100%;
-  max-width: 500px; /* Maximum width for the form */
+  max-width: 500px; /* Controlled width */
 }
 
+/* Heading styling */
 h2 {
   text-align: center;
-  margin-bottom: 15px; /* Reduced margin */
+  margin-bottom: 15px;
+  /* font-family: 'Poppins', sans-serif; Stylish font for headings */
+  font-size: 24px;
+  font-weight: bold;
+  color: black; /* Heading color */
 }
 
+/* Form group styling */
 .form-group {
-  margin-bottom: 10px; /* Reduced margin */
+  margin-bottom: 15px; /* Spacing between form elements */
 }
 
 .form-control {
-  width: 100%; /* Adjusted width */
-  padding: 8px; /* Reduced padding */
+  width: 100%;
+  padding: 10px; 
   margin-top: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.btn-primary {
-  width: 50%;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: #007bff;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.btn-primary:disabled {
-  background-color: #cccccc;
+  border-radius: 10px;
+  border: 1px solid black;
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  color: #333; 
+  background: rgba(255, 255, 255, 0.2); /* Same semi-transparent background as form-container */
+  backdrop-filter: blur(10px); /* Blur effect for input fields */
+  -webkit-backdrop-filter: blur(10px); /* Safari support for input fields */
 }
 
 .text-danger {
   color: red;
   font-size: 0.875em;
+  font-weight: bold; /* Bold text for clarity */
 }
 
+/* Register button with gradient effect and hover enhancements */
+.btn-primary {
+  width: 50%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px; /* More prominent rounding */
+  background: linear-gradient(to right, #FFBA49, black); /* Gradient color */
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background 0.3s; /* Smooth hover transitions */
+  font-family: 'Montserrat', sans-serif; /* Stylish font for buttons */
+}
+
+.btn-primary:hover {
+  transform: scale(1.5); /* Slight zoom effect */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Shadow effect for depth */
+  background: linear-gradient(to left, #FFBA49, black); /* Reverse gradient direction */
+}
+
+/* Login success card styling */
 .centered-card {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 25%; 
-  
+  width: 25%;
+  background-color: rgba(255, 186, 73, 0.5); /* Transparent background using RGBA */
+  border-radius: 15px; /* Optional: Add rounded corners for a softer look */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25); /* Slightly deeper shadow */
 }
 
-.card {
-  border: none;
-}
-
-.blur {
-  filter: blur(5px); /* Adjust the blur intensity */
-  pointer-events: none; /* Prevent interaction with blurred elements */
-}
+/* Moving cart animation */
 .moving-cart {
-  width: 100px; /* Adjust size as needed */
-  animation: moveCart 2s ease-in-out infinite; /* 'infinite' ensures the animation keeps looping */
+  width: 100px;
+  animation: moveCart 2s ease-in-out infinite;
   position: relative;
 }
 
+/* Cart animation */
 @keyframes moveCart {
   0% {
-    transform: translateX(-300px) translateY(0); /* Starts off-screen to the left */
-    opacity: 0; /* Invisible */
+    transform: translateX(-300px) translateY(0);
+    opacity: 0;
   }
   50% {
-    transform: translateX(0px) translateY(-30px); /* Bounces up slightly */
-    opacity: 1; /* Fully visible */
+    transform: translateX(0px) translateY(-30px);
+    opacity: 1;
   }
   100% {
-    transform: translateX(300px) translateY(0); /* Moves off-screen to the right */
-    opacity: 0; /* Invisible again */
+    transform: translateX(300px) translateY(0);
+    opacity: 0;
   }
 }

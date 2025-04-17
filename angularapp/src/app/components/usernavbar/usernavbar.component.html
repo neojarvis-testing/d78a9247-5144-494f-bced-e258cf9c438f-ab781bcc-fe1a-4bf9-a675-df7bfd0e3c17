@@ -1,37 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartMart</title>
-</head>
-<body>
-    <header>
-        <div class="navbar">
-            <h1>SmartMart</h1>
-            <div class="user-section">
-                <nav>
-                    <ul>
-                        <li class="nav-link" style="cursor: pointer;color:white">{{userName}}/ User</li>
-                        <li class="nav-link"><a style="text-decoration: none" routerLink="/userNavBar/home">Home</a></li>
-                        <li class="nav-link"><a style="text-decoration: none" routerLink="/userNavBar/userviewproduct">View Products</a></li>
-                        <li class="nav-link"><img src="assets/mybag.jpg" alt="Shopping Bag" class="bag-image" routerLink="/userNavBar/cart"></li>
-                        <li class="nav-link"><a style="text-decoration: none" routerLink="/userNavBar/uservieworders">My Orders</a></li>
-                        <li class="dropdown nav-link">
-                            <a class="nav-link dropdown-toggle" style="cursor: pointer;text-decoration:none;">Feedbacks</a>
-                            <ul class="dropdown-menu" style="color: black;">
-                                <!-- <li class="nav-link" ><p style="text-decoration:none" routerLink="/userNavBar/useraddfeedback" style="color: black;">Add Feedback</p></li> -->
-                                <li class="nav-link" ><p style="text-decoration:none" routerLink="/userNavBar/userviewfeedback" style="color: black;">View Feedback</p></li>
-                            </ul>
-                        </li>
-                        <li class="nav-link"><a style="text-decoration: none" routerLink="/userNavBar/contact">Contact Us</a></li>
-                        <li class="nav-link"><a style="text-decoration: none" class="logout" routerLink="/logout" (click)="logout()">Logout</a></li>
-                    </ul>
-                </nav>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand">SmartMart</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item d-flex align-items-center text-white me-3">
+                        <span>{{ userName }} / USER</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/userNavBar/home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/userNavBar/userviewproduct">View Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/userNavBar/cart">
+                            <img src="assets/mybag.jpg" alt="Shopping Bag" class="bag-image">
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/userNavBar/uservieworders">My Orders</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="feedbackDropdown" role="button" data-bs-toggle="dropdown">
+                            Feedbacks
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" routerLink="/userNavBar/useraddfeedback">Add Feedback</a></li>
+                            <li><a class="dropdown-item" routerLink="/userNavBar/userviewfeedback">View Feedback</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-danger" (click)="confirmLogout()">Logout</button>
+                    </li>
+                </ul>
+
             </div>
         </div>
-    </header>
-    <router-outlet></router-outlet>
-</body>
-</html>
+    </nav>
+</header>
+
+<!-- Logout Confirmation Dialog -->
+<div *ngIf="showLogoutConfirm" class="logout-modal">
+    <div class="modal-content">
+        <p>Are you sure you want to logout?</p>
+        <button class="btn btn-success" (click)="logout()">Yes</button>
+        <button class="btn btn-secondary" (click)="cancelLogout()">No</button>
+    </div>
+</div>
+
+<router-outlet></router-outlet>
 
