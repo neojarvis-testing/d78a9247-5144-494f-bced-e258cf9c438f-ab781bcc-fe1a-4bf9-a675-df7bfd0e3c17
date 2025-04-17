@@ -1,25 +1,96 @@
-/* Table container */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    font-size: 16px;
-    text-align: left;
-  }
-  
-  /* Header row */
-  thead th {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px;
-  }
-  
+/* Table Styling - Yellow Base with Blue Accents */
+.table {
+  border-radius: 8px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ffd700 0%, #f0c000 100%); /* Yellow gradient */
+  color: black; /* Better readability */
+  border: 2px solid #3232a0; /* Blue border */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 1s ease-in-out;
+}
 
-  /* Table cells */
-  th, td {
-    padding: 10px;
-    text-align: left;
+/* Hover Effect - Slight Blue Tint */
+.table-hover tbody tr:hover {
+  background-color: rgba(50, 50, 160, 0.2); /* Light blue hover effect */
+  transition: 0.4s ease-in-out;
+}
+
+/* Alternate Row Colors - Blue Highlights */
+tbody tr:nth-child(odd) {
+  background: #ffcc00; /* Bright yellow */
+}
+
+tbody tr:nth-child(even) {
+  background: #fff2a8; /* Lighter yellow for contrast */
+}
+
+/* Table Headers - Blue Theme */
+.thead-light {
+  background: #3232a0; /* Strong blue */
+  color: #ffd700; /* Yellow contrast */
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Row Animation - Smooth Entry */
+tbody tr {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: slideIn 0.6s ease-in-out forwards;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
   }
-  
-  
-  
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Button Hover Effect - More Interactive */
+.btn-danger {
+  background-color: #d9534f;
+  border: none;
+  transition: 0.3s ease-in-out;
+}
+
+.btn-danger:hover {
+  background-color: #ff4444;
+  transform: scale(1.1);
+}
+
+/* Delete Confirmation Modal */
+/* Compact Modal Styling */
+.delete-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #222;
+  color: white;
+  padding: 10px; /* Reduce padding */
+  border-radius: 6px; /* Slightly tighter corners */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+  width: 260px; /* Smaller width */
+  text-align: center;
+  z-index: 1000;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Modal Content Styling */
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Reduce space between elements */
+}
+
+/* Compact Button Styling */
+.modal-content button {
+  padding: 4px 8px; /* Smaller button padding */
+  font-size: 14px; /* Reduce font size */
+}

@@ -1,35 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartMart</title>
-</head>
-<body>
-    <header>
-        <div class="navbar">
-            <h1>SmartMart</h1>
-            <div class="admin-section">
-                <nav>
-                    <ul>
-                        <li class="nav-link" style="cursor: pointer;color:white">{{username}} / ADMIN</li>
-                        <li class="nav-link" routerLink="/adminNavBar/home" style="cursor: pointer;"><a>Home</a></li>
-                        <li  class="dropdown nav-item">
-                            <a class="nav-link dropdown-toggle" style="cursor: pointer;">Products</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li style="cursor: pointer;"><a routerLink="/adminNavBar/addProduct">Add Product</a></li>
-                                <li style="cursor: pointer;"><a routerLink="/adminNavBar/adminViewProduct">View Product</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-link" routerLink="/adminNavBar/adminViewOrders" style="cursor: pointer;"><a>Requested Orders</a></li>
-                        <li class="nav-link" routerLink="/adminNavBar/adminFeedback" style="cursor: pointer;"><a>Feedbacks</a></li>
-                        <li class="nav-link" routerLink="/adminNavBar/adminViewUserDetails" style="cursor: pointer;"><a>Users</a></li>
-                        <li class="nav-link"><a class="logout" style="cursor: pointer;" (click)="logout()">Logout</a></li>
-                    </ul>
-                </nav>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand">SmartMart</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item d-flex align-items-center text-white me-3">
+                        <span>{{ username }} / ADMIN</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/adminNavBar/home">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="productsDropdown" role="button" data-bs-toggle="dropdown">
+                            Products
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" routerLink="/adminNavBar/addProduct">Add Product</a></li>
+                            <li><a class="dropdown-item" routerLink="/adminNavBar/adminViewProduct">View Product</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/adminNavBar/adminViewOrders">Requested Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/adminNavBar/adminFeedback">Feedbacks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/adminNavBar/adminViewUserDetails">Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-danger" (click)="confirmLogout()">Logout</button>
+                    </li>
+                </ul>
             </div>
         </div>
-    </header>
-    <router-outlet></router-outlet>
-</body>
-</html>
+    </nav>
+</header>
+
+<!-- Logout Confirmation Dialog -->
+<div *ngIf="showLogoutConfirm" class="logout-modal">
+    <div class="modal-content">
+        <p>Are you sure you want to logout?</p>
+        <button class="btn btn-success" (click)="logout()">Yes</button>
+        <button class="btn btn-secondary" (click)="cancelLogout()">No</button>
+    </div>
+</div>
+
+<!-- Router Outlet to Render Components Dynamically -->
+<router-outlet></router-outlet>
