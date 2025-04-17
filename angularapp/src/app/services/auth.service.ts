@@ -25,6 +25,7 @@ export class AuthService {
 
   
   login(login: Login): Observable<{ token: string; userRole: string; username: string; userId: number }> {
+    localStorage.clear();
     return this.http.post<{ token: string; userRole: string; username: string; userId: number }>(
       `${this.baseUrl}/api/login`,
       login
