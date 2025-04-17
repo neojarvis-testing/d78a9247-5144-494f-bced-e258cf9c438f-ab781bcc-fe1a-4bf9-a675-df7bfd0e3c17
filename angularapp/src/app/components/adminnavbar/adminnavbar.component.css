@@ -1,4 +1,8 @@
 /* Blur background when modal appears */
+body{
+    margin: 0;
+    padding: 0;
+}
 .blur-background {
     filter: blur(5px);
     pointer-events: none;
@@ -53,4 +57,7 @@ body.modal-active {
     color: #ffcc00 !important; /* Change text color */
     background-color: rgba(255, 255, 255, 0.1); /* Add light background */
     transition: 0.3s ease-in-out; /* Smooth transition */
+}
+.yes{
+    background: #FFB449;
 }

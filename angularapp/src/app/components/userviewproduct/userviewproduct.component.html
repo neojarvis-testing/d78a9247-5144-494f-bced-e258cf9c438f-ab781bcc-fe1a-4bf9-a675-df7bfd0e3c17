@@ -7,7 +7,7 @@
     </select>
 
     <div class="product-container">
-      <div *ngFor="let product of products" class="product">
+      <div *ngFor="let product of filteredProducts" class="product">
         <img [src]="product.productImage" alt="{{ product.name }}" class="product-image">
         <h2>{{ product.name }}</h2>
         <p>{{ product.description }}</p>
@@ -17,9 +17,9 @@
 
         <div>
           <button (click)="addToWishlist(product)" class="btn btn-success" style="margin-bottom: 1em">
-            <span [class.liked]="isInWishlist(product.id)">❤</span> 
-            {{ isInWishlist(product.id) ? 'Remove from Wishlist' : 'Add to Wishlist' }}
+            <span>❤ Add to Wishlist</span> 
           </button>
+          
         </div>
         
         <div>

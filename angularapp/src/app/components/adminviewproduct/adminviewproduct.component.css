@@ -66,7 +66,7 @@ h2 {
 }
 
 .edit-form button:nth-child(1) {
-  background-color: #007bff;
+  background-color: #FFBA49;
   color: white;
 }
 
@@ -119,7 +119,7 @@ button {
 
 /* Edit Button Styling */
 button:nth-child(1) {
-  background-color: #007bff;
+  background-color: #FFBA49;
   color: white;
 }
 
@@ -131,7 +131,7 @@ button:nth-child(2) {
 
 /* Hover Effects */
 button:nth-child(1):hover {
-  background-color: #0056b3; /* Darker blue for edit button on hover */
+  background-color: #EAA63F; /* Darker blue for edit button on hover */
 }
 
 button:nth-child(2):hover {
@@ -193,5 +193,40 @@ button:nth-child(2):hover {
   margin-top: 10px;
 }
 
+.product-card {
+  border: 1px solid #FFBA49;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  text-align: left; /* Aligns text to the left */
+
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.product-card h3{
+  text-align: center;
+}
+
+.container h2{
+  color: #FFBA49;
+}
+
+.product-image {
+  width: 150px; /* Fixed width */
+  height: 150px; /* Fixed height */
+  object-fit: cover; /* Ensures the image fits within the defined dimensions without distortion */
+  border-radius: 8px; /* Adds rounded corners */
+  margin-top: 10px;
+  display: block; /* Ensures proper alignment inside the card */
+}
 
 
+.edit{
+  background-color: #FFBA49;
+}

@@ -13,15 +13,22 @@ body {
 /* Container for all orders */
 .orders-container {
   text-align: center;
-  width: 100%;
+  width: 90%;
   max-width: 1200px;
   padding: 20px;
-  background-color: #fdfdfd;
+  background-color: white; /* 20% transparency */
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  color: #000; /* Ensures text color is black */
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 70px;
 }
+
+
 
 /* Single Order Container */
 .single-order {
@@ -33,16 +40,20 @@ body {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   color: #000;
+  border: 2px solid #FFBA49;
 }
 
 /* Heading Styles */
 .orders-container h1,
 .single-order h2 {
-  color: #000; /* Ensures headings have black font */
+  color: #FFBA49; /* Ensures headings have black font */
   margin: 0 0 20px;
   font-size: 2rem;
-  border-bottom: 2px solid #007BFF;
+  border-bottom: 2px solid #ffba49;
   padding-bottom: 10px;
+}
+.orders-container h1{
+  color: black;
 }
 
 h2 {
@@ -56,6 +67,7 @@ h2 {
   background-color: #f4f8fc;
   border: 1px solid #cce1f7;
   border-radius: 8px;
+  border: 1px solid #ffba49;
 }
 
 .order-summary p {
@@ -70,6 +82,8 @@ h2 {
   background-color: #f8fdf4;
   border: 1px solid #cde6cd;
   border-radius: 8px;
+  border: 1px solid #ffba49;
+
 }
 
 .product-details ul {
@@ -93,7 +107,7 @@ h2 {
 }
 
 .product-details p strong {
-  color: #007BFF; /* Keeps strong text blue */
+  color: #FFBA49; /* Keeps strong text blue */
 }
 
 /* Responsive Design */
@@ -106,4 +120,60 @@ h2 {
   .product-details {
     padding: 10px;
   }
+}
+
+
+.feedback-btn {
+  background: linear-gradient(to right, black, #FFBA49); /* Default gradient */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.feedback-btn:disabled {
+  background: #B0B0B0; /* Grey color when disabled */
+  cursor: not-allowed;
+  box-shadow: none; /* Remove any hover effects */
+  transform: none;
+}
+
+.feedback-btn:not(:disabled):hover {
+  background: linear-gradient(to right, #333, #EAA63F); /* Darker gradient on hover */
+  transform: scale(1.05);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.product-details {
+  padding: 15px;
+  background-color: #f8fdf4;
+  border: 1px solid #cde6cd;
+  border-radius: 8px;
+  border: 1px solid #ffba49;
+  text-align: left; /* Ensures all text is aligned to the left */
+}
+
+.product-details ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.product-details li {
+  margin-bottom: 15px;
+  padding: 15px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: left; /* Ensures individual product details are aligned left */
+}
+
+.product-details p {
+  margin: 5px 0;
+  color: #000;
+  text-align: left; /* Aligns all product details left */
 }

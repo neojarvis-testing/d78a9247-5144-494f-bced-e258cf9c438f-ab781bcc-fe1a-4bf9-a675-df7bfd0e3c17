@@ -7,6 +7,8 @@ import { CartItem } from 'src/app/models/cart-item.model';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
 import { WishlistService } from 'src/app/services/wishlist.service';
+import { Product } from 'src/app/models/product.model';
+
 
 @Component({
   selector: 'app-userviewproduct',
@@ -23,6 +25,9 @@ export class UserviewproductComponent implements OnInit, OnDestroy {
   categories: string[] = [];
   selectedCategory: string = 'All';
   wishlist: any[] = [];
+  wishlistProductIds: number[] = []; 
+  
+
   private subscriptions: Subscription = new Subscription(); // Manage multiple subscriptions
 
   constructor(
@@ -160,21 +165,26 @@ export class UserviewproductComponent implements OnInit, OnDestroy {
   }
 
   /** Add Product to Wishlist */
-  addToWishlist(product: any): void {
+  addToWishlist(product: Product): void {
     if (!product.productId || !this.userId) {
-      console.error("Error: Product ID or User ID is undefined", { product, userId: this.userId });
+      console.error(`Error: Missing Product ID (${product?.productId}) or User ID (${this.userId})`);
       return;
     }
-
+  
     const addWishlistSubscription = this.wishlistService.addToWishlist(this.userId, product.productId).subscribe(
       () => {
-        this.loadWishlist(); // Refresh wishlist after successful addition
+        this.wishlist.push(product); // Update wishlist without reloading entire list
+        
       },
-      (error) => console.error("Error adding to wishlist:", error)
+      (error) => {
+        console.error("Error adding to wishlist:", error);
+      }
     );
-
+  
     this.subscriptions.add(addWishlistSubscription);
   }
+
+  
 
   /** Remove Product from Wishlist */
   removeFromWishlist(productId: number): void {
@@ -187,12 +197,7 @@ export class UserviewproductComponent implements OnInit, OnDestroy {
 
     this.subscriptions.add(removeWishlistSubscription);
   }
-
-  /** Check if Product is in Wishlist */
-  isInWishlist(product: any): boolean {
-    return this.wishlist.some(item => item.id === product.id);
-  }
-
+  
   // Cleanup subscriptions when component is destroyed
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();

@@ -17,6 +17,9 @@
                         <a class="nav-link" routerLink="/userNavBar/userviewproduct">View Products</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" routerLink="/userNavBar/wishlist">Wishlist</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" routerLink="/userNavBar/cart">
                             <img src="assets/mybag.jpg" alt="Shopping Bag" class="bag-image">
                         </a>
@@ -29,7 +32,7 @@
                             Feedbacks
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" routerLink="/userNavBar/useraddfeedback">Add Feedback</a></li>
+                            <!-- <li><a class="dropdown-item" routerLink="/userNavBar/useraddfeedback">Add Feedback</a></li> -->
                             <li><a class="dropdown-item" routerLink="/userNavBar/userviewfeedback">View Feedback</a></li>
                         </ul>                        
                     </li>
@@ -50,7 +53,7 @@
 <div *ngIf="showLogoutConfirm" class="logout-modal">
     <div class="modal-content">
         <p>Are you sure you want to logout?</p>
-        <button class="btn btn-success" (click)="logout()">Yes</button>
+        <button class="btn edit" (click)="logout()">Yes</button>
         <button class="btn btn-secondary" (click)="cancelLogout()">No</button>
     </div>
 </div>
