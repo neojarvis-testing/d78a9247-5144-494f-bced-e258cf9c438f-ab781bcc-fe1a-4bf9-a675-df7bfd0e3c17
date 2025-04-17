@@ -2,6 +2,8 @@ package com.examly.springapp.controller;
 
 import com.examly.springapp.service.WishlistService;
 import com.examly.springapp.model.Wishlist;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,17 +19,20 @@ public class WishlistController {
 
 
     @GetMapping("/{userId}")
-    public Wishlist getWishlist(@PathVariable String userId) {
+    @PreAuthorize("hasAuthority('USER')")
+    public Wishlist getWishlist(@PathVariable Long userId) {
         return wishlistService.getWishlistByUserId(userId);
     }
 
     @PostMapping("/{userId}/add/{productId}")
-    public Wishlist addToWishlist(@PathVariable String userId, @PathVariable Long productId) {
+    @PreAuthorize("hasAuthority('USER')")
+    public Wishlist addToWishlist(@PathVariable Long userId, @PathVariable Long productId) {
         return wishlistService.addToWishlist(userId, productId);
     }
 
     @DeleteMapping("/{userId}/remove/{productId}")
-    public Wishlist removeFromWishlist(@PathVariable String userId, @PathVariable Long productId) {
+    @PreAuthorize("hasAuthority('USER')")
+    public Wishlist removeFromWishlist(@PathVariable Long userId, @PathVariable Long productId) {
         return wishlistService.removeFromWishlist(userId, productId);
     }
 }

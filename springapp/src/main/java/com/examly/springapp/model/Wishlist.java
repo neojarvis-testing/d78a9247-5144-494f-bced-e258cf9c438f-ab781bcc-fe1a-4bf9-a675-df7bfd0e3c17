@@ -13,7 +13,7 @@ public class Wishlist implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String userId;
+    private Long userId;
 
     @ElementCollection
     private List<Long> productIds; // Store product IDs in wishlist
@@ -21,7 +21,7 @@ public class Wishlist implements Serializable{
     // Constructors
     public Wishlist() {}
 
-    public Wishlist(String userId, List<Long> productIds) {
+    public Wishlist(Long userId, List<Long> productIds) {
         this.userId = userId;
         this.productIds = productIds;
     }
@@ -31,7 +31,7 @@ public class Wishlist implements Serializable{
         return id;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
@@ -43,7 +43,7 @@ public class Wishlist implements Serializable{
         this.id = id;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

@@ -15,27 +15,22 @@
         <p><b>Price:</b> ${{ product.price }}</p>
         <p><b>Stock:</b> {{ product.stock }}</p>
 
-        <button (click)="addToCart(product)" class="btn btn-success">Add to Cart</button>
+        <div>
+          <button (click)="addToWishlist(product)" class="btn btn-success" style="margin-bottom: 1em">
+            <span [class.liked]="isInWishlist(product.id)">❤</span> 
+            {{ isInWishlist(product.id) ? 'Remove from Wishlist' : 'Add to Wishlist' }}
+          </button>
+        </div>
+        
+        <div>
+          <button (click)="addToCart(product)" class="btn btn-success">Add to Cart</button>
         <div *ngIf="isInCart(product)">
           <button (click)="increaseQuantity(product)">+</button>
           <button (click)="decreaseQuantity(product)">-</button>
           <p><b>Quantity:</b> {{ getQuantity(product) }}</p>
         </div>
-      
+        
       </div>
-    
-  
-      <!-- Wishlist Button with Heart Icon -->
-      <!-- <button (click)="toggleWishlist(product)" class="wishlist-btn">
-        <span [class.liked]="isInWishlist(product)" style="color:red">❤</span> 
-      </button> -->
-  
-      <!-- <button (click)="addToWishlist(product)">
-        <span [class.liked]="isInWishlist(product.id)">❤</span> 
-        {{ isInWishlist(product.id) ? 'Remove from Wishlist' : 'Add to Wishlist' }}
-      </button> -->
-      
-      
       
     </div>
 

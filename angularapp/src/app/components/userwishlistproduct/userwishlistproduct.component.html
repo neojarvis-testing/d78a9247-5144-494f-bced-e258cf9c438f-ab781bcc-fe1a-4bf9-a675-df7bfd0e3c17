@@ -1,39 +1,27 @@
-<!-- <div class="wishlist-container">
-    <h2>Your Wishlist</h2>
-  
-    <div *ngIf="isWishlistEmpty()" class="empty-wishlist">
-      <p>Your wishlist is empty!</p>
-    </div>
-  
-    <div *ngFor="let product of wishlist" class="wishlist-item">
-      <img [src]="product.productImage" alt="{{ product.name }}" class="wishlist-image">
-      <div class="wishlist-details">
-        <h3>{{ product.name }}</h3>
-        <p>{{ product.description }}</p>
-        <p><b>Price:</b> ${{ product.price }}</p>
-        <button (click)="removeFromWishlist(product.id)">Remove</button>
-        <button (click)="addToCart(product)">Add to Cart</button>
+<div class="container">
+  <h2>Your Wishlist</h2>
+
+  <!-- Display Wishlist Items -->
+  <div *ngIf="!isWishlistEmpty(); else emptyWishlist">
+      <div class="product-container">
+          <div *ngFor="let product of wishlist" class="product-card">
+              <img [src]="product.productImage" alt="{{ product.name }}" class="product-image">
+              <h2>{{ product.name }}</h2>
+              <p>{{ product.description }}</p>
+              <p><b>Category:</b> {{ product.category }}</p>
+              <p><b>Price:</b> ₹{{ product.price }}</p>
+              <p><b>Stock:</b> {{ product.stock }}</p>
+
+              <div class="button-group">
+                  <button (click)="addToCart(product)" class="btn btn-success">Add to Cart</button>
+                  <button (click)="removeFromWishlist(product.id)" class="btn btn-danger">Remove</button>
+              </div>
+          </div>
       </div>
-    </div>
-</div> -->
+  </div>
 
-<h2>Your Wishlist</h2>
-
-<ul *ngIf="wishlist.length > 0; else emptyWishlist">
-    <li *ngFor="let product of wishlist">
-        <h3>{{ product.name }}</h3>
-        <p>Description: {{ product.description }}</p>
-        <p>Price: ₹{{ product.price }}</p>
-        <p>Stock: {{ product.stock }}</p>
-        <p>Category: {{ product.category }}</p>
-
-        <button (click)="removeFromWishlist(product)">Remove</button>
-        <button (click)="addToCart(product)">Add to Cart</button>
-    </li>
-</ul>
-
-<ng-template #emptyWishlist>
-    <p>Your wishlist is empty!</p>
-</ng-template>
-
-  
+  <!-- Empty Wishlist Message -->
+  <ng-template #emptyWishlist>
+      <p>Your wishlist is empty.</p>
+  </ng-template>
+</div>
