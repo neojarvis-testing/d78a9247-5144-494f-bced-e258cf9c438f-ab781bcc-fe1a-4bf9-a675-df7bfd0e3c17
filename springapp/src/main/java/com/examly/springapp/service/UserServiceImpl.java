@@ -1,12 +1,7 @@
-
 package com.examly.springapp.service;
-
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,7 +18,6 @@ import com.examly.springapp.repository.UserRepo;
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
     
-    @Autowired
     private final UserRepo userRepo;
 
     

@@ -8,15 +8,15 @@
   
     <div class="mb-3">
       <label for="email">Email address</label>
-      <input type="email" [(ngModel)]="emailData.email" class="form-control" name="email"   id="email" required>
+      <input type="email" [(ngModel)]="emailData.email" class="form-control" name="email"   id="email" required email>
     </div>
   
     <div class="mb-3">
       <label for="message">Message</label>
-      <textarea class="form-control"  [(ngModel)]="emailData.message"  name="message"  id="message" required></textarea>
+      <textarea class="form-control"  [(ngModel)]="emailData.message"  name="message"  id="message" required ></textarea>
     </div>
   
-    <button  type="submit" class="btn btn-primary">Submit</button>
+    <button  type="submit" class="btn btn-primary w-30" [disabled]="emailForm.invalid">Submit</button>
   </form>
 
 </div>
@@ -26,7 +26,7 @@
       <p>
 
           <a href="mailto:smartmartmindtree@gmail.com" class="text-dark">
-              <i class="fa fa-envelope" aria-hidden="true"></i><strong>Email:</strong> smartmartmindtree@gmail.com
+              <i class="fa fa-envelope" aria-hidden="true"></i><strong>Email:</strong> smartmartmindtree&#64;gmail.com
           </a>
       </p>
       <p>

@@ -96,7 +96,7 @@ export class ForgetPasswordComponent implements OnInit, OnDestroy {
           this.message = response.message;
           this.errorMessage = '';
 
-          // Hide forms and show the redirect message
+          
           this.isRedirecting = true;
           this.showOtpSection = false;
           this.showNewPasswordSection = false;
@@ -113,7 +113,7 @@ export class ForgetPasswordComponent implements OnInit, OnDestroy {
         this.errorMessage = err.error?.message || 'Failed to update password.';
         this.message = '';
 
-        // Hide forms and show redirect message even in case of an error
+       
         this.isRedirecting = true;
         this.showOtpSection = false;
         this.showNewPasswordSection = false;
@@ -127,8 +127,8 @@ export class ForgetPasswordComponent implements OnInit, OnDestroy {
     this.subscriptions.add(updateSubscription);
   }
 
-  // Cleanup subscriptions when component is destroyed
+  
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe(); // Ensures proper memory cleanup
+    this.subscriptions.unsubscribe(); 
   }
 }

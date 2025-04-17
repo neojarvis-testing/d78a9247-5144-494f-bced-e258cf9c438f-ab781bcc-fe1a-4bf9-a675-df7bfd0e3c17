@@ -73,7 +73,7 @@ h2 {
 }
 
 .btn-primary:hover {
-  transform: scale(1.5); /* Slight zoom effect */
+  transform: scale(1); /* Slight zoom effect */
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Shadow effect for depth */
   background: linear-gradient(to left, #FFBA49, black); /* Reverse gradient direction */
 }
@@ -112,3 +112,5 @@ h2 {
     opacity: 0;
   }
 }
+
+
