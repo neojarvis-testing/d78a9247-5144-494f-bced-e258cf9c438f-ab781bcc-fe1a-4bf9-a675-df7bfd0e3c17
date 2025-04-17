@@ -23,6 +23,7 @@ table {
 
 table th {
   background-color: #007bff; /* Blue background for headers */
+  background-color: #ffba49;
   color: white; /* White text */
   padding: 12px;
   text-align: center; /* Center-aligns header text */
@@ -37,6 +38,9 @@ table td {
   padding: 12px;
   text-align: center; /* Center-aligns cell text */
   color: black; /* Makes text in table cells black */
+  align-content: center;
+  align-items: center;
+  justify-content: center; 
 }
 
 table tr:nth-child(even) {
@@ -80,6 +84,7 @@ select {
   color: #333;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   width: auto; /* Matches button width */
+  border: 2px solid #ffba49;
 }
 
 select:focus {
@@ -98,6 +103,10 @@ option {
 }
 
 /* Hover Effects for Table and Dropdown */
+table tr{
+  border : 1px solid #ffba49;
+}
+
 table tr:hover {
   background-color: #ddd;
 }
@@ -139,4 +148,19 @@ button:hover {
     font-size: 12px;
     padding: 8px 16px; /* Matches button padding for small screens */
   }
+}
+
+ul{
+  margin: 0px;
+  padding: auto;
+  padding-right: 5px;
+  padding-left: 5px;
+
+  justify-content: center;
+  align-items: center; /* Vertically centers content */
+  text-align: center;
+}
+
+.distance{
+  gap: 5px;
 }
