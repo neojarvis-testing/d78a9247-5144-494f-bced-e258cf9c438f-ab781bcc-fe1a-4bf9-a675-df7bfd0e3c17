@@ -18,13 +18,27 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
-      username: this.fb.control('', Validators.required),
-      email: this.fb.control('', [Validators.required, Validators.email]),
-      password: this.fb.control('', [Validators.required, Validators.minLength(6)]),
+      username: this.fb.control('', [
+        Validators.required,
+        Validators.pattern('^[a-z]+$'),
+        Validators.minLength(6) 
+      ]),
+      email: this.fb.control('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$') 
+      ]),
+      password: this.fb.control('', [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\W).{6,}$') 
+      ]),
       confirmPassword: this.fb.control('', Validators.required),
-      mobileNumber: this.fb.control('', [Validators.required, Validators.pattern('^[0-9]{10}$')]),
+      mobileNumber: this.fb.control('', [
+        Validators.required,
+        Validators.pattern('^[0-9]{10}$') // Ensures exactly 10 digits
+      ]),
       userRole: this.fb.control('', Validators.required)
-    }, { validator: this.passwordMatchValidator });
+    }, { validators: this.passwordMatchValidator });
   }
 
   passwordMatchValidator(form: FormGroup) {
@@ -44,7 +58,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           this.errorMessage = 'Oops! Unable to register. A user with the same email, username, or mobile number exists.';
           setTimeout(() => {
             this.errorMessage = null;
-            this.registerForm.reset();
           }, 3500);
         }
       });
@@ -53,7 +66,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     }
   }
 
-  
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }

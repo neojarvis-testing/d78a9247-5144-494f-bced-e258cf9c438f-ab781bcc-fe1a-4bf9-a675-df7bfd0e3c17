@@ -1,4 +1,5 @@
 <app-navbar></app-navbar>
+
 <body style="background-image: url('/assets/HomeImg.jpg'); 
              background-size: cover; 
              background-position: center; 
@@ -7,37 +8,53 @@
              margin: 0; 
              font-family: Arial, sans-serif;">
 
-<div class="loggingForm">
+  <div class="loggingForm">
     <div class="form-container" style="width: 80%; padding: 10px; margin: 0 auto;">
       <h2 style="font-weight: 500;">Login</h2>
+
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        
+        <!-- Username Field -->
         <div class="form-group">
           <label for="loginUsername">Username <span class="text-danger">*</span></label>
           <input id="loginUsername" formControlName="username" class="form-control" />
           <div *ngIf="loginForm.get('username').touched && loginForm.get('username').invalid" class="text-danger">
-            Username is required
+            <span *ngIf="loginForm.get('username').hasError('required')">Username is required.</span>
+            <span *ngIf="loginForm.get('username').hasError('pattern')">Only lowercase letters are allowed, and no spaces must be present.</span>
+            <span *ngIf="loginForm.get('username').hasError('minlength')">Username must be at least 6 characters long.</span>
           </div>
         </div>        
+
+        <!-- Password Field -->
         <div class="form-group">
           <label for="loginPassword">Password <span class="text-danger">*</span></label>
           <input id="loginPassword" type="password" formControlName="password" class="form-control" />
           <div *ngIf="loginForm.get('password').touched && loginForm.get('password').invalid" class="text-danger">
-            Password is required (min 6 characters)
+            <span *ngIf="loginForm.get('password').hasError('required')">Password is required.</span>
+            <span *ngIf="loginForm.get('password').hasError('minlength')">Password must be at least 6 characters long.</span>
+            <span *ngIf="loginForm.get('password').hasError('pattern')">Password must contain at least one uppercase, one lowercase, and a special character.</span>
           </div>
           <div class="text-primary" style="cursor: pointer" routerLink="/forgetPassword">
             <span style="color: #b87333;">forgot password?</span>
           </div>
         </div>        
-        
+
+        <!-- Error Message Display -->
+        <div *ngIf="errorMessage" style="text-align: center; color: red;">
+          {{ errorMessage }}
+        </div>
+
+        <!-- Submit Button -->
         <div class="d-flex justify-content-center">
           <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
         </div>
-        <div *ngIf="errorMessage" style="text-align: center; color: red;">
-          {{errorMessage}}
-        </div>
+
+        <p style="text-align: center;">Don't have an account? 
+          <span style="color: #C77800; cursor: pointer;" routerLink="/register">Register Here</span>
+        </p>
 
       </form>
-      <p style="text-align: center;">Don't have and account? <span style="color: #C77800; cursor: pointer;" routerLink="/register">Regsiter Here</span></p>
     </div>
   </div>
-  
+
+</body>

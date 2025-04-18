@@ -18,8 +18,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      username: this.fb.control('', Validators.required),
-      password: this.fb.control('', [Validators.required, Validators.minLength(6)]),
+      username: this.fb.control('', [Validators.required, Validators.pattern('^[a-z]+$'), Validators.minLength(6)]),
+      password: this.fb.control('', [Validators.required, Validators.minLength(6), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\W).{6,}$')]),
     });
   }
 
@@ -42,7 +42,8 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.router.navigate(['/userNavBar']);
           }
         },
-        error: (err) => {
+        error: () => {
+          this.loginForm.get('password')?.setErrors({ invalidCredentials: true });
           this.errorMessage = 'Incorrect username or password. If not registered, please click on register';
           setTimeout(() => {
             this.errorMessage = null;
