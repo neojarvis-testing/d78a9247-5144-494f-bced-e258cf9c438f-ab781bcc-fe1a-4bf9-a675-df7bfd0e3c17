@@ -47,7 +47,9 @@
         type="number" 
         [(ngModel)]="selectedFeedback.rating" 
         placeholder="Rating" 
-        (input)="checkRating()" 
+        (input)="checkRating()"
+        min = "1"
+        max = "5" 
       />
       <p *ngIf="ratingError" style="color: red;">Rating must not exceed 5.</p>
       <button (click)="updateFeedback(selectedFeedback)" class="btn edit" style="margin-bottom: 0.8em;">Save</button>

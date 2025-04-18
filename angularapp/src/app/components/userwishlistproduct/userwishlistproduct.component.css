@@ -3,6 +3,7 @@
   margin: auto;
   padding: 20px;
   text-align: center;
+  border: 1px solid #FFBA49;
 }
 
 .wishlist-item {
@@ -14,6 +15,7 @@
   border-radius: 5px;
   background-color: #f9f9f9;
   transition: 0.3s ease-in-out;
+  border : 2px solid #FFBA49;
 }
 
 .wishlist-item:hover {
@@ -41,13 +43,14 @@
 }
 
 .btn-primary {
-  background-color: #007bff;
+  background-color: #FFBA49;
   color: white;
   border: none;
 }
 
 .btn-primary:hover {
-  background-color: #0056b3;
+  background: linear-gradient(to right , black , #FFBA49);
+  
 }
 
 .btn-danger {
@@ -64,4 +67,8 @@
   font-size: 18px;
   font-weight: bold;
   color: #555;
+}
+
+.wishlist-container h2{
+  color: #FFBA49;
 }

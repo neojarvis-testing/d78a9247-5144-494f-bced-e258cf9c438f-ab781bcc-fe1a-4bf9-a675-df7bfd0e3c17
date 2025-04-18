@@ -7,6 +7,7 @@
     margin: 40px auto; /* Center align */
     border-radius: 12px; /* Softer border */
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+    border: 2px solid #FFBA49;
   }
   
   /* Heading */
@@ -44,7 +45,7 @@
   
   /* Submit Button */
   .contact button {
-    background-color: #007bff;
+    background-color: #FFBA49;
     color: white;
     border: none;
     padding: 12px 24px; /* Larger button */
@@ -56,7 +57,7 @@
   }
   
   .contact button:hover {
-    background-color: #0056b3; /* Darker shade */
+    background: linear-gradient(to right , black , #FFBA49); /* Darker shade */
   }
   
   /* Contact Info Section */
@@ -114,4 +115,13 @@
     font-size: 14px; 
     max-width: 170px;
     height: 45px;
+  }
+
+  .c{
+    color: #FFBA49;
+  }
+
+
+  .line{
+    border: 1px solid #FFBA49;
   }
