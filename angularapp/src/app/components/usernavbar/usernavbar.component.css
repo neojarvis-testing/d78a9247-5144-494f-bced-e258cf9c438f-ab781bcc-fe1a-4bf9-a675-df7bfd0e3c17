@@ -94,3 +94,8 @@ body.modal-active {
 .edit{
     background-color: #FFBA49;
 }
+
+
+svg {
+    fill: #FFBA49; /* Changes color to blue */
+  }

@@ -45,7 +45,7 @@
         {{ ord.status }}
       </td>
           <td class="distance">
-            <button (click)="deleteOrder(ord.orderId)">Delete Order</button>
+            <button (click)="deleteOrder(ord.orderId)" [disabled]="ord.status == 'COMPLETED' || ord.status == 'SHIPPED'">Delete Order</button>
 
             <select [(ngModel)]="ord.status" (change)="updateOrderStatus(ord.orderId, ord.status)">
               <option value="PENDING">Pending</option>

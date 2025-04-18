@@ -66,6 +66,10 @@ export class UserviewfeedbackComponent implements OnInit, OnDestroy {
   }
 
   updateFeedback(feedback: Feedback): void {
+    if(feedback.rating < 0 || feedback.rating > 5){
+      console.error('Invalid rating given');
+      return;
+    }
     const updateSubscription = this.feedbackService.updateFeedback(feedback.feedbackId, feedback).subscribe(
       (updatedFeedback: Feedback) => {
         const index = this.feedbacks.findIndex(f => f.feedbackId === updatedFeedback.feedbackId);

@@ -1,5 +1,5 @@
 <div class="contact text-center bg-light p-4 rounded shadow-sm mb-5">
-  <h2 class="text-primary mb-4">Contact Us</h2>
+  <h2 class="text-primary mb-4 c" ><i class="c">Leave Us A Message!</i></h2>
   <form (ngSubmit)="onSubmit()" #emailForm="ngForm" >
     <div class="mb-3">
       <label for="name">Your Name</label>
@@ -13,7 +13,7 @@
   
     <div class="mb-3">
       <label for="message">Message</label>
-      <textarea class="form-control"  [(ngModel)]="emailData.message"  name="message"  id="message" required ></textarea>
+      <textarea class="form-control line"  [(ngModel)]="emailData.message"  name="message"  id="message" required ></textarea>
     </div>
   
     <button  type="submit" class="btn btn-primary w-30" [disabled]="emailForm.invalid">Submit</button>
