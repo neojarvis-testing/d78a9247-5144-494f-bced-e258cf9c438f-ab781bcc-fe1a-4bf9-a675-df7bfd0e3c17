@@ -33,8 +33,8 @@ export class ForgetPasswordComponent implements OnInit, OnDestroy {
     });
 
     this.resetPasswordForm = this.fb.group({
-      newPassword: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]]
+      newPassword: ['', [Validators.required, Validators.minLength(6), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\W).{6,}$') ]],
+      confirmPassword: ['', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\W).{6,}$') ]]
     }, { validator: this.passwordsMatchValidator });
   }
 

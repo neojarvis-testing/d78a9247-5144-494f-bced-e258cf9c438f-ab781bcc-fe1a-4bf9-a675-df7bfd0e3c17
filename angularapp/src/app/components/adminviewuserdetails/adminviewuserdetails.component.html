@@ -20,7 +20,6 @@
         <th scope="col">Email</th>
         <th scope="col">Role</th>
         <th scope="col">Mobile Number</th>
-        <th scope="col">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -30,9 +29,6 @@
         <td>{{ user.email }}</td>
         <td>{{ user.userRole }}</td>
         <td>{{ user.mobileNumber }}</td>
-        <td>
-          <button (click)="confirmDelete(user.userId)" class="btn btn-danger btn-sm">Delete</button>
-        </td>
       </tr>
     </tbody>
   </table>

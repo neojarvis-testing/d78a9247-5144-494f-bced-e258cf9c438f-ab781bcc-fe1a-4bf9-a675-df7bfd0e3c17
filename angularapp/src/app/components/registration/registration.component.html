@@ -1,84 +1,114 @@
 <app-navbar></app-navbar>
+
 <body style="background-image: url('/assets/HomeImg.jpg'); 
              background-size: cover; 
              background-position: center; 
              background-repeat: no-repeat; 
              margin: 0; 
              font-family: Arial, sans-serif;">
-<div class="registrationForm" [class.blur]="registrationSuccess">
-  <div class="form-container">
-    <h2>Register</h2>
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="username">Username <span class="text-danger">*</span></label>
-        <input id="username" formControlName="username" class="form-control" />
-        <div *ngIf="registerForm.get('username').touched && registerForm.get('username').invalid" class="text-danger">
-          Username is required
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="email">Email <span class="text-danger">*</span></label>
-        <input id="email" formControlName="email" class="form-control" />
-        <div *ngIf="registerForm.get('email').touched && registerForm.get('email').invalid" class="text-danger">
-          Valid email is required
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="password">Password <span class="text-danger">*</span></label>
-        <input id="password" type="password" formControlName="password" class="form-control" />
-        <div *ngIf="registerForm.get('password').touched && registerForm.get('password').invalid" class="text-danger">
-          Password is required (min 6 characters)
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="confirmPassword">Confirm Password <span class="text-danger">*</span></label>
-        <input id="confirmPassword" type="password" formControlName="confirmPassword" class="form-control" />
-        <div *ngIf="registerForm.get('confirmPassword').touched && registerForm.get('confirmPassword').invalid" class="text-danger">
-          Confirm Password is required
-        </div>
-        <div *ngIf="registerForm.errors?.mismatch && registerForm.get('confirmPassword').touched" class="text-danger">
-          Passwords must match
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="mobileNumber">Mobile Number <span class="text-danger">*</span></label>
-        <input id="mobileNumber" formControlName="mobileNumber" class="form-control" />
-        <div *ngIf="registerForm.get('mobileNumber').touched && registerForm.get('mobileNumber').invalid" class="text-danger">
-          Valid mobile number is required
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="userRole">Role<span class="text-danger">*</span></label>
-        <br>
-        <select id="userRole" formControlName="userRole" class="form-control">
-          <option value="">Select Role</option>
-          <option value="ADMIN">Admin</option>
-          <option value="USER">User</option>
-        </select>
-        <div *ngIf="registerForm.get('userRole').touched && registerForm.get('userRole').invalid" class="text-danger">
-          Role is required
-        </div>
-      </div>
-      <div class="d-flex justify-content-center">
-        <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Register</button>
-         
-      </div> 
-      <div *ngIf="errorMessage" class="text-danger mt-2" style="text-align: center;">{{ errorMessage }}</div>     
-    </form>
-    <p style="text-align: center;">Already have an account?<span style="color: #C77800; cursor: pointer;" routerLink="/login" > Login</span></p>
-  </div>
-</div>
-
-
-<div *ngIf="registrationSuccess" class="card mt-3 container centered-card no-border">
-  <div class="card-body text-center">
-    <img src="assets/trans.png" alt="Success Cart" class="moving-cart" />
-    <h5 class="card-title">Registration Successful</h5>
-    <p class="card-text">You have successfully registered.</p>
-    <a routerLink="/login" class="btn btn-primary" (click)="registrationSuccess = false">Go to Login</a>
-  </div>
-</div>
-
-
   
-  
+  <div class="registrationForm" [class.blur]="registrationSuccess">
+    <div class="form-container">
+      <h2>Register</h2>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        
+        <!-- Username Field -->
+        <div class="form-group">
+          <label for="username">Username <span class="text-danger">*</span></label>
+          <input id="username" formControlName="username" class="form-control" />
+          <div *ngIf="registerForm.get('username').touched && registerForm.get('username').hasError('required')" class="text-danger">
+            Username is required.
+          </div>
+          <div *ngIf="registerForm.get('username').touched && registerForm.get('username').hasError('pattern')" class="text-danger">
+            Username must be lowercase, without spaces, and at least 6 characters long.
+          </div>
+        </div>
+
+        <!-- Email Field -->
+        <div class="form-group">
+          <label for="email">Email <span class="text-danger">*</span></label>
+          <input id="email" formControlName="email" class="form-control" />
+          <div *ngIf="registerForm.get('email').touched && registerForm.get('email').hasError('required')" class="text-danger">
+            Email is required.
+          </div>
+          <div *ngIf="registerForm.get('email').touched && registerForm.get('email').hasError('pattern')" class="text-danger">
+            Please enter a valid email address.
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group">
+          <label for="password">Password <span class="text-danger">*</span></label>
+          <input id="password" type="password" formControlName="password" class="form-control" />
+          <div *ngIf="registerForm.get('password').touched && registerForm.get('password').hasError('required')" class="text-danger">
+            Password is required.
+          </div>
+          <div *ngIf="registerForm.get('password').touched && registerForm.get('password').hasError('minlength')" class="text-danger">
+            Password must be at least 6 characters long.
+          </div>
+          <div *ngIf="registerForm.get('password').touched && registerForm.get('password').hasError('pattern')" class="text-danger">
+            Password must contain an uppercase letter, lowercase letter, and a special character.
+          </div>
+        </div>
+
+        <!-- Confirm Password Field -->
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password <span class="text-danger">*</span></label>
+          <input id="confirmPassword" type="password" formControlName="confirmPassword" class="form-control" />
+          <div *ngIf="registerForm.get('confirmPassword').touched && registerForm.get('confirmPassword').hasError('required')" class="text-danger">
+            Confirm Password is required.
+          </div>
+          <div *ngIf="registerForm.hasError('mismatch') && registerForm.get('confirmPassword').touched" class="text-danger">
+            Passwords must match.
+          </div>
+        </div>
+
+        <!-- Mobile Number Field -->
+        <div class="form-group">
+          <label for="mobileNumber">Mobile Number <span class="text-danger">*</span></label>
+          <input id="mobileNumber" formControlName="mobileNumber" class="form-control" />
+          <div *ngIf="registerForm.get('mobileNumber').touched && registerForm.get('mobileNumber').hasError('required')" class="text-danger">
+            Mobile number is required.
+          </div>
+          <div *ngIf="registerForm.get('mobileNumber').touched && registerForm.get('mobileNumber').hasError('pattern')" class="text-danger">
+            Please enter a valid 10-digit mobile number.
+          </div>
+        </div>
+
+        <!-- User Role Field -->
+        <div class="form-group">
+          <label for="userRole">Role <span class="text-danger">*</span></label>
+          <select id="userRole" formControlName="userRole" class="form-control">
+            <option value="">Select Role</option>
+            <option value="ADMIN">Admin</option>
+            <option value="USER">User</option>
+          </select>
+          <div *ngIf="registerForm.get('userRole').touched && registerForm.get('userRole').hasError('required')" class="text-danger">
+            Role is required.
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="d-flex justify-content-center">
+          <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Register</button>
+        </div>
+
+        <div *ngIf="errorMessage" class="text-danger mt-2 text-center">
+          {{ errorMessage }}
+        </div>
+      </form>
+      <p class="text-center">Already have an account?
+        <span style="color: #C77800; cursor: pointer;" routerLink="/login">Login</span>
+      </p>
+    </div>
+  </div>
+
+  <div *ngIf="registrationSuccess" class="card mt-3 container centered-card no-border">
+    <div class="card-body text-center">
+      <img src="assets/trans.png" alt="Success Icon" class="moving-cart" />
+      <h5 class="card-title">Registration Successful</h5>
+      <p class="card-text">You have successfully registered.</p>
+      <a routerLink="/login" class="btn btn-primary" (click)="registrationSuccess = false">Go to Login</a>
+    </div>
+  </div>
+</body>
