@@ -20,7 +20,10 @@
             Username is required.
           </div>
           <div *ngIf="registerForm.get('username').touched && registerForm.get('username').hasError('pattern')" class="text-danger">
-            Username must be lowercase, without spaces, and at least 6 characters long.
+            Username must be lowercase, without spaces
+          </div>
+          <div *ngIf="registerForm.get('username').touched && registerForm.get('username').hasError('minlength')" class="text-danger">
+            Username must be at least 6 characters long.
           </div>
         </div>
 
